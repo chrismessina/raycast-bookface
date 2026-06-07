@@ -1,0 +1,405 @@
+{
+  "items": [
+    {
+      "type": "post",
+      "path": "https://bookface.ycombinator.com/posts/45811",
+      "displayed_attributes": {
+        "id": 45811,
+        "title": "Know a nonprofit? Here’s a mega list of COVID-19 funding for 501c3s",
+        "body": "Foundations are announcing new funds almost hourly and dispersing money faster than we've seen. Instrumentl is leveraging our grant discovery technology to aggregate these new funds, make them public and searchable. \n\nIf you run a nonprofit or know one, please share this page with them. New opportunities are being added to the list several times a day.\n\nhttps://www.instrumentl.com/covid-19-grants",
+        "comment_count": 0,
+        "views_count": 157,
+        "search_path": "https://bookface.ycombinator.com/posts/45811",
+        "searchable_user": {
+          "name": "Angela Braren",
+          "id": 6745,
+          "model_type": "User",
+          "model_id": 6745,
+          "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/c48d7fc17ecaf844cccffc23f1ae1169a7cfad92.jpg",
+          "search_path": "https://bookface.ycombinator.com/user/6745",
+          "company": {
+            "name": "Instrumentl",
+            "id": 1224,
+            "model_type": "Company",
+            "model_id": 1224,
+            "batches": [
+              "S16"
+            ],
+            "small_logo_thumb_url": "https://bookface-images.s3.amazonaws.com/small_logos/e054eb9c71bc1227e5948307d9af61a46a784d79.png",
+            "search_path": "https://bookface.ycombinator.com/company/1224"
+          }
+        },
+        "top_comment": {},
+        "created_at": "2020-03-25T16:10:05.950Z"
+      }
+    },
+    {
+      "type": "post",
+      "path": "https://bookface.ycombinator.com/posts/38021",
+      "displayed_attributes": {
+        "id": 38021,
+        "title": "501c3 Lawyer?",
+        "body": "We have someone that wants to donate millions of dollars to a nonprofit fund that we are trying to make exist as quickly as possible.\n\nHow can we do that as quickly as humanly possible?",
+        "comment_count": 9,
+        "views_count": 328,
+        "search_path": "https://bookface.ycombinator.com/posts/38021",
+        "searchable_user": {
+          "name": "Austen Allred",
+          "id": 21,
+          "model_type": "User",
+          "model_id": 21,
+          "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/04326b34debf8d56e36fcf2f34a2f7715128808b.jpg",
+          "search_path": "https://bookface.ycombinator.com/user/21",
+          "company": {
+            "name": "Bloom Institute of Technology",
+            "id": 1594,
+            "model_type": "Company",
+            "model_id": 1594,
+            "batches": [
+              "S17"
+            ],
+            "small_logo_thumb_url": "https://bookface-images.s3.amazonaws.com/small_logos/2b6fdc259fedde3b68b83c8fefd7e604dd8a9ac0.png",
+            "search_path": "https://bookface.ycombinator.com/company/1594"
+          }
+        },
+        "top_comment": {
+          "id": 60533,
+          "body": "I'm a lawyer that has set up multiple non-profits for multiple purposes. I also ran a 501c3 that had a 501c4 sister organization and a for-profit C-Corp subsidiary.  \n\nGiven the amount of money that will be going in, the nonprofit fund will not qualify for obtaining exemption using the 1023-ez path. The nonprofit fund will have to apply using a full 1023 application, which could take around 3-6 months to receive approval. Here is the timeline you should expect:\n\n1. One week to set up the nonprofit organization as an entity (nonstock, nonprofit DE corporation will be fine for this). \n\n2. One to two weeks to complete the 1023, if you expedite and devote a reasonable amount of time to the process. \n\n3. Once the 1023 is created, it will take roughly 3-6 months to obtain exemption. If you fill out a clean application that is a slam dunk and doesn't require responses to IRS inquiries, the timeline will be on the shorter end. To create a clean application, you will want to clearly articulate why the organization qualifies as a non-profit, as well its charitable function.\n\n4. If the organization obtains exemption, the exempt status applies back to the date of nonprofit formation (so long as application for exemption occurs within 27 months of formation). In other words, if the entity is formed and operated as a nonprofit even without obtaining official exemption, those activities before obtaining exempt status will be covered as exempt upon being granted exemption. Of course, there is the risk that the application does not go through. \n\n5. Please be aware that the organization will also need to register the organization in each state that the organization has operations. Additionally, the organization will have to likely apply for exempt status in each such state, as well as apply to solicit charitable donations in each such state. Some localities also offer tax exempt certificates for certain costs and fees paid/incurred.\n\nNonprofit Pro Tip: Be aware the depending on the type of organization, you may need to meet certain public support standards (minimum donation requirements), which can be thrown off by very large donations that are disproportionate to the size of regularly received donations. As a note, sometimes large donations can be exempted from a public support analysis if the donation meets certain standards.\n\n ",
+          "user": {
+            "name": "John Fallone",
+            "id": 35822,
+            "model_type": "User",
+            "model_id": 35822,
+            "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/db7c714a7edb087f0ccea4942eb1353ca1f2b125.jpg",
+            "search_path": "https://bookface.ycombinator.com/user/35822",
+            "company": false
+          }
+        },
+        "created_at": "2019-02-07T01:47:37.043Z"
+      }
+    },
+    {
+      "type": "post",
+      "path": "https://bookface.ycombinator.com/posts/66685",
+      "displayed_attributes": {
+        "id": 66685,
+        "title": "Ask Bookface: Stripe Atlas equivalent for 501c3 non profit? other non-profit advice?",
+        "body": "Hey Bookface,\n\nDoes anyone have any pointers on where to start? Swyftflilings, Legal Zoom - good options? Does the state you register the non-profit matter?\n\nContext: Our family is looking to start a non-profit to help future patients that suffer from ALS.\n\nOur father was diagnosed with ALS 3 years ago and recently passed away on August 20th, 2022. He battled this disease until his very last breath. Recently, we were close to securing therapies that could have made a real difference for him. We planned to raise money to help pay for the medication, but his disease progressed too quickly in his final weeks (bookface post [here](https://bookface.ycombinator.com/posts/64917)). We launched a [GoFundMe](https://www.gofundme.com/f/battlewithben), and had a donor offer to put in $25K, but we need to first get 501c3 status. \n\nAny feedback or advice is appreciated. Thanks! ",
+        "comment_count": 3,
+        "views_count": 114,
+        "search_path": "https://bookface.ycombinator.com/posts/66685",
+        "searchable_user": {
+          "name": "Andrew Nakkache",
+          "id": 111290,
+          "model_type": "User",
+          "model_id": 111290,
+          "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/90f1985d962c39519c79487ac2f6f17ffb01946a.jpg",
+          "search_path": "https://bookface.ycombinator.com/user/111290",
+          "company": {
+            "name": "FIRST",
+            "id": 12279,
+            "model_type": "Company",
+            "model_id": 12279,
+            "batches": [
+              "W19"
+            ],
+            "small_logo_thumb_url": "https://bookface-images.s3.amazonaws.com/small_logos/cb7fe1b3f89d693041018270e2cb671fb9b106d6.png",
+            "search_path": "https://bookface.ycombinator.com/company/12279"
+          }
+        },
+        "top_comment": {
+          "id": 189593,
+          "body": "First I want this same thing. But second, have you considered partnering with existing non profits with whom you share values and mission? There is a certain amount of overhead creating a non profit that may or may not be worth it to you. Best of luck. ",
+          "user": {
+            "name": "Ernie Park",
+            "id": 32613,
+            "model_type": "User",
+            "model_id": 32613,
+            "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/aa5342ea2dd742895b4653f60fedd5ab4457abb1.jpg",
+            "search_path": "https://bookface.ycombinator.com/user/32613",
+            "company": false
+          }
+        },
+        "created_at": "2022-10-13T01:25:37.688Z"
+      }
+    },
+    {
+      "type": "post",
+      "path": "https://bookface.ycombinator.com/posts/38008",
+      "displayed_attributes": {
+        "id": 38008,
+        "title": "Offcycling hardware?  Donate to our 501c3, get tax deduction, help trafficking survivors",
+        "body": "AnnieCannons (S18) is starting a new class soon, and we need computers for classroom use.  If you are upgrading your team's hardware (laptops, monitors, etc) and don't have a destination for the old hardware, we'd love the chance to take it as a donation and return you all that you need to deduct its value from your tax bill. \n\nYour donation will help us supply hardware for human trafficking survivors who are training through our 501c3.  We will pick it up or ship it and deliver documentation. Any leads appreciated!",
+        "comment_count": 0,
+        "views_count": 49,
+        "search_path": "https://bookface.ycombinator.com/posts/38008",
+        "searchable_user": {
+          "name": "Jessica Hubley",
+          "id": 258831,
+          "model_type": "User",
+          "model_id": 258831,
+          "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/4fe8bd3c333273c1dd5cd17f72eb97e4403c45e3.jpg",
+          "search_path": "https://bookface.ycombinator.com/user/258831",
+          "company": false
+        },
+        "top_comment": {},
+        "created_at": "2019-02-06T18:18:54.021Z"
+      }
+    },
+    {
+      "type": "school",
+      "path": "https://bookface.ycombinator.com/schools/409680",
+      "displayed_attributes": {
+        "id": 409680,
+        "name": "Founder of 501c3, November 2006 - December 2008",
+        "search_path": "https://bookface.ycombinator.com/schools/409680",
+        "alumni": []
+      }
+    },
+    {
+      "type": "post",
+      "path": "https://bookface.ycombinator.com/posts/56129",
+      "displayed_attributes": {
+        "id": 56129,
+        "title": "Attorney w/ experience setting up 501c3s ",
+        "body": "Hey! Asking for an intro to an attorney who can help a non profit with setting up/California bylaws etc. \n\n​\n\nif you know of anybody, pls send them my way! \n",
+        "comment_count": 1,
+        "views_count": 66,
+        "search_path": "https://bookface.ycombinator.com/posts/56129",
+        "searchable_user": {
+          "name": "Christian Haigh",
+          "id": 127458,
+          "model_type": "User",
+          "model_id": 127458,
+          "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/afb0ed4067141d92b1f60996275bc4401b50ce11.jpg",
+          "search_path": "https://bookface.ycombinator.com/user/127458",
+          "company": {
+            "name": "Legalist",
+            "id": 1249,
+            "model_type": "Company",
+            "model_id": 1249,
+            "batches": [
+              "S16"
+            ],
+            "small_logo_thumb_url": "https://bookface-images.s3.amazonaws.com/small_logos/b1deabbfcad920bb32556ad82eec40dd53ecb4f4.png",
+            "search_path": "https://bookface.ycombinator.com/company/1249"
+          }
+        },
+        "top_comment": {
+          "id": 145358,
+          "body": "This guy, Ryan Hughes: https://tuplelegal.com/",
+          "user": {
+            "name": "Chris Nicholson",
+            "id": 6901,
+            "model_type": "User",
+            "model_id": 6901,
+            "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/9aa7feff688874e5f3e0d006459bc8579979dd44.jpg",
+            "search_path": "https://bookface.ycombinator.com/user/6901",
+            "company": {
+              "name": "Pathmind",
+              "id": 1073,
+              "model_type": "Company",
+              "model_id": 1073,
+              "batches": [
+                "W16"
+              ],
+              "small_logo_thumb_url": "https://bookface-images.s3.amazonaws.com/small_logos/6f25b083ae5853d0fb4e5eee2ce6794565ac6775.png",
+              "search_path": "https://bookface.ycombinator.com/company/1073"
+            }
+          }
+        },
+        "created_at": "2021-09-20T15:41:18.687Z"
+      }
+    },
+    {
+      "type": "post",
+      "path": "https://bookface.ycombinator.com/posts/51787",
+      "displayed_attributes": {
+        "id": 51787,
+        "title": "Investing through a DAF or 501c3?",
+        "body": "Hi everyone. Hoping to tap into this group's knowledge. My family has always been committed to giving towards 'traditional' charities (poverty, hunger, development initiatives). Being in the tech and YC community though, I've been wondering if we can make our $ go farther by taking high risk bets in impactful startups (whether non profits or not). \n\nIs there a model for this type of angel investing by means of a non-profit vehicle? Are there any good examples of orgs doing this well? We want to do this through a DAF or 501c3 so that the money we invest is tax deductible, but any gains would go right back to the fund. The goal is to make bets on impactful companies and have that fund be sustaining. \n\nThanks!",
+        "comment_count": 2,
+        "views_count": 46,
+        "search_path": "https://bookface.ycombinator.com/posts/51787",
+        "searchable_user": {
+          "name": "Ernie Park",
+          "id": 32613,
+          "model_type": "User",
+          "model_id": 32613,
+          "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/aa5342ea2dd742895b4653f60fedd5ab4457abb1.jpg",
+          "search_path": "https://bookface.ycombinator.com/user/32613",
+          "company": false
+        },
+        "top_comment": {
+          "id": 118919,
+          "body": "You should talk to Founders Pledge. They are extremely familiar with tax optimization stuff around donations, and would likely know the answer or know who to talk to! Let me know if you need an intro.",
+          "user": {
+            "name": "Lincoln Quirk",
+            "id": 708,
+            "model_type": "User",
+            "model_id": 708,
+            "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/fe172d7363d5f674dbcb7d62edbee406caedcbc0.jpg",
+            "search_path": "https://bookface.ycombinator.com/user/708",
+            "company": {
+              "name": "Wave",
+              "id": 4940,
+              "model_type": "Company",
+              "model_id": 4940,
+              "batches": [
+                "W12"
+              ],
+              "small_logo_thumb_url": "https://bookface-images.s3.amazonaws.com/small_logos/7bb010b1c1951d3cc6578fb3ff4c83700de7c376.png",
+              "search_path": "https://bookface.ycombinator.com/company/4940"
+            }
+          }
+        },
+        "created_at": "2021-02-22T15:29:11.173Z"
+      }
+    },
+    {
+      "type": "post",
+      "path": "https://bookface.ycombinator.com/posts/75760",
+      "displayed_attributes": {
+        "id": 75760,
+        "title": "🎆 LaunchBF: Auto-email everyone who visits your website - Warmly",
+        "body": "## **😡 Problem: Converting B2B website visitors is hard**\n\n## **💪 Solution: We de-anonymize your website traffic (6sense/Clearbit) and auto-email anyone who didn’t convert via your sequencing tool**\n\nYou and your sales team are busy. They don’t have time to send personalized outreach at scale. Let Warmly get you warm leads (get it?).\n\n![uploaded image](/media/?key=user_uploads/409563/6e7f1a4e-a4e9-40bc-a78a-9d1aecb99c7b)\n\n### ➡️ **TLDR on what **[**Warmly**](https://warmly.ai/)** does:**\n\n* 🔥 **We find you warm leads**: contacts + companies that are showing interest on your website (via 6sense/Clearbit\\*) and researching you around the web (via Bombora) _\\[coming in December\\]_ but haven’t converted yet. If we can’t find the contact we instead give you best guess decision makers at warm companies.\n* 🤖 **We then auto follow up** **via chat, email or LinkedIn**. Depends what workflows you want to set up - we can AI chat with them on your website, auto AI email them (via Apollo/Outreach/Salesloft/Hubspot), and/or auto AI linkedin sequence them (via Salesflow). Your humans can verify everything before being sent too. [Example](https://sendspark.com/share/28agoss5sr0dghn4).\n* 📈 **Outcome**: 10x more outbound than a human SDR, 3x reply rates since they’re warm and more booked meetings (results shown in ROI dashboard). [Example](https://www.linkedin.com/posts/max-greenwald_sales-prospecting-ai-activity-7120312269917286401-laP5?utm_source=share&utm_medium=member_desktop).\n* ps. if you want to use humans: you can send 1-click warm intro requests via your network or live chat/video call them too. [Example](https://sendspark.com/share/ld0u9zl89yhc1ldz).\n\nThis is the power of an autonomous sales orchestration platform and we have 100+ paying customers who can [back it up](https://warmly.ai/p/customers).\n\n\\*_Buy 6sense/Clearbit through us directly or we can work with your existing subscription_\n\n![uploaded image](/media/?key=user_uploads/409563/d7f75d9d-e3df-490c-8dbe-a4496d77e839)\n\n## 🧠 **No Brainer Use Cases (it’s like prospecting for dummies)**\n\n* **Revitalize Closed-Lost**: _If a closed-lost account is revisiting your pricing page_ 3 months later, send an email from the account owner asking if they want to engage again\n* **Scale capacity for big launches**: _If lots of new traffic visits your site but is not in your CRM_, AI chat all of them at once. Alert the hand raisers to your sales rep to take over\n* **Decision maker retargeting on autopilot:** _If an account in your territory has spent more than 2 minutes on your site and the visitor is from Texas_, pull all of the contacts who fit your persona at that company who live in Texas and send them a Yeehaw Cowboy funny engagement sequence\n* **Roll out the red carpet for high-value deals**: _If a bottom of funnel deal is on your FAQ page,_ ping the AE on file via Slack to instantly hop on, turn on her video camera and offer to answer the prospects questions\n\n![uploaded image](/media/?key=user_uploads/409563/343d8f18-fb80-466d-87df-97035458151e)\n\n## 🤔 **Who is this for:**\n\n* **Founders** with no team who just want any leads - try our free tier (125 leads/week) like YC customer [@David Gu](https://bookface.ycombinator.com/user/316225) at [@Recall.ai](https://bookface.ycombinator.com/company/13519)\n* **Founders & GTM leads** with a stretched sales team who want to generate more outbound like YC Customers: [@Christina Gilbert](https://bookface.ycombinator.com/user/743830) at [@OneSchema](https://bookface.ycombinator.com/company/24404), [@Parthi Loganathan](https://bookface.ycombinator.com/user/153761) at [@Letterdrop](https://bookface.ycombinator.com/company/13104), [@Jalene Anderson-Baron](https://bookface.ycombinator.com/user/501968) [@Matt Anderson-Baron](https://bookface.ycombinator.com/user/378572) at [@Future Fields](https://bookface.ycombinator.com/company/22305), [@Sahil Hasan](https://bookface.ycombinator.com/user/199540) [@Kartikye Mittal](https://bookface.ycombinator.com/user/181861) at [@Dots 💸](https://bookface.ycombinator.com/company/24557) , and [@Marty Kausas](https://bookface.ycombinator.com/user/356725) at [@Pylon](https://bookface.ycombinator.com/company/28069)\n* **Demand Gen leaders** who want to orchestrate complex meeting generation workflows without being bogged down by humans like YC customers [@Sumir Meghani](https://bookface.ycombinator.com/user/82275) at [@Instawork](https://bookface.ycombinator.com/company/963) and New Relic, Sendoso, [Seamless.ai](https://warmly.ai/)\n\n## **🤑 The Offer: Free tier = 125 leads/week, take a demo for 250/week**\n\n* Go sign up here <https://warmly.ai/> and add the script to your website. Free leads!\n* 2x Leads: Book a demo or email “YC Double My Leads” to [sales@warmly.ai](https://warmly.ai/)\n* 2x Leads + free AI Chatbot: Send us your G2 review :) [https://www.g2.com/](https://warmly.ai/)",
+        "comment_count": 60,
+        "views_count": 1145,
+        "search_path": "https://bookface.ycombinator.com/posts/75760",
+        "searchable_user": {
+          "name": "Alan Zhao",
+          "id": 409563,
+          "model_type": "User",
+          "model_id": 409563,
+          "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/85a6d1264a157ca47929fb7917a8786ed7078cbd.jpg",
+          "search_path": "https://bookface.ycombinator.com/user/409563",
+          "company": {
+            "name": "Warmly,",
+            "id": 22241,
+            "model_type": "Company",
+            "model_id": 22241,
+            "batches": [
+              "S20"
+            ],
+            "small_logo_thumb_url": "https://bookface-images.s3.amazonaws.com/small_logos/480be3f11921bc9ec24d0fe4b1f09548d6b9ec5c.png",
+            "search_path": "https://bookface.ycombinator.com/company/22241"
+          }
+        },
+        "top_comment": {
+          "id": 228183,
+          "body": "This is incredible. It’s like [retention.com](http://retention.com) for B2B on steroids",
+          "user": {
+            "name": "Aakash Shah",
+            "id": 137502,
+            "model_type": "User",
+            "model_id": 137502,
+            "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/e807aec55322ce86aa4ecf145799e15de6dbfd7f.jpg",
+            "search_path": "https://bookface.ycombinator.com/user/137502",
+            "company": {
+              "name": "Wyndly",
+              "id": 22707,
+              "model_type": "Company",
+              "model_id": 22707,
+              "batches": [
+                "W21"
+              ],
+              "small_logo_thumb_url": "https://bookface-images.s3.amazonaws.com/small_logos/efc133877839e6a4953617e91a7ef726172acf80.png",
+              "search_path": "https://bookface.ycombinator.com/company/22707"
+            }
+          }
+        },
+        "created_at": "2023-10-25T10:14:16.836Z"
+      }
+    },
+    {
+      "type": "post",
+      "path": "https://bookface.ycombinator.com/posts/60437",
+      "displayed_attributes": {
+        "id": 60437,
+        "title": "Build automated marketing reports from your ads platform data & grow revenue faster",
+        "body": "Hi YC,\n\nActiondesk lets you build **automated spreadsheet reports** with data from your SaaS apps, ads platforms and your database.\n\nWe just started supporting marketing tools like Google Analytics, Google Ads, Facebook ads, Linkedin ads, Search console, TikTok ads\n\nDozens of YC companies use Actiondesk\n\nWhat do they get\n\n* They **save hours per week** not doing manual reporting\n* They have better visibility on their marketing performance and can **grow revenue faster**\n* They **don’t have to spend months of time building a data warehouse + setting up a BI tool**\n\nHere is the most popular marketing report:\n\n* It lets you **merge ads campaigns data with your CRM data**\n* That way, you can calculate the **real ROI of your campaigns based on actual conversions.**\n* See **for each campaign, how many customers you close, how much MRR you generated**, and even what’s the churn rate of each cohort of customers\n\n![uploaded image](/media/?key=user_uploads/214357/601c97ba-5016-4ff9-953c-b4c36a26107b)\n\n\nWe have a bunch of similar templates you can get started with but you’re also able to fully customize your reports using our spreadsheet interface.\n\nIf you want to get started with our marketing integrations, just comment below and I’ll reach out (marketing integrations are in beta, so we keep access limited for now)",
+        "comment_count": 12,
+        "views_count": 169,
+        "search_path": "https://bookface.ycombinator.com/posts/60437",
+        "searchable_user": {
+          "name": "Jonathan Parisot",
+          "id": 214357,
+          "model_type": "User",
+          "model_id": 214357,
+          "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/5e193df4161da5ac91ae7ffa2b2046381ebc75bc.jpg",
+          "search_path": "https://bookface.ycombinator.com/user/214357",
+          "company": {
+            "name": "Actiondesk",
+            "id": 12591,
+            "model_type": "Company",
+            "model_id": 12591,
+            "batches": [
+              "S19"
+            ],
+            "small_logo_thumb_url": "https://bookface-images.s3.amazonaws.com/small_logos/8171503f94fc45c98131f13274f03eda1037db64.png",
+            "search_path": "https://bookface.ycombinator.com/company/12591"
+          }
+        },
+        "top_comment": {
+          "id": 170559,
+          "body": "Oh this looks great, just starting to bump up our marketing spend now - can you add me to the beta please 🙏",
+          "user": {
+            "name": "Romy Lynch",
+            "id": 344104,
+            "model_type": "User",
+            "model_id": 344104,
+            "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/be3e2f9a4d9cee9b00fd66bc7efaa3ad42751b6e.jpg",
+            "search_path": "https://bookface.ycombinator.com/user/344104",
+            "company": false
+          }
+        },
+        "created_at": "2022-04-20T17:51:56.970Z"
+      }
+    },
+    {
+      "type": "post",
+      "path": "https://bookface.ycombinator.com/posts/74155",
+      "displayed_attributes": {
+        "id": 74155,
+        "title": "Have you integrated an LLM into your product but it didn't move the needle? ",
+        "body": "**We will help you for free!**\n\nWait, what? Yep!\n\nWe’re [@Nir Gazit](https://bookface.ycombinator.com/user/1024399) and [@Gal Kleinman](https://bookface.ycombinator.com/user/1054307) from [@Traceloop](https://bookface.ycombinator.com/company/27678), and we’ve been building with LLMs (even before it was cool!). We’re helping companies here in Israel improve their prompts to increase conversion, reduce token usage, and find the right model to use that balances cost and performance.\n\nAnd we want to help the YC fam for free and get your feedback on what we’re building during the process.\n\nIf you’re in - ping me at [nir@traceloop.com](mailto:nir@traceloop.com) or just go ahead and [schedule a chat.](https://calendly.com/d/zk4-j9z-x43/30min-chat-with-traceloop)\n\n![uploaded image](/media/?key=user_uploads/1024399/d1e38315-9bd3-40f8-bf10-501645b4b2d7)\n\n",
+        "comment_count": 2,
+        "views_count": 312,
+        "search_path": "https://bookface.ycombinator.com/posts/74155",
+        "searchable_user": {
+          "name": "Nir Gazit",
+          "id": 1024399,
+          "model_type": "User",
+          "model_id": 1024399,
+          "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/483f839d66f4002bc68a9689f77f47805741480c.jpg",
+          "search_path": "https://bookface.ycombinator.com/user/1024399",
+          "company": false
+        },
+        "top_comment": {
+          "id": 221262,
+          "body": "A Team!",
+          "user": {
+            "name": "Tal Borenstein",
+            "id": 1194329,
+            "model_type": "User",
+            "model_id": 1194329,
+            "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/efce62171280879cdbed15a6c634d821fbab1bc9.jpg",
+            "search_path": "https://bookface.ycombinator.com/user/1194329",
+            "company": {
+              "name": "Keep",
+              "id": 28074,
+              "model_type": "Company",
+              "model_id": 28074,
+              "batches": [
+                "W23"
+              ],
+              "small_logo_thumb_url": "https://bookface-images.s3.amazonaws.com/small_logos/ca57c15ee63fa6b716d10d0f8f29a5e1732f44e4.png",
+              "search_path": "https://bookface.ycombinator.com/company/28074"
+            }
+          }
+        },
+        "created_at": "2023-08-16T13:51:55.992Z"
+      }
+    }
+  ]
+}

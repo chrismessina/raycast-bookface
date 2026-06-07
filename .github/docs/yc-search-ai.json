@@ -1,0 +1,443 @@
+{
+  "items": [
+    {
+      "type": "yc_company",
+      "path": "https://bookface.ycombinator.com/company/29798",
+      "displayed_attributes": {
+        "id": 29798,
+        "small_logo_thumb_url": "https://bookface-images.s3.amazonaws.com/small_logos/8d2c29f8fdbb128121d2ae4d3a3fcacf31f107b6.png",
+        "name": "&AI",
+        "batches": [
+          "S24"
+        ],
+        "one_liner": "Collaborative workspace for patent litigators",
+        "search_path": "https://bookface.ycombinator.com/company/29798",
+        "long_description": "&AI is a collaborative workspace that delivers trial-ready work product for patent litigators — fast enough for pitches, strong enough for court.",
+        "industries": [
+          "B2B",
+          "Legal"
+        ],
+        "all_locations": "San Francisco, CA, USA",
+        "active_founders": [
+          {
+            "user_id": 1295725,
+            "model_type": "User",
+            "model_id": 1295725,
+            "first_name": "Herbert",
+            "last_name": "Turner",
+            "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/c395a4b6123c43faa10d6f7952ce892913fefa80.jpg",
+            "position_start": null,
+            "position_end": null,
+            "bio": "Co-founder/CTO of &AI. Previously, I studied Aero/Astro + CS at MIT, worked on autonomous surface vehicles and applied ML research, fine-tuned LLMs at Google, and was a founding engineer at Kino AI.",
+            "title": null,
+            "search_path": "https://bookface.ycombinator.com/user/1295725"
+          },
+          {
+            "user_id": 1438386,
+            "model_type": "User",
+            "model_id": 1438386,
+            "first_name": "Caleb",
+            "last_name": "Harris",
+            "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/00aae31ce0f8d9f98a8fcc19cd8e988d7974e020.jpg",
+            "position_start": "2024-03-01",
+            "position_end": null,
+            "bio": "Co-founder/CEO of &AI. Previously, I studied CS + Neuro at MIT, did technical consulting in patent litigation for Fish & Richardson/Gibson Dunn, built out the data science stack at InsideTracker, and conducted ML research at the MIT Media Lab.",
+            "title": "Founder",
+            "search_path": "https://bookface.ycombinator.com/user/1438386"
+          }
+        ],
+        "inactive_founders": [],
+        "active_positions": [
+          {
+            "user_id": 1295725,
+            "model_type": "User",
+            "model_id": 1295725,
+            "first_name": "Herbert",
+            "last_name": "Turner",
+            "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/c395a4b6123c43faa10d6f7952ce892913fefa80.jpg",
+            "position_start": null,
+            "position_end": null,
+            "bio": "Co-founder/CTO of &AI. Previously, I studied Aero/Astro + CS at MIT, worked on autonomous surface vehicles and applied ML research, fine-tuned LLMs at Google, and was a founding engineer at Kino AI.",
+            "title": null,
+            "search_path": "https://bookface.ycombinator.com/user/1295725"
+          },
+          {
+            "user_id": 1438386,
+            "model_type": "User",
+            "model_id": 1438386,
+            "first_name": "Caleb",
+            "last_name": "Harris",
+            "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/00aae31ce0f8d9f98a8fcc19cd8e988d7974e020.jpg",
+            "position_start": "2024-03-01",
+            "position_end": null,
+            "bio": "Co-founder/CEO of &AI. Previously, I studied CS + Neuro at MIT, did technical consulting in patent litigation for Fish & Richardson/Gibson Dunn, built out the data science stack at InsideTracker, and conducted ML research at the MIT Media Lab.",
+            "title": "Founder",
+            "search_path": "https://bookface.ycombinator.com/user/1438386"
+          }
+        ],
+        "inactive_positions": [],
+        "former_names": [
+          "AndAI, Inc. (informally, &AI)"
+        ],
+        "nonyc": false
+      }
+    },
+    {
+      "type": "yc_company",
+      "path": "https://bookface.ycombinator.com/company/27754",
+      "displayed_attributes": {
+        "id": 27754,
+        "small_logo_thumb_url": "https://bookface-images.s3.amazonaws.com/small_logos/f8a08dbc0e0067d1983b3b85b2e3893f29d7f41f.png",
+        "name": "Pair AI",
+        "batches": [
+          "W23"
+        ],
+        "one_liner": "Reimagining education with short form video and AI",
+        "search_path": "https://bookface.ycombinator.com/company/27754",
+        "long_description": "Pair AI is Shopify for knowledge products. We empower creators, educators, and experts to launch addicting mobile-first video courses and provide AI-assisted coaching services at scale. Our platform is a one-stop shop to seamlessly monetize what you know! We make learning as fun and engaging as watching a TikTok.",
+        "industries": [
+          "Consumer"
+        ],
+        "all_locations": "San Francisco, CA, USA",
+        "active_founders": [
+          {
+            "user_id": 1052399,
+            "model_type": "User",
+            "model_id": 1052399,
+            "first_name": "Parth",
+            "last_name": "Detroja",
+            "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/ae96040e4a04ab90c0f10f4f54d6f82770397abe.jpg",
+            "position_start": null,
+            "position_end": null,
+            "bio": "Parth Detroja (CEO) is the global bestselling author of Swipe to Unlock and has launched multiple 7 figure courses. He spent the last 4 years as a Product Manager at Facebook where he patented half a dozen AI technologies. He graduated Summa Cum Laude from Cornell University.",
+            "title": null,
+            "search_path": "https://bookface.ycombinator.com/user/1052399"
+          }
+        ],
+        "inactive_founders": [
+          {
+            "user_id": 503966,
+            "model_type": "User",
+            "model_id": 503966,
+            "first_name": "Jason",
+            "last_name": "Goodison",
+            "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/e0a2e9b8f415f69eed61d45009e83db75d80452e.jpg",
+            "position_start": null,
+            "position_end": "2024-09-15",
+            "bio": "General Compute",
+            "title": null,
+            "search_path": "https://bookface.ycombinator.com/user/503966"
+          }
+        ],
+        "active_positions": [
+          {
+            "user_id": 1052399,
+            "model_type": "User",
+            "model_id": 1052399,
+            "first_name": "Parth",
+            "last_name": "Detroja",
+            "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/ae96040e4a04ab90c0f10f4f54d6f82770397abe.jpg",
+            "position_start": null,
+            "position_end": null,
+            "bio": "Parth Detroja (CEO) is the global bestselling author of Swipe to Unlock and has launched multiple 7 figure courses. He spent the last 4 years as a Product Manager at Facebook where he patented half a dozen AI technologies. He graduated Summa Cum Laude from Cornell University.",
+            "title": null,
+            "search_path": "https://bookface.ycombinator.com/user/1052399"
+          }
+        ],
+        "inactive_positions": [
+          {
+            "user_id": 503966,
+            "model_type": "User",
+            "model_id": 503966,
+            "first_name": "Jason",
+            "last_name": "Goodison",
+            "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/e0a2e9b8f415f69eed61d45009e83db75d80452e.jpg",
+            "position_start": null,
+            "position_end": "2024-09-15",
+            "bio": "General Compute",
+            "title": null,
+            "search_path": "https://bookface.ycombinator.com/user/503966"
+          }
+        ],
+        "former_names": [
+          "CopyRite",
+          "CopyRite AI",
+          "AI"
+        ],
+        "nonyc": false
+      }
+    },
+    {
+      "type": "user",
+      "path": "https://bookface.ycombinator.com/user/971465",
+      "displayed_attributes": {
+        "id": 971465,
+        "first_name": "Aike",
+        "last_name": "Hillbrands",
+        "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/7d4a242f1d38dee0f4fee6e4de8f5366a697793c.jpg",
+        "banner_thumb": null,
+        "search_path": "https://bookface.ycombinator.com/user/971465",
+        "all_positions": [
+          {
+            "company_name": "Kombo",
+            "company_logo_url": "https://bookface-images.s3.amazonaws.com/small_logos/1ea96f644bc25cfeaa1198b5db442e95f63b56b4.png",
+            "company_batches": [
+              "S22"
+            ],
+            "company_batch_name": "s2022",
+            "company_yc": true,
+            "start_date": null,
+            "end_date": null,
+            "company_id": 27050,
+            "role": "founder",
+            "title": null
+          }
+        ],
+        "current_industry": [
+          "B2B"
+        ],
+        "current_location": "Berlin, Germany"
+      }
+    },
+    {
+      "type": "user",
+      "path": "https://bookface.ycombinator.com/user/613122",
+      "displayed_attributes": {
+        "id": 613122,
+        "first_name": "Aimee",
+        "last_name": "DeGolyer",
+        "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/50785be754be60a9bf11877b85225303555a0de0.jpg",
+        "banner_thumb": null,
+        "search_path": "https://bookface.ycombinator.com/user/613122",
+        "all_positions": [
+          {
+            "company_name": "REPROSENT",
+            "company_logo_url": "https://bookface-images.s3.amazonaws.com/small_logos/70401adb14eed7e643c2ec631d7664fd02af2167.png",
+            "company_batches": [
+              "S21"
+            ],
+            "company_batch_name": "s2021",
+            "company_yc": true,
+            "start_date": null,
+            "end_date": null,
+            "company_id": 24139,
+            "role": "founder",
+            "title": null
+          }
+        ],
+        "current_industry": [
+          "Healthcare"
+        ],
+        "current_location": "Los Gatos, CA, USA"
+      }
+    },
+    {
+      "type": "user",
+      "path": "https://bookface.ycombinator.com/user/408165",
+      "displayed_attributes": {
+        "id": 408165,
+        "first_name": "Aidan",
+        "last_name": "Dewar",
+        "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/ea265c70c0471a9c676c38122d769b2c659b2a30.jpg",
+        "banner_thumb": null,
+        "search_path": "https://bookface.ycombinator.com/user/408165",
+        "all_positions": [
+          {
+            "company_name": "Nourish",
+            "company_logo_url": "https://bookface-images.s3.amazonaws.com/small_logos/04aab6e7b4d317a4182b05831afb7f06ade24fd8.png",
+            "company_batches": [
+              "W21"
+            ],
+            "company_batch_name": "w2021",
+            "company_yc": true,
+            "start_date": null,
+            "end_date": null,
+            "company_id": 22699,
+            "role": "founder",
+            "title": null
+          },
+          {
+            "company_name": "Bain & Company",
+            "company_logo_url": null,
+            "company_batches": [],
+            "company_batch_name": "nYC",
+            "company_yc": false,
+            "start_date": "2018-10-01",
+            "end_date": "2020-05-01",
+            "company_id": 12142,
+            "role": "employee",
+            "title": "Associate Consultant"
+          }
+        ],
+        "current_industry": [
+          "Healthcare"
+        ],
+        "current_location": "New York, NY, USA"
+      }
+    },
+    {
+      "type": "user",
+      "path": "https://bookface.ycombinator.com/user/403669",
+      "displayed_attributes": {
+        "id": 403669,
+        "first_name": "Aidan",
+        "last_name": "Pratt",
+        "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/28fc669f74efecc22090851067a14caacca69a86.jpg",
+        "banner_thumb": null,
+        "search_path": "https://bookface.ycombinator.com/user/403669",
+        "all_positions": [
+          {
+            "company_name": "Autostep",
+            "company_logo_url": "https://bookface-images.s3.amazonaws.com/small_logos/a64ea75986bdbe206a8fe20ee9fdaaa44ad95e9e.png",
+            "company_batches": [
+              "P25"
+            ],
+            "company_batch_name": "p2025",
+            "company_yc": true,
+            "start_date": null,
+            "end_date": null,
+            "company_id": 30408,
+            "role": "founder",
+            "title": null
+          }
+        ],
+        "current_industry": [
+          "B2B",
+          "Operations"
+        ],
+        "current_location": null
+      }
+    },
+    {
+      "type": "user",
+      "path": "https://bookface.ycombinator.com/user/3409680",
+      "displayed_attributes": {
+        "id": 3409680,
+        "first_name": "Aidan",
+        "last_name": "Williams",
+        "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/864a233796df1540984f41d824e033b826826efc.jpg",
+        "banner_thumb": null,
+        "search_path": "https://bookface.ycombinator.com/user/3409680",
+        "all_positions": [
+          {
+            "company_name": "Maquoketa Research",
+            "company_logo_url": "https://bookface-images.s3.amazonaws.com/small_logos/fe62156e10a2b01da6dc840828e94a31921135d9.png",
+            "company_batches": [
+              "P26"
+            ],
+            "company_batch_name": "p2026",
+            "company_yc": true,
+            "start_date": null,
+            "end_date": null,
+            "company_id": 31561,
+            "role": "founder",
+            "title": null
+          }
+        ],
+        "current_industry": [
+          "Industrials",
+          "Defense"
+        ],
+        "current_location": "Elk Grove Village, IL 60007, USA"
+      }
+    },
+    {
+      "type": "user",
+      "path": "https://bookface.ycombinator.com/user/290144",
+      "displayed_attributes": {
+        "id": 290144,
+        "first_name": "Aizat",
+        "last_name": "Rahim",
+        "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/4c0da735bea648d943207e4f58ef90fab508fba2.jpg",
+        "banner_thumb": null,
+        "search_path": "https://bookface.ycombinator.com/user/290144",
+        "all_positions": [
+          {
+            "company_name": "borong",
+            "company_logo_url": "https://bookface-images.s3.amazonaws.com/small_logos/7e0a53df0e6800e9f647ef8fda11608026855e1d.png",
+            "company_batches": [
+              "W20"
+            ],
+            "company_batch_name": "w2020",
+            "company_yc": true,
+            "start_date": null,
+            "end_date": null,
+            "company_id": 13520,
+            "role": "founder",
+            "title": null
+          }
+        ],
+        "current_industry": [
+          "B2B",
+          "Retail"
+        ],
+        "current_location": "Kuala Lumpur, Federal Territory of Kuala Lumpur, Malaysia"
+      }
+    },
+    {
+      "type": "user",
+      "path": "https://bookface.ycombinator.com/user/2779701",
+      "displayed_attributes": {
+        "id": 2779701,
+        "first_name": "Aidan",
+        "last_name": "Cantu",
+        "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/4e3ae6da411b7108cf54cd93cc612d5fd0eca40f.jpg",
+        "banner_thumb": null,
+        "search_path": "https://bookface.ycombinator.com/user/2779701",
+        "all_positions": [
+          {
+            "company_name": "F4 Industries",
+            "company_logo_url": "https://bookface-images.s3.amazonaws.com/small_logos/a1af9d562299111b9e8590450d36412897ddd8f8.png",
+            "company_batches": [
+              "S25"
+            ],
+            "company_batch_name": "s2025",
+            "company_yc": true,
+            "start_date": "2025-05-01",
+            "end_date": null,
+            "company_id": 30741,
+            "role": "founder",
+            "title": "CTO & Co-Founder"
+          }
+        ],
+        "current_industry": [
+          "Industrials"
+        ],
+        "current_location": "San Francisco, CA, USA"
+      }
+    },
+    {
+      "type": "user",
+      "path": "https://bookface.ycombinator.com/user/2590397",
+      "displayed_attributes": {
+        "id": 2590397,
+        "first_name": "Ai Daniil",
+        "last_name": "Bekirov",
+        "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/f07af39014457a4d2ff63358c4e3ccd33c6c034a.jpg",
+        "banner_thumb": null,
+        "search_path": "https://bookface.ycombinator.com/user/2590397",
+        "all_positions": [
+          {
+            "company_name": "Sparkles",
+            "company_logo_url": "https://bookface-images.s3.amazonaws.com/small_logos/2fa726d414c3f4d378fa6af116bb14e3abb29e0f.png",
+            "company_batches": [
+              "W26"
+            ],
+            "company_batch_name": "w2026",
+            "company_yc": true,
+            "start_date": null,
+            "end_date": null,
+            "company_id": 31151,
+            "role": "founder",
+            "title": null
+          }
+        ],
+        "current_industry": [
+          "B2B",
+          "Engineering, Product and Design"
+        ],
+        "current_location": null
+      }
+    }
+  ]
+}

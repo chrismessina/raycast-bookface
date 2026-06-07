@@ -1,0 +1,487 @@
+{
+  "items": [
+    {
+      "type": "deal",
+      "path": "https://bookface.ycombinator.com/deals/1017",
+      "displayed_attributes": {
+        "id": 1017,
+        "title": "Rootly is an AI SRE, on-call/incident response, & status page (used by DoorDash, Dropbox, Webflow, Replit)",
+        "details": "> This is a really great product! I wish we’d had it at Instacart years ago but at least it exists now. - Brandon Leonardo, Co-founder at Instacart\n\n### **Why Rootly?**\n\n[Rootly](https://www.rootly.com) is a modern incident management platform trusted by the fastest-growing YC companies such as Brex, Replit, Dropbox, Webflow, Faire, Lattice, OpenSea, RevenueCat, and 100s more.\n\n* **Status Page** — beautiful status pages to showcase your uptime and how seriously you take reliability. Customize with your own domain and branding.\n* **On-Call Paging** — when your software breaks, we’ll wake you up with our purpose-built and stunning mobile app.\n* **Respond in Slack** — we’ll guide you through an incident directly from Slack with our opinionated smart defaults built on industry best practices. From spinning up a dedicated channel to generating your postmortem timeline.\n\n…oh, incident management is a **mandatory requirement of SOC 2** and having Rootly automatically checks that box for Secureframe, Drata, Vanta, Oneleet.\n\n### **Buy Individually**\n\n* Apply via <https://rootly.com/pricing> &gt; Startup Program (Pay What You Can)\n* Exclusive **Rootly swag** (for you and your dog)\n* Direct access to the **CEO's phone number** on WhatsApp or iMessage.\n\n### **Buy Bundle — YC Infra Starter Pack**\n\n**_Essential tools used by +60% of all batches…_**\n\n* **📦 Buy Rootly alongside [Mintlify](https://bookface.ycombinator.com/company/25643), [Porter](https://bookface.ycombinator.com/company/13091), and [Resend](https://bookface.ycombinator.com/company/28098) in a single bundle** for $1,500/year (valued at $15,000) [here](https://www.vendr.com/special-offers/yc-infra-starter-pack).\n* Exclusive invite to **private Slack channel for advice / investor intros** with founders of fastest-growing YC companies.\n* **Exclusive founder events** around fundraising, founder-led sales, scaling, and more in an intimate setting.\n* Exclusive and **premium swag** only for starter pack customers.",
+        "company_name": "Rootly",
+        "company_batches": [
+          "S21"
+        ],
+        "collection": [
+          "Dev Tools / APIs"
+        ],
+        "high_value": false,
+        "search_path": "https://bookface.ycombinator.com/deals/1017",
+        "logo_url": "/deals/1017/logo"
+      }
+    },
+    {
+      "type": "deal",
+      "path": "https://bookface.ycombinator.com/deals/3718",
+      "displayed_attributes": {
+        "id": 3718,
+        "title": "Free status page, 24/7 support, free on-call, free incident response. Trusted by: OpenAI, Netflix, ElevenLabs, PostHog, Linear, Ramp, Klarna, Rippling, Airbnb, Mercor, Perplexity, Mintlify, Browserbase and 1000s more...",
+        "details": "### 🚨 **Free status page + 24/7 support + free on-call + free incident response (\\~1yr)**\n\n_$ value = 1,500_\n\n---\n\nWant to show your users what’s down (and what’s working)?\n\n\\\nWhen something breaks, silence kills trust. A clean status page makes you look sharp, transparent and organised.\\\n\\\n_Just like we do for OpenAI, Lovable and WisprFlow._\n\n\\\n**🤑 Free Status Pages.**\n\n🎥 **3 min setup:** <https://go.incident.io/yc-status>\n\n* Public status page (see OpenAI: <https://status.openai.com/>)\n* Slack integration\n* Custom domain\n\n---\n\nWant to run on-call properly- catching the critical alerts. The difference between chaos and control at 2am is having a real system in place.\\\n\\\n_Just like we do for Klarna, Rippling and DocuSign._\n\n\\\n**🤑 Free On-Call.**\n\n🎥 **3 min setup:** <https://go.incident.io/yc-on-call>\n\n* Alert integrations\n* Scheduling\n* Native mobile apps\n\n---\n\nWant to actually _run_ incidents cleanly? No scattered context, no confusion, no “wait what’s happening?”\\\n\\\nOne place to coordinate everything, pulling in Sentry, Datadog, Grafana, Linear, etc.\n\n\\\n_Just like we do for Airbnb, Ramp and Mercor._\n\n\\\n**🤑 Free Incident Response.**\n\n🎥 **3 min setup:** <https://go.incident.io/yc-response>\n\n* Slack-based response\n* Automations + AI\n* Integrations with your stack\n\n---\n\n### 👋 You also get me\n\n**24/7 access to myself ([Zain](https://go.incident.io/zain-yc-deals))**\n\n📱 +44 7795 210020\n\nText me for any of the following:\n\n* [incident.io](http://incident.io)\n* If you’re ever in London\n* life\n* to say hi\n\n---\n\n### tldr\n\n* You’re moving fast. Things will break.\n* We’ll help you handle it like a top-tier engineering team- with the tooling _and_ support.\n* Let’s go.",
+        "company_name": "incident.io",
+        "company_batches": null,
+        "collection": [
+          "Dev Tools / APIs"
+        ],
+        "high_value": false,
+        "search_path": "https://bookface.ycombinator.com/deals/3718",
+        "logo_url": "/deals/3718/logo"
+      }
+    },
+    {
+      "type": "yc_company",
+      "path": "https://bookface.ycombinator.com/company/31165",
+      "displayed_attributes": {
+        "id": 31165,
+        "small_logo_thumb_url": "https://bookface-images.s3.amazonaws.com/small_logos/43fb964e8e0ca12dcc1000b4c4c2d6be7ffc203e.png",
+        "name": "IncidentFox",
+        "batches": [
+          "W26"
+        ],
+        "one_liner": "AI SRE agent that triages, coordinates, and fixes production incidents",
+        "search_path": "https://bookface.ycombinator.com/company/31165",
+        "long_description": "AI SRE agents that automatically learn each customer’s system so they work just like an in-house engineer.",
+        "industries": [
+          "B2B",
+          "Infrastructure"
+        ],
+        "all_locations": "San Francisco, CA, USA",
+        "active_founders": [
+          {
+            "user_id": 2091321,
+            "model_type": "User",
+            "model_id": 2091321,
+            "first_name": "Long",
+            "last_name": "Yi",
+            "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/0e2b5e314557a818ba205643be47cf15fc6f9dc8.jpg",
+            "position_start": null,
+            "position_end": null,
+            "bio": "Long Yi is the co-founder of IncidentFox, an AI-powered SRE platform for automated incident investigation and infrastructure management.\nPreviously, he built large-scale distributed systems at Roblox, managing database and search infrastructure handling over 1.5 million queries per second. \nHe holds a B.S. from Brandeis University, where he conducted research in audiovisual signal processing and neural modeling.",
+            "title": null,
+            "search_path": "https://bookface.ycombinator.com/user/2091321"
+          },
+          {
+            "user_id": 1146198,
+            "model_type": "User",
+            "model_id": 1146198,
+            "first_name": "Jimmy",
+            "last_name": "Wei",
+            "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/98daac7c797ee12d1d4782adddd38231d21056a0.jpg",
+            "position_start": "2025-11-01",
+            "position_end": null,
+            "bio": " Chiehmin (Jimmy) Wei is a co-founder of IncidentFox. Before IncidentFox, Jimmy was a software engineer at Roblox, where he architected a real-time communication feature reaching 11.7M+ users, and at Facebook AI Research (FAIR), where he built conversational AI infrastructure and set new research baselines with Transformer models. He holds an M.S. from Cornell University and a B.S. in Computer Science from Bucknell University.",
+            "title": "Founder",
+            "search_path": "https://bookface.ycombinator.com/user/1146198"
+          }
+        ],
+        "inactive_founders": [],
+        "active_positions": [
+          {
+            "user_id": 2091321,
+            "model_type": "User",
+            "model_id": 2091321,
+            "first_name": "Long",
+            "last_name": "Yi",
+            "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/0e2b5e314557a818ba205643be47cf15fc6f9dc8.jpg",
+            "position_start": null,
+            "position_end": null,
+            "bio": "Long Yi is the co-founder of IncidentFox, an AI-powered SRE platform for automated incident investigation and infrastructure management.\nPreviously, he built large-scale distributed systems at Roblox, managing database and search infrastructure handling over 1.5 million queries per second. \nHe holds a B.S. from Brandeis University, where he conducted research in audiovisual signal processing and neural modeling.",
+            "title": null,
+            "search_path": "https://bookface.ycombinator.com/user/2091321"
+          },
+          {
+            "user_id": 1146198,
+            "model_type": "User",
+            "model_id": 1146198,
+            "first_name": "Jimmy",
+            "last_name": "Wei",
+            "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/98daac7c797ee12d1d4782adddd38231d21056a0.jpg",
+            "position_start": "2025-11-01",
+            "position_end": null,
+            "bio": " Chiehmin (Jimmy) Wei is a co-founder of IncidentFox. Before IncidentFox, Jimmy was a software engineer at Roblox, where he architected a real-time communication feature reaching 11.7M+ users, and at Facebook AI Research (FAIR), where he built conversational AI infrastructure and set new research baselines with Transformer models. He holds an M.S. from Cornell University and a B.S. in Computer Science from Bucknell University.",
+            "title": "Founder",
+            "search_path": "https://bookface.ycombinator.com/user/1146198"
+          }
+        ],
+        "inactive_positions": [],
+        "former_names": [
+          "Brownie"
+        ],
+        "nonyc": false
+      }
+    },
+    {
+      "type": "post",
+      "path": "https://bookface.ycombinator.com/posts/80013",
+      "displayed_attributes": {
+        "id": 80013,
+        "title": "Our experience and lessons learned from a security incident",
+        "body": "In March, we at [@Mintlify](https://bookface.ycombinator.com/company/25643) experienced a security incident that led to what I would describe to be one of the most challenging months in our company’s history.\n\nInitially, I had no desire to share the experience. I wanted nothing more than to move on from the incident. However, while reflecting on the events and our mistakes, I realized that a lot of the lessons we learned the hard way might be helpful for other founders.\n\n## What happened\n\nOn March 1, we discovered that within a timespan of 24 hours, attackers obtained several dozen of our customers’ private GitHub tokens. With these tokens, these attackers could gain read and write access our customer’s private repositories.\n\nNeedless to say, it was an “oh sh\\*t” moment.\n\nUpon discovering what had happened, we immediately revoked all GitHub tokens for everyone (not just those affected). It made the exposed tokens useless, but also disabled core parts of our product that relied on the tokens. Within the next three hour, we rotated our environment variables and implemented a number of emergency patches.\n\nWe knew that this was something we needed to inform our customers about, but decided against making the announcement immediately. We thought that publicizing the incident too quickly would attract more attacks before we were able to address the vulnerabilities employed in the incident, putting more customers at risk.\n\nAfter unrooting the vulnerabilities and implementing a sweeping number of security measures, we posted the [incident report](https://mintlify.com/blog/incident-march-13) and notified all of our users on on March 13.\n\n## The fallout\n\nNews began circulating through online forums regarding the incident. Some raised valid concerns. Others took it as an opportunity to criticize.\n\n![uploaded image](/media/?key=user_uploads/434864/3e76dc7c-5809-468f-aac9-ad080e775346)\n\nFor the next few days, we would received a notifications every few minutes about someone posting something critical about us online.\n\n![uploaded image](/media/?key=user_uploads/434864/c42d9c31-1fee-4bba-921b-317626c204e5)\n\nWe even made it to the top of HackerNews - a goal that I’ve aspired to for many years without success.\n\n![uploaded image](/media/?key=user_uploads/434864/8c97fcd6-d24a-4b22-b560-39d84d39d49e)\n\nThrough all of the negative publicity, the most hurtful one for me was from a student who feared that our incident would have caused him to lose his internship.\n\n![uploaded image](/media/?key=user_uploads/434864/d551be78-955a-48db-9abd-0339747a0b27)\n\nHaving been an intern in the not too distant past, the last thing I wanted was for someone to lose their job over our mistake.\n\nI broke down. Throughout the whole incident, we chose not to respond and feed into the hate. But for that post, I just couldn’t resist. I wrote down everything that I could, hoping to equip them with everything that they needed to persuade their manager that it wasn’t their fault.\n\nIt turned out to be a mistake.\n\nThe next day, I got an email from Zack Whittaker from TechCrunch, who came across my response on that Reddit thread and pieced together a story from the information that was made available.\n\n![uploaded image](/media/?key=user_uploads/434864/0af3c2e1-615c-4570-8cd1-51209d470c7a)\n\nWithin hours, the TechCrunch story came out.\n\n![uploaded image](/media/?key=user_uploads/434864/ccc550cd-e312-4b30-a9d9-1468c5968b8f)\n\nAnd in the following days, other tech news outlets picked it up as well.\n\n![uploaded image](/media/?key=user_uploads/434864/47348a53-3570-4ea0-82fb-61b417dd85da)\n\nThe news had gotten out and it felt like everyone in the tech community had heard about the incident. My inbox became flooded with questions from reporters and customers.\n\nAfter a week of non-stop bad PR, the news finally started to die down. I stopped getting notifications or messages about someone making a post or news article about the incident.\n\nOn March 22, we published our [security update](https://mintlify.com/blog/security-update) detailing everything that we’ve done to further fortify our product and ensure that an incident of similar nature or impact will never happen again.\n\nAfter the security update was published, the whole security incident saga ended.\n\n## Lessons learned\n\n**Lesson 1. Increase security measures as you grow**\n\nIt’s common for founders to ignore security best-practices when they’re starting out in order to move fast. It’s hard to justify security when you don’t have any customer data to secure.\n\nThat’s what we did.\n\nHowever, the mistake was not enabling better security best-practices as we grew. I fought to preserve the speed from our early days, and it came at the cost of security time and time again. That kind of thinking set us on the collision course for the incident to happen.\n\n**Lesson 2. Checklist security is not the same as actual security**\n\nWe are SOC 2 certified and had penetration tests conducted every 6 months. However, the actual vulnerabilities that led to the incident were not uncovered by any of those tests or certifications.\n\nThe actual vulnerability that led to the incident was discovered and reported to us by a 17 year old on Twitter.\n\nI am not suggesting that compliance and penetration tests aren’t useful - they very much are and certainly prevented us from many other attacks. But unfortunately in our case, solely jumping through these security hoops for enterprise procurement wasn’t enough. Truly having great security is an active effort that extends beyond the checklist and security theater.\n\n**Lesson 3. Tough times build resilience**\n\nA really memorable quote that got us through the endless stream of bad PR was a quote from Jensen Huang who said:\n\n“…unfortunately, resilience matters in success. I don’t know how to teach it to you expect for I hope suffering happens to you”\n\nGoing through the incident was unbelievably difficult for the entire company, but it built in a tremendous amount of resilience. It made me more confident than every that we’ll be able to weather the storms of the future.\n\n### Closing\n\nI want to take an opportunity to thank the many founders in this community that supported us throughout the incident - particularly to [@Zeno Rocha](https://bookface.ycombinator.com/user/360041) and [@Vlad Matsiiako](https://bookface.ycombinator.com/user/942802).",
+        "comment_count": 38,
+        "views_count": 1917,
+        "search_path": "https://bookface.ycombinator.com/posts/80013",
+        "searchable_user": {
+          "name": "Han Wang",
+          "id": 434864,
+          "model_type": "User",
+          "model_id": 434864,
+          "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/249d44db2abe3403cd9a52d5120fdfd5a11cd349.jpg",
+          "search_path": "https://bookface.ycombinator.com/user/434864",
+          "company": {
+            "name": "Mintlify",
+            "id": 25643,
+            "model_type": "Company",
+            "model_id": 25643,
+            "batches": [
+              "W22"
+            ],
+            "small_logo_thumb_url": "https://bookface-images.s3.amazonaws.com/small_logos/ed8c75028bc46b4acc10c1fcd555e74616bcdeb3.png",
+            "search_path": "https://bookface.ycombinator.com/company/25643"
+          }
+        },
+        "top_comment": {
+          "id": 252939,
+          "body": "Great writeup [@Han Wang](https://bookface.ycombinator.com/user/434864), and sorry to hear you went through such a difficult time.\n\nThis just goes to show how hard it is to get security right, especially when you have limited bandwidth and find yourself juggling many other priorities (that usually bring in money whereas security doesn't).\n\nOne piece of practical advice I can give is to work on eliminating security theater from your SOC 2 and security program. \n\nThere have been few things I have seen that cause as much harm as the default one-size-fits-all cookiecutter SOC 2 programs that many platforms out there prescribe. These programs create a false sense of security, and infinitely worse, often lead companies to lean back assuming they're secure just to get hacked shortly after.\n\nSOC 2 and security programs should be tailored to each individual company's needs and take into account the many specific risks and threats they face. Without this, even the best pentest in the world won't keep you safe.\n\nHappy to help anyone explore if they're in a good place or not.",
+          "user": {
+            "name": "Bryan Onel",
+            "id": 233375,
+            "model_type": "User",
+            "model_id": 233375,
+            "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/9c0799c948a5d9d9a59974cd6427476817e4a497.jpg",
+            "search_path": "https://bookface.ycombinator.com/user/233375",
+            "company": {
+              "name": "Oneleet",
+              "id": 27162,
+              "model_type": "Company",
+              "model_id": 27162,
+              "batches": [
+                "S22"
+              ],
+              "small_logo_thumb_url": "https://bookface-images.s3.amazonaws.com/small_logos/35b93ab2671a1397037aa92e0703d5f6c2ec0fba.png",
+              "search_path": "https://bookface.ycombinator.com/company/27162"
+            }
+          }
+        },
+        "created_at": "2024-04-08T16:46:22.915Z"
+      }
+    },
+    {
+      "type": "post",
+      "path": "https://bookface.ycombinator.com/posts/53596",
+      "displayed_attributes": {
+        "id": 53596,
+        "title": "👩‍🚒 Launch Bookface: Rootly (S21) — Resolve major tech incidents faster 💨!",
+        "body": "Hi YC 👋 — Incidents like platform outages are inevitable, chaotic, and expensive for your business. That's why Quentin and I started [Rootly](https://rootly.io/?utm_source=bookface&utm_medium=forum&utm_campaign=launchbf) to make incident management frictionless. We previously built reliability at scale at Instacart, now we want to help you do the same.\n\n### 🔥 TL;DR\n\n- Rootly helps companies streamline incident response after they get alerted by PagerDuty or customer support.\n- From creation, mitigation, to postmortem, companies using Rootly reduce resolution times by >55% and learn to prevent repeat incidents in the future.\n- 💵 **YC Deal: $1K credit and skip the onboarding queue —** [**Book a demo with us today**](https://rootly.io/demo)**!**\n\n### 😬 Cost of Poor Incident Management\n\nCompanies of all sizes that are rapidly scaling will _all_ eventually encounter incidents. Without the right platform to quickly resolve and learn from incidents, they tend to be...\n\n- **Very Expensive** — Not only impact revenue and your reputation with customers, but it also diverts expensive engineering resources away from their day job.\n- **Slow & Manual** — Every second counts. Digging up a 5-page doc to find the right service owners and create a virtual war room is slow, expensive, and distracting.\n- **More Incidents** — Learning from past incidents is often hindered by lack of postmortems, visibility into follow-up action items, and metrics to measure performance.\n\n### 🧪 What is Rootly?\n\nRootly is an all-in-one incident management platform for teams of all sizes. From declaring an incident to auto-generating postmortem timelines, Rootly allows you to focus on what matters most: putting out the fire 👩‍🚒.\n\n**⏰Incident Declaration** — Automated incident creation and timeline generation. Involve the right teams and collaborate via Slack or Web. _Turn your first 10 minutes of an incident into 10 seconds._\n\n![](https://storage.rootly.io/bookface/bf1.gif)\n\n**🤖Automated Runbooks** — Turn static wikis into interactive runbooks. From automatically fetching key metrics, posting on the status page, to emailing legal every time there is a Sev0. Easily create workflows via the drag-and-drop editor.\n\n![](https://storage.rootly.io/bookface/bf2.gif)\n\n**📝Postmortem** — The fastest postmortem you'll ever write with no tedious copy-pasting all-in-one place. Create action items and tag incident causes to track. The easiest way to _turn incidents into unplanned investments_.\n\n![](https://storage.rootly.io/bookface/bf3.gif)\n\n**📣Status Pages** — The easiest way to communicate real-time status with your customers. Beautiful public and private status pages integrated seamlessly with your incident workflow. Eliminate the need for multiple tools.\n\n![](https://storage.rootly.io/bookface/bf4.png)\n\n**📊Metrics** — Automatically capture and measure incident performance. Go beyond incident resolution times and understand gaps in your incident response program like which services are the least reliable.\n\n![](https://storage.rootly.io/bookface/bf5.png)\n\n...and so much more. From a robust Service Catalog to help you stay on top of system dependencies to a comprehensive suite of 3rd Party Integrations.\n\n### 🤑 YC Deal + Ask\n\nStill not sure? We are already helping companies from startups to F500 such as Nylas and Ritual. See what some customers like Taplytics (W14) have to say:\n\n > We’ve been using Rootly for the last 7 months and could not be happier. We’ve been able to automate the manual toil in creating incidents, involving the right teams, and communication. Overall we’ve seen a **decrease in incident resolution times and repeat incidents**. — Aaron Glazer, CEO\n\nGiven the strong customer demand for Rootly, we have been selectively onboarding customers to ensure the best possible experience. YC companies interested get to **jump the queue and get a $1K credit**.\n\n**🥳We'd love to talk with you,** [**book a demo**](https://rootly.io/demo) **with us today!**\n",
+        "comment_count": 51,
+        "views_count": 1500,
+        "search_path": "https://bookface.ycombinator.com/posts/53596",
+        "searchable_user": {
+          "name": "JJ Tang",
+          "id": 642689,
+          "model_type": "User",
+          "model_id": 642689,
+          "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/eea6e0e2123efec212779e52790c7ffccb20491a.jpg",
+          "search_path": "https://bookface.ycombinator.com/user/642689",
+          "company": {
+            "name": "Rootly",
+            "id": 23978,
+            "model_type": "Company",
+            "model_id": 23978,
+            "batches": [
+              "S21"
+            ],
+            "small_logo_thumb_url": "https://bookface-images.s3.amazonaws.com/small_logos/458bec513b681478458c39da4795bf6502d09edb.png",
+            "search_path": "https://bookface.ycombinator.com/company/23978"
+          }
+        },
+        "top_comment": {
+          "id": 129235,
+          "body": "Get serious about incident management! I will say...both founders worked at Instacart and I have very high expectations of this company, guys! :)",
+          "user": {
+            "name": "Max Mullen",
+            "id": 25111,
+            "model_type": "User",
+            "model_id": 25111,
+            "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/a3e8f4952d3f8837eb95af8e5fc0ce16be931bc0.jpg",
+            "search_path": "https://bookface.ycombinator.com/user/25111",
+            "company": {
+              "name": "Instacart",
+              "id": 468,
+              "model_type": "Company",
+              "model_id": 468,
+              "batches": [
+                "S12"
+              ],
+              "small_logo_thumb_url": "https://bookface-images.s3.amazonaws.com/small_logos/9750fca21baaee75e035f1baaf58df8e2f5dcc67.png",
+              "search_path": "https://bookface.ycombinator.com/company/468"
+            }
+          }
+        },
+        "created_at": "2021-05-26T15:33:04.039Z"
+      }
+    },
+    {
+      "type": "post",
+      "path": "https://bookface.ycombinator.com/posts/69922",
+      "displayed_attributes": {
+        "id": 69922,
+        "title": "Launch Bookface: Thread (W23) - Incident Management for Large Enterprise",
+        "body": "Hi everyone! We’re Yuheng, Akeem, and Harsha, the co-founders of Thread. \n\n**tldr: Thread is incident management for large enterprises. We optimize the entire incident process by implementing targeted ticket routing, informed mitigation suggestions, and thorough post-incident analysis.**\n\n### **Problem ❌:**\n\nIncidents are the most stressful part of any live production service, and engineers are often ill-prepared for dealing with them… especially in large enterprises. As enterprises move to the cloud and microservice architecture, embrace remote work, and pick up increasingly more tooling for incidents, engineers face growing difficulty identifying and resolving complex system issues.\n\n* APMs, such as Datadog and New Relic, **overwhelm engineers with data and lack contextual information, making problem-solving a challenge.**\n* Customer support help desks, like Zendesk, **often provide inadequate information when creating tickets, leading to a frustrating cycle of questions for engineers.**\n* Alerting and ITSM tools, such as Pagerduty and ServiceNow, **alert engineering teams but often lack the necessary context for efficient issue resolution.**\n\nNot to mention, leadership still lacks visibility into incident details and progression.\n\nIt's like trying to solve a puzzle with missing pieces and no picture on the box.\n\n### **Solution** 💡:\n\nThe gold standard for incident management workflows is straightforward to describe, but it is incredibly difficult to implement in practice, especially at enterprise scale.\n\nThe four pillars are:\n\n**Detection**: identifying the bug using either a monitoring tool or a customer service tool\n\n**Routing**: getting the ticket to the right person that can solve the issue, using paging tools and communication tools\n\n**Resolution**: using context-providing tools like session replays and streamlined data providers to help solve the issue \n\n**Learning**: identifying the root cause of the issue and generating future workflows to more adeptly solve the problem (or prevent it from happening again) \n\nEnter **Thread:**\n\n![uploaded image](/media/?key=user_uploads/1146884/4379669d-6bb6-4f82-9cd4-97cdb2effe8f)\n\nThread offers engineers a customized configuration management database with runbooks, past tickets, monitoring data, and recommended actions for diagnosing and resolving incidents.\n\nWe also provide real-time updates and summaries to leadership and stakeholders during critical incidents, identifying bottlenecks in workflows to prevent future issues.\n\nWhy settle for a single tool that might not fit all your needs? Our platform allows teams to bring in their favorite tools to create a tailor-made solution.\n\n![uploaded image](/media/?key=user_uploads/1146884/cfa81e00-5c44-45dc-b648-ecfeec726a3b)\n\n### **Why us?**\n\nWe’re 3 ex-Microsoft/Amazon engineers who built these tools and processes on our respective teams (Microsoft Store and Prime Video). We want to take what we learned and build an even better solution for the millions of engineers out there, so no one has to face the existential dread of on-call panic ever again. \n\n### **Our Ask** ❤️:\n\nIf you or anyone in your network knows a VP/Director of Engineering at a large enterprise, around fortune 5000 level, (**bonus points if their org currently uses tools like ServiceNow**) who would be open to using a 3rd party tool to improve their incident management, processes, and/or learnings, **we’d love an intro.**\n\nIf you have enterprise-level experience with **any of the above tools, we want to hear from you!** We're always striving to improve our integrations and bridge any gaps in the incident management process. Share your experiences with us!\n\nReach out to us at [**founders@usethread.io**](mailto:founders@usethread.io)! We’d love to chat!",
+        "comment_count": 22,
+        "views_count": 687,
+        "search_path": "https://bookface.ycombinator.com/posts/69922",
+        "searchable_user": {
+          "name": "Harsha Vankayalapati",
+          "id": 1146884,
+          "model_type": "User",
+          "model_id": 1146884,
+          "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/1756cf38d0336eb62d91e3c72d61e983845f2f14.jpg",
+          "search_path": "https://bookface.ycombinator.com/user/1146884",
+          "company": false
+        },
+        "top_comment": {
+          "id": 202248,
+          "body": "Congrats on the launch. Seems very interesting.\n\nWe ([SigNoz](https://signoz.io)) is one such tool which generates alerts data. Curious, do you see yourself as an alternative to PagerDuty or a layer above Pagerduty?\n\nI think PD is also trying to move to doing more stuff around incident management like getting more context etc.",
+          "user": {
+            "name": "Pranay Prateek",
+            "id": 95650,
+            "model_type": "User",
+            "model_id": 95650,
+            "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/3c5bb882ff9af9877edb6d2e96cad34480e79791.jpg",
+            "search_path": "https://bookface.ycombinator.com/user/95650",
+            "company": {
+              "name": "SigNoz",
+              "id": 22671,
+              "model_type": "Company",
+              "model_id": 22671,
+              "batches": [
+                "W21"
+              ],
+              "small_logo_thumb_url": "https://bookface-images.s3.amazonaws.com/small_logos/bf9bf94469ea296eac6cbf6d10f7674c4a8a91ef.png",
+              "search_path": "https://bookface.ycombinator.com/company/22671"
+            }
+          }
+        },
+        "created_at": "2023-03-03T18:42:08.635Z"
+      }
+    },
+    {
+      "type": "post",
+      "path": "https://bookface.ycombinator.com/posts/97386",
+      "displayed_attributes": {
+        "id": 97386,
+        "title": "Launch BF: IncidentFox (W26) | Turning “we have no logs for this” into an impossibility",
+        "body": "# ****\n\nEvery startup I talk to has the same story: production breaks, they go to check logs, and… nothing useful. We’ve been\nbuilding an AI SRE agent and learned a painful lesson: you can’t debug incidents when there’s nothing to debug with.\nMost startups have garbage observability because nobody has time to add proper logging, metrics, and tracing. It’s\nboring work that only matters when things break.\n\n**New approach: auto-instrument at PR time**\n\nWe’re building a code review agent that scans your org’s repos and automatically adds:\n\n  - Structured logging at key code paths\n  - Metrics for the things you’ll actually need to debug\n  - Distributed tracing spans\n  - Consistent conventions across all services\n\nIt runs on every PR. Engineers write features, we handle the telemetry. No more “can you add logging for this?” comments\nthat get ignored.\n\n**Why this unlocks everything else**\n\nSince we’re adding all the instrumentation, we know your entire system:\n\n  - Auto-generated service maps and dependency graphs\n  - Pre-built dashboards without any manual setup\n  - Intelligent alerting based on actual code paths\n  - When incidents DO happen, our AI SRE has full context of the codebase and telemetry\n\n**The pitch:** Reliability-as-a-service that starts at code review, not at 3am pages.\n\n**Who wants to never write another logging line?**\n\nWe’re looking for 3-5 startups to design partner with. You’d get:\n\n  - Free auto-instrumentation on your repos\n  - Auto-generated dashboards\n  - Early access to the AI SRE with full codebase context\n\nDM me or comment below.\n",
+        "comment_count": 11,
+        "views_count": 915,
+        "search_path": "https://bookface.ycombinator.com/posts/97386",
+        "searchable_user": {
+          "name": "Jimmy Wei",
+          "id": 1146198,
+          "model_type": "User",
+          "model_id": 1146198,
+          "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/98daac7c797ee12d1d4782adddd38231d21056a0.jpg",
+          "search_path": "https://bookface.ycombinator.com/user/1146198",
+          "company": {
+            "name": "IncidentFox",
+            "id": 31165,
+            "model_type": "Company",
+            "model_id": 31165,
+            "batches": [
+              "W26"
+            ],
+            "small_logo_thumb_url": "https://bookface-images.s3.amazonaws.com/small_logos/43fb964e8e0ca12dcc1000b4c4c2d6be7ffc203e.png",
+            "search_path": "https://bookface.ycombinator.com/company/31165"
+          }
+        },
+        "top_comment": {
+          "id": 353592,
+          "body": "omg, I saw this problem so many times. Something breaks, check the log, nothing in the log, add logging, wait for the bug to happen again. Curious to test it out and see why the agent decides to instrument.",
+          "user": {
+            "name": "Zi Zhang",
+            "id": 3018333,
+            "model_type": "User",
+            "model_id": 3018333,
+            "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/c2d3989b3c81e4035d2127eca91c422f7a433562.jpg",
+            "search_path": "https://bookface.ycombinator.com/user/3018333",
+            "company": {
+              "name": "Proximitty",
+              "id": 31169,
+              "model_type": "Company",
+              "model_id": 31169,
+              "batches": [
+                "W26"
+              ],
+              "small_logo_thumb_url": "https://bookface-images.s3.amazonaws.com/small_logos/efa65b431815794902ea2af28480ef4f2990fd4c.png",
+              "search_path": "https://bookface.ycombinator.com/company/31169"
+            }
+          }
+        },
+        "created_at": "2026-02-02T05:51:45.636Z"
+      }
+    },
+    {
+      "type": "post",
+      "path": "https://bookface.ycombinator.com/posts/96900",
+      "displayed_attributes": {
+        "id": 96900,
+        "title": "Early stage startups: we will set up all your alerting + telemetry and auto-fix all your incidents",
+        "body": "# \n\nHi Bookface. We’re building an AI site reliability engineer that gives root cause analysis + fix PR for your production\nalerts.\n\nMany early stage startups we talk to don’t have the bandwidth to set up proper telemetry and alerting yet, so when\nthings go on fire everyone’s scrambling and there’s never time to go in and fix it once and for all.\n\nWe want to offer YC companies a deal. If you do a 2 week paid pilot with us, we will come in and set up all the alerting\n& telemetry for you, bundled with our AI SRE. Pretty much by the time you get a pager the agent suggests the solution\nand finds the root cause.\n\nMy co-founder [@Long Yi](https://bookface.ycombinator.com/user/2091321) worked on database infra at Roblox and boy his\nteam was flooded with alerts. He’s an expert with all things reliability so you’ll be in good hands.\n\nWe should have capacity for 2-3 early stage companies. If interested, DM and book a time with us\\!\n\nMy phone: 5707687496\n\nemail: <jimmy@incidentfox.ai>\n\ncalendly: <https://calendly.com/d/ct79-d3k-wby/15-minute-chat-w-incidentfox>\n",
+        "comment_count": 12,
+        "views_count": 1142,
+        "search_path": "https://bookface.ycombinator.com/posts/96900",
+        "searchable_user": {
+          "name": "Jimmy Wei",
+          "id": 1146198,
+          "model_type": "User",
+          "model_id": 1146198,
+          "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/98daac7c797ee12d1d4782adddd38231d21056a0.jpg",
+          "search_path": "https://bookface.ycombinator.com/user/1146198",
+          "company": {
+            "name": "IncidentFox",
+            "id": 31165,
+            "model_type": "Company",
+            "model_id": 31165,
+            "batches": [
+              "W26"
+            ],
+            "small_logo_thumb_url": "https://bookface-images.s3.amazonaws.com/small_logos/43fb964e8e0ca12dcc1000b4c4c2d6be7ffc203e.png",
+            "search_path": "https://bookface.ycombinator.com/company/31165"
+          }
+        },
+        "top_comment": {
+          "id": 349957,
+          "body": "congrats!!",
+          "user": {
+            "name": "Selina Li",
+            "id": 2131392,
+            "model_type": "User",
+            "model_id": 2131392,
+            "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/96866d00735919acdefc5cbaeba556b4e1fafe71.jpg",
+            "search_path": "https://bookface.ycombinator.com/user/2131392",
+            "company": {
+              "name": "Bubble Lab",
+              "id": 31215,
+              "model_type": "Company",
+              "model_id": 31215,
+              "batches": [
+                "W26"
+              ],
+              "small_logo_thumb_url": "https://bookface-images.s3.amazonaws.com/small_logos/9fc7f7534f4fb913904f49914952c1daa8086654.png",
+              "search_path": "https://bookface.ycombinator.com/company/31215"
+            }
+          }
+        },
+        "created_at": "2026-01-17T04:55:54.466Z"
+      }
+    },
+    {
+      "type": "post",
+      "path": "https://bookface.ycombinator.com/posts/60703",
+      "displayed_attributes": {
+        "id": 60703,
+        "title": "How are you handling Heroku incident?",
+        "body": "Curious how other companies are responding to the recent Heroku incident. To me, I think it’s wild that they are offering customers no credits or form of compensation for the fact that they allowed such a major breach of data AND the fact that lots of functionality is still disabled. The responses from support and on the status page have been vague, uncaring, and generally frustrating.\n\nFor others using Heroku with Github, are you handling the situation? Are you entertaining a switch? Have they offered you any form of compensation or credit? Curious what your experience has been.\n\n(If you are a YC company on a mission to unseat Heroku, please don’t spam the thread with a sales pitch - I mainly want to hear from others in the same boat)",
+        "comment_count": 16,
+        "views_count": 601,
+        "search_path": "https://bookface.ycombinator.com/posts/60703",
+        "searchable_user": {
+          "name": "Lauren Dachille",
+          "id": 186455,
+          "model_type": "User",
+          "model_id": 186455,
+          "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/8657a5eba165b138c6b52122e0ae3b7c9c1110d6.jpg",
+          "search_path": "https://bookface.ycombinator.com/user/186455",
+          "company": {
+            "name": "Nimble",
+            "id": 1609,
+            "model_type": "Company",
+            "model_id": 1609,
+            "batches": [
+              "S17"
+            ],
+            "small_logo_thumb_url": "https://bookface-images.s3.amazonaws.com/small_logos/b693002259f2dd2c99c3f0808e254c207525699a.png",
+            "search_path": "https://bookface.ycombinator.com/company/1609"
+          }
+        },
+        "top_comment": {
+          "id": 171562,
+          "body": "Cannot recommend [@Porter](https://bookface.ycombinator.com/company/13091) (<https://porter.run>) highly enough as an easy way to migrate away. Took me less than a day to migrate a suite of applications running on Heroku to a K8s cluster on AWS. It’s basically a one-click migration. The team there is awesome. Reach out to [@Justin Rhee](https://bookface.ycombinator.com/user/176129). ",
+          "user": {
+            "name": "Jed White",
+            "id": 19139,
+            "model_type": "User",
+            "model_id": 19139,
+            "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/ac775aafdd7712bff597911e958a1ce9d95f5d26.jpg",
+            "search_path": "https://bookface.ycombinator.com/user/19139",
+            "company": {
+              "name": "Andi",
+              "id": 25058,
+              "model_type": "Company",
+              "model_id": 25058,
+              "batches": [
+                "W22"
+              ],
+              "small_logo_thumb_url": "https://bookface-images.s3.amazonaws.com/small_logos/8c2b55aa5e7689ba35628ff2ed6299db9328d83c.png",
+              "search_path": "https://bookface.ycombinator.com/company/25058"
+            }
+          }
+        },
+        "created_at": "2022-05-05T18:24:41.914Z"
+      }
+    },
+    {
+      "type": "post",
+      "path": "https://bookface.ycombinator.com/posts/46799",
+      "displayed_attributes": {
+        "id": 46799,
+        "title": "Benchmark your Incident Management Practices against other YC companies!",
+        "body": "**Have you wondered whether you're following the best practices for incident management?**\n\nWe are conducting a study on **Best Practices for Incident Management**  by interviewing 20+ CTOs/engineering managers/engineers and sharing consolidated results with the participants so you can benchmark yourself. If you are interested, email me at gaurav@rootly.io or leave a comment below. \n\n**Am I the right person for it?** \nYes, if - \n- A production issue(incident) can impact your customer's ability to use your product resulting in lost revenue(e.g. e-Commerce) or churned customers(e.g. Twilio). \n- Your team deals with >1 incident/week.\n- Your engineering team > 10 engineers and have an on-call rotation (resulting in a need for co-ordination). \n\n**What will I learn?**\n- What are the biggest pain points engineering teams face with incident management? \n- How are they getting better at managing incidents as a team? \n- What are the key metrics they are tracking related to incidents? \n- What tools/best practices/culture have they put in place to better manage and reduce incidents? \n- Postmortem best practices\n\n\nFeel free to comment below or email me directly (gaurav@rootly.io)\nIf there is a question you'd love to know the answer to, let me know and I'll add it to my list.\n\nMeasure What Matters!   \n-Gaurav    \nP.S. We already have this data from 3 companies (including 2 YC unicorns) that have had to scale up their services pretty fast in the past few years. Will be sharing some interesting learnings from them as well!  \nP.P.S. The study will be in the form of a call (~10-15minutes)\n",
+        "comment_count": 1,
+        "views_count": 229,
+        "search_path": "https://bookface.ycombinator.com/posts/46799",
+        "searchable_user": {
+          "name": "Gaurav Maken",
+          "id": 234353,
+          "model_type": "User",
+          "model_id": 234353,
+          "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/100bb7ba26f0d5b93f1cd1dd519a6b7ac41b8a81.jpg",
+          "search_path": "https://bookface.ycombinator.com/user/234353",
+          "company": false
+        },
+        "top_comment": {
+          "id": 91122,
+          "body": "Hello Gaurav, this looks like what we need, (:\nWould love to get in touch john@afriex.co",
+          "user": {
+            "name": "John Obirije",
+            "id": 424146,
+            "model_type": "User",
+            "model_id": 424146,
+            "avatar_thumb": "https://bookface-images.s3.amazonaws.com/avatars/64a8f6d339b8e29f8aa40f365e35035a842e05ab.jpg",
+            "search_path": "https://bookface.ycombinator.com/user/424146",
+            "company": {
+              "name": "Afriex",
+              "id": 22152,
+              "model_type": "Company",
+              "model_id": 22152,
+              "batches": [
+                "S20"
+              ],
+              "small_logo_thumb_url": "https://bookface-images.s3.amazonaws.com/small_logos/8db23c586149f6e05d32286d54acbfed108a0c15.png",
+              "search_path": "https://bookface.ycombinator.com/company/22152"
+            }
+          }
+        },
+        "created_at": "2020-05-13T16:34:24.106Z"
+      }
+    }
+  ]
+}
