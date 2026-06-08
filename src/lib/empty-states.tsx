@@ -34,7 +34,6 @@ export function MissingCliEmpty() {
       actions={
         <ActionPanel>
           <CopyInstall />
-          <CopyLogin />
         </ActionPanel>
       }
     />

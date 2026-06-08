@@ -6,7 +6,13 @@ import {
   Icon,
   useNavigation,
 } from "@raycast/api";
-import { FormValidation, useCachedPromise, useForm } from "@raycast/utils";
+import {
+  DeeplinkType,
+  FormValidation,
+  createDeeplink,
+  useCachedPromise,
+  useForm,
+} from "@raycast/utils";
 import { useMemo } from "react";
 import { EXAMPLE_QUESTIONS } from "./lib/example-questions";
 import { runYc, truncate } from "./lib/yc";
@@ -33,7 +39,16 @@ ${question}
 
 YC Agent's response:
 ${response}`;
-  return `raycast://extensions/raycast/raycast-ai/ai-chat?fallbackText=${encodeURIComponent(text)}`;
+  // createDeeplink builds the inter-extension URL from typed fields rather than a
+  // hand-written raycast:// string, and (unlike launchCommand) carries fallbackText
+  // to pre-fill the AI chat input.
+  return createDeeplink({
+    type: DeeplinkType.Extension,
+    ownerOrAuthorName: "raycast",
+    extensionName: "raycast-ai",
+    command: "ai-chat",
+    fallbackText: text,
+  });
 }
 
 type FormValues = { question: string };

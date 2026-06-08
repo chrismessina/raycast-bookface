@@ -69,20 +69,20 @@ export function useRecentSearches(
       const trimmed = query.trim();
       if (!trimmed) return;
       try {
-        setRecentSearches((current) => {
-          const filtered = current.filter((s) => s.query !== trimmed);
-          const next = [
-            { query: trimmed, timestamp: Date.now() },
-            ...filtered,
-          ].slice(0, limit);
-          void LocalStorage.setItem(storageKey, JSON.stringify(next));
-          return next;
-        });
+        const filtered = recentSearches.filter((s) => s.query !== trimmed);
+        const next = [
+          { query: trimmed, timestamp: Date.now() },
+          ...filtered,
+        ].slice(0, limit);
+        // persist() awaits the disk write before updating state, so a rejected
+        // setItem (quota, transient error) reaches the catch instead of leaving
+        // an optimistic in-memory entry that vanishes on next launch.
+        await persist(next);
       } catch (err) {
         await showFailureToast(err, { title: "Failed to save recent" });
       }
     },
-    [storageKey, limit],
+    [recentSearches, limit, persist],
   );
 
   const removeRecentSearch = useCallback(
