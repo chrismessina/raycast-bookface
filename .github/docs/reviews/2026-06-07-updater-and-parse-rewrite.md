@@ -5,6 +5,37 @@
 **Reviewer:** /code-review (xhigh, 9 angles + verify + sweep)
 **Status:** partially-addressed
 
+---
+
+## Ship record — v1.1 update (2026-06-23)
+
+- **Store update PR:** raycast/extensions **#28961** ("Update Bookface extension"),
+  head `chrismessina:update/bookface-new-commands`. OPEN/MERGEABLE at submission;
+  CI starting. (Track post-merge cleanup by this PR head — squash-merge re-SHAs.)
+- **Standalone repo:** `github.com/chrismessina/raycast-bookface` was **missing** and
+  created this session; local `main` (== published v1.0, verified byte-identical)
+  pushed as origin/main, then fast-forwarded to the v1.1 work (`7302486`).
+- **Fork:** `chrismessina/extensions` branch `update/bookface-new-commands` @ `520e22a`.
+- **Shipped:** logout command, version-gate→Update screen, knowledge_base renderer,
+  agent tool_calls, CSV export, the temp-file truncation fix, Codex C1–C4, tsc fixes,
+  Check Again affordance. Assets/screenshots NOT regenerated (kept published versions).
+- **If review leaves CODE feedback → hand to `develop`; metadata/screenshots → stays `ship`.**
+
+**MERGED** 2026-06-23T15:29:51Z (merge commit `d00ccbf`). CI stamped the new
+CHANGELOG entry → 2026-06-23; Initial Version preserved at 2026-06-08. Local
+CHANGELOG reconciled to those real dates (`14155a1`).
+
+Reviewer comments (both landed after approval; resolved post-merge):
+- **C5 — CHANGELOG date revert (CONFIRMED, my bug):** the PR reverted the dated
+  Initial Version entry back to `{PR_MERGE_DATE}`, which would have re-stamped it as
+  launching today. Came out correct only because CI/maintainer kept the old date.
+  Fix: never revert an already-dated CHANGELOG entry to the placeholder — only the
+  NEW entry gets it. Encoded in ship/SKILL.md weeding step. No code; resolved.
+- **C6 — orphaned animated toast on CSV export/copy failure (CONFIRMED):**
+  `fetchCsv` showed its own failure toast and returned undefined, leaking the
+  caller's animated toast. Fixed on branch `fix/csv-toast-lifecycle` (`e2f53c9`):
+  fetchCsv is now pure; callers own their toast end-to-end. Ships in the NEXT update.
+
 Scope: the changes made in the 2026-06-07 session — `src/views/updater.tsx` (new),
 `src/lib/yc.ts` (`parseYcJson` rewrite + JSON-recovery helpers), `src/lib/types.ts`
 (`Me` extended), `src/account.tsx` (email/companies + Update action), `src/lib/items.tsx`
