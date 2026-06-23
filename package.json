@@ -45,7 +45,7 @@
     },
     {
       "name": "logout",
-      "title": "Log Out of YC",
+      "title": "Log out of YC",
       "description": "Log out and clear stored YC CLI credentials from ~/.yc.",
       "mode": "no-view",
       "subtitle": "Bookface"
