@@ -215,7 +215,7 @@ function renderBody(p: RenderBodyProps) {
     return (
       <UpdateRequiredEmpty gate={p.updateGate} onRetry={p.revalidateGate} />
     );
-  if (p.isAuthError) return <NotAuthedEmpty />;
+  if (p.isAuthError) return <NotAuthedEmpty onRetry={p.revalidateGate} />;
   if (p.errorMessage) return <ErrorEmpty message={p.errorMessage} />;
   // Probe still resolving: render nothing (the List spinner covers it) so the
   // recent-searches list doesn't flash before a possible update-required gate.

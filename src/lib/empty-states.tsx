@@ -73,6 +73,21 @@ function CopyUpdate() {
   );
 }
 
+// Auth recovery: Raycast has no window-focus hook, so we can't auto-detect the
+// user returning from a browser login. A clearly-labeled primary "Check Again"
+// re-runs the command's fetch — one keystroke once they've authenticated, with
+// no idle polling against the rate-limited CLI.
+function CheckAgainAction({ onRetry }: { onRetry: () => void }) {
+  return (
+    <Action
+      title="Check Again"
+      icon={Icon.ArrowClockwise}
+      shortcut={Keyboard.Shortcut.Common.Refresh}
+      onAction={onRetry}
+    />
+  );
+}
+
 function ReloadAction({ onRetry }: { onRetry: () => void }) {
   return (
     <Action
@@ -99,14 +114,15 @@ export function MissingCliEmpty() {
   );
 }
 
-export function NotAuthedEmpty() {
+export function NotAuthedEmpty({ onRetry }: { onRetry?: () => void }) {
   return (
     <List.EmptyView
       icon={Icon.ExclamationMark}
       title="Not Logged In"
-      description={`Run "${LOGIN_COMMAND}" in your terminal.`}
+      description={`Run "${LOGIN_COMMAND}" in your terminal, then check again.`}
       actions={
         <ActionPanel>
+          {onRetry ? <CheckAgainAction onRetry={onRetry} /> : null}
           <CopyLogin />
         </ActionPanel>
       }
@@ -189,15 +205,18 @@ Then run \`${LOGIN_COMMAND}\` once in your terminal to authenticate.`;
 export function NotAuthedDetail({ onRetry }: { onRetry?: () => void }) {
   const markdown = `# Not Logged In
 
-Run \`${LOGIN_COMMAND}\` in your terminal to authenticate with Bookface, then try again.`;
+Run \`${LOGIN_COMMAND}\` in your terminal to authenticate with Bookface, then **Check Again**.`;
 
   return (
     <Detail
       markdown={markdown}
       actions={
         <ActionPanel>
+          {/* Check Again is primary: the user authenticates elsewhere, returns,
+              and one keystroke re-checks — no window-focus hook exists to do it
+              automatically, and polling would hit the CLI rate limit. */}
+          {onRetry ? <CheckAgainAction onRetry={onRetry} /> : null}
           <CopyLogin />
-          {onRetry ? <ReloadAction onRetry={onRetry} /> : null}
         </ActionPanel>
       }
     />
