@@ -145,6 +145,17 @@ export type StartupLibraryAttributes = {
   root_id?: number;
 };
 
+// Knowledge-base articles share the Startup Library attribute shape exactly
+// (id/title/body/description/categories/parents/view_access/root_id). Kept as a
+// distinct alias so the union stays honest and a future shape drift is catchable
+// independently — but `description` can be null here, unlike Startup Library.
+export type KnowledgeBaseAttributes = Omit<
+  StartupLibraryAttributes,
+  "description"
+> & {
+  description: string | null;
+};
+
 export type SearchItem =
   | { type: "user"; path: string; displayed_attributes: UserAttributes }
   | {
@@ -165,6 +176,11 @@ export type SearchItem =
       type: "startup_library";
       path: string;
       displayed_attributes: StartupLibraryAttributes;
+    }
+  | {
+      type: "knowledge_base";
+      path: string;
+      displayed_attributes: KnowledgeBaseAttributes;
     };
 
 export type SearchItemType = SearchItem["type"];
@@ -182,6 +198,7 @@ export const SEARCH_TYPE_LABELS: Record<SearchItemType, string> = {
   deal: "Deals",
   employer: "Employers",
   startup_library: "Startup Library",
+  knowledge_base: "Knowledge Base",
 };
 
 export const SEARCH_TYPE_ICONS: Record<SearchItemType, Icon> = {
@@ -193,6 +210,7 @@ export const SEARCH_TYPE_ICONS: Record<SearchItemType, Icon> = {
   deal: Icon.Cart,
   employer: Icon.Building,
   startup_library: Icon.BlankDocument,
+  knowledge_base: Icon.Book,
 };
 
 export const SEARCH_TYPE_ORDER: SearchItemType[] = [
@@ -202,6 +220,7 @@ export const SEARCH_TYPE_ORDER: SearchItemType[] = [
   "deal",
   "non_yc_company",
   "startup_library",
+  "knowledge_base",
   "school",
   "employer",
 ];

@@ -5,6 +5,7 @@ import type {
   CompanyAttributes,
   DealAttributes,
   EmployerAttributes,
+  KnowledgeBaseAttributes,
   PostAttributes,
   Position,
   SchoolAttributes,
@@ -128,7 +129,16 @@ export function renderItem({
         toggleDetail,
       );
     case "startup_library":
-      return renderStartupLibrary(
+      return renderArticle(
+        "startup_library",
+        item.path,
+        item.displayed_attributes,
+        isShowingDetail,
+        toggleDetail,
+      );
+    case "knowledge_base":
+      return renderArticle(
+        "knowledge_base",
         item.path,
         item.displayed_attributes,
         isShowingDetail,
@@ -645,29 +655,35 @@ function renderEmployer(
   );
 }
 
-function startupLibraryMarkdown(a: StartupLibraryAttributes): string {
+// Startup Library and Knowledge Base are the same "article" content shape, so
+// one renderer serves both — parameterized by `type` for the label/icon/key.
+type ArticleAttributes = StartupLibraryAttributes | KnowledgeBaseAttributes;
+type ArticleType = "startup_library" | "knowledge_base";
+
+function articleMarkdown(a: ArticleAttributes): string {
   const lines = [`# ${a.title}`];
   if (a.description) lines.push("", `*${a.description}*`);
   if (a.body) lines.push("", a.body);
   return lines.join("\n");
 }
 
-function renderStartupLibrary(
+function renderArticle(
+  type: ArticleType,
   path: string,
-  a: StartupLibraryAttributes,
+  a: ArticleAttributes,
   isShowingDetail: boolean,
   toggleDetail: () => void,
 ): ReactElement {
   const accessories: List.Item.Accessory[] = [];
   const cat = a.categories?.[0] ?? a.parents?.[0]?.title;
   if (cat) accessories.push({ text: cat });
-  accessories.push({ tag: { value: SEARCH_TYPE_LABELS.startup_library } });
-  const md = startupLibraryMarkdown(a);
+  accessories.push({ tag: { value: SEARCH_TYPE_LABELS[type] } });
+  const md = articleMarkdown(a);
 
   return (
     <List.Item
-      key={`lib-${a.id}`}
-      icon={SEARCH_TYPE_ICONS.startup_library}
+      key={`${type}-${a.id}`}
+      icon={SEARCH_TYPE_ICONS[type]}
       title={a.title}
       subtitle={
         isShowingDetail
