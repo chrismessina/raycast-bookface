@@ -1,13 +1,47 @@
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { existsSync } from "node:fs";
-import { homedir } from "node:os";
+import { readFile, unlink } from "node:fs/promises";
+import { homedir, tmpdir } from "node:os";
 import { join } from "node:path";
 import { getPreferenceValues } from "@raycast/api";
 import { logger } from "@chrismessina/raycast-logger";
 
 const execFileAsync = promisify(execFile);
 const log = logger.child("[yc]");
+
+// Capture `yc … --json` via a temp FILE rather than a stdout pipe. `yc` exits
+// before its stdout pipe fully drains, so a piped capture (execFile/useExec)
+// receives only what cleared the OS pipe buffer — truncating large payloads at
+// 64KB/128KB boundaries (a 141KB result arrived cut to 65479/131003 bytes,
+// breaking JSON.parse). Redirecting to a file lets the OS complete the write
+// regardless of the child's flush timing; we then read the whole file.
+//
+// The redirect needs a shell, so we use `sh -c` with the binary, args, and temp
+// path passed as POSITIONAL parameters ($0/$1/$2/…) — never interpolated into
+// the command string — so a query containing shell metacharacters can't inject.
+async function runYcToFile(
+  binary: string,
+  args: string[],
+): Promise<{ stdout: string; stderr: string }> {
+  const tmp = join(
+    tmpdir(),
+    `yc-${process.pid}-${Date.now()}-${Math.round(Math.random() * 1e9)}.json`,
+  );
+  // $0 = binary, $1..$n = args, last positional = temp path.
+  const script = `"$0" ${args.map((_, i) => `"$${i + 1}"`).join(" ")} > "$${args.length + 1}"`;
+  try {
+    const { stderr } = await execFileAsync(
+      "/bin/sh",
+      ["-c", script, binary, ...args, tmp],
+      { timeout: 60_000, maxBuffer: 1024 * 1024 },
+    );
+    const stdout = await readFile(tmp, "utf8");
+    return { stdout, stderr };
+  } finally {
+    await unlink(tmp).catch(() => {});
+  }
+}
 
 // Version context parsed out of the CLI's version-gate message, when present.
 // Surfaced on the update-required screen so the user sees what changed.
@@ -293,16 +327,22 @@ export async function runYc<T>(args: string[]): Promise<YcResult<T>> {
 
   log.debug("runYc", { args });
   try {
-    const { stdout } = await execFileAsync(binary, args, {
-      timeout: 60_000,
-      maxBuffer: 4 * 1024 * 1024,
-    });
+    const { stdout } = await runYcToFile(binary, args);
     log.debug("runYc stdout received", { args, bytes: stdout.length });
     const data = parseYcJson<T>(stdout);
     return { ok: true, data };
   } catch (raw) {
     const err = raw as ExecError;
-    if (err.code === "ENOENT") {
+    const stderr = stripAnsi(err.stderr ?? "");
+    const stdout = stripAnsi(err.stdout ?? "");
+
+    // Binary missing: ENOENT (direct spawn), or `sh` reporting it (exit 127 /
+    // "not found") now that we run via sh -c.
+    if (
+      err.code === "ENOENT" ||
+      err.code === 127 ||
+      /not found|no such file/i.test(stderr)
+    ) {
       cachedPath = null;
       return { ok: false, kind: "missing-cli", message: "YC CLI not found." };
     }
@@ -311,8 +351,6 @@ export async function runYc<T>(args: string[]): Promise<YcResult<T>> {
     // stderr/stdout we classify the same way. Only sentinel-match output that
     // is NOT a JSON data payload, so a result body that merely mentions "401"
     // or "yc login" isn't misread.
-    const stderr = stripAnsi(err.stderr ?? "");
-    const stdout = stripAnsi(err.stdout ?? "");
     const plainText = [stderr, stdout]
       .filter((s) => s && !looksLikeJson(s))
       .join(" ");
@@ -320,6 +358,18 @@ export async function runYc<T>(args: string[]): Promise<YcResult<T>> {
       stderr || stdout || stripAnsi(err.message ?? "") || "Unknown error",
       500,
     );
+
+    // Rate limit (429): give a clear, actionable message instead of the raw
+    // server line. Fired by rapid successive calls (e.g. fast typing).
+    if (/\b429\b|rate limit/i.test(plainText)) {
+      return {
+        ok: false,
+        kind: "error",
+        message:
+          "YC CLI rate limit reached. Wait a moment and try again. (The server limits rapid requests.)",
+      };
+    }
+
     const classified =
       raw instanceof NotAuthedError || raw instanceof UpdateRequiredError
         ? raw

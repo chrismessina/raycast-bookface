@@ -36,8 +36,11 @@ export default function Command() {
   const toggleDetail = () => setIsShowingDetail((v) => !v);
   const ycPath = resolveYcPath();
 
+  // 500ms debounce: long enough that typing a multi-word query fires one search
+  // at the end rather than one per keystroke, which both cuts latency churn and
+  // keeps us under the YC server's rate limit on rapid successive calls.
   useEffect(() => {
-    const t = setTimeout(() => setDebouncedQuery(query.trim()), 350);
+    const t = setTimeout(() => setDebouncedQuery(query.trim()), 500);
     return () => clearTimeout(t);
   }, [query]);
 

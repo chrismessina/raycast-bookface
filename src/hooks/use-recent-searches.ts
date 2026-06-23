@@ -69,7 +69,17 @@ export function useRecentSearches(
       const trimmed = query.trim();
       if (!trimmed) return;
       try {
-        const filtered = recentSearches.filter((s) => s.query !== trimmed);
+        const lower = trimmed.toLowerCase();
+        const filtered = recentSearches.filter((s) => {
+          // Drop an exact duplicate (it's re-added at the front), and collapse
+          // typed-toward prefixes: a search-as-you-type session produces "S",
+          // "St", "Stri", … so when a longer query lands, remove the shorter
+          // prefixes it superseded rather than cluttering recents with each.
+          const sl = s.query.toLowerCase();
+          if (sl === lower) return false;
+          if (lower.startsWith(sl)) return false; // s is a prefix of the new query
+          return true;
+        });
         const next = [
           { query: trimmed, timestamp: Date.now() },
           ...filtered,
