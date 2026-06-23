@@ -42,6 +42,13 @@
       "description": "Show the currently logged-in Bookface account.",
       "mode": "view",
       "subtitle": "Bookface"
+    },
+    {
+      "name": "logout",
+      "title": "Log out of YC",
+      "description": "Log out and clear stored YC CLI credentials from ~/.yc.",
+      "mode": "no-view",
+      "subtitle": "Bookface"
     }
   ],
   "preferences": [
