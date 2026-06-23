@@ -120,16 +120,22 @@ function csvFileName(query: string, cliType: string): string {
 // doesn't keep this around, so there's no state to cache between them).
 function ExportCsvActions() {
   const { query, filterType } = useContext(SearchContext);
-  const cliType = filterType ? CLI_SEARCH_TYPE[filterType] : null;
+  // Bail (render nothing) unless the filter has a clean 1:1 CLI type. Capturing
+  // the narrowed value as a `string`-typed const lets the nested closures use it
+  // without re-narrowing (TS doesn't carry the early-return guard into them).
+  const cliType: string | null = filterType
+    ? CLI_SEARCH_TYPE[filterType]
+    : null;
   if (!filterType || !cliType) return null;
+  const exportType: string = cliType;
   const type = filterType;
   const label = SEARCH_TYPE_LABELS[type];
 
   async function fetchCsv(): Promise<
     { csv: string; total: number } | undefined
   > {
-    if (!query.trim() || !cliType) return undefined;
-    const result = await runYcCsv(query, cliType);
+    if (!query.trim()) return undefined;
+    const result = await runYcCsv(query, exportType);
     if (!result.ok) {
       await showFailureToast(new Error(result.message), {
         title: "Export failed",
@@ -146,7 +152,7 @@ function ExportCsvActions() {
     });
     const data = await fetchCsv();
     if (!data) return;
-    const path = join(homedir(), "Downloads", csvFileName(query, cliType));
+    const path = join(homedir(), "Downloads", csvFileName(query, exportType));
     try {
       await writeFile(path, data.csv, "utf8");
     } catch (error) {

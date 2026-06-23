@@ -65,6 +65,7 @@ big result sets (e.g. "stripe", "fundraising").
 JSON to the extension — varying cutoffs at **65479 (~64KB)** and **131003 (~128KB)**
 bytes — so `JSON.parse` failed and search showed "Failed to parse yc output".
 **Investigation (corrected a wrong initial hypothesis):**
+
 - Initial (WRONG) hypothesis: "YC randomly truncates its JSON." Chris pushed back.
 - Redirecting `yc search stripe --json > file.json` at the shell: **6/6 runs complete
   and valid (141120 bytes).** So the CLI output is complete and deterministic — YC is
@@ -73,12 +74,12 @@ bytes — so `JSON.parse` failed and search showed "Failed to parse yc output".
   64KB/128KB **pipe-buffer boundaries**. Root cause: `yc` exits before its stdout pipe
   fully drains to the parent; Node only receives what cleared the pipe buffer. NOT a
   `maxBuffer` issue (141KB ≪ the 4MB limit; that would throw, not truncate).
-**Fix (this session):** capture via a temp file instead of a pipe — run
-`sh -c '"$0" search "$1" --json > "$2"'` with the binary/query/path as **positional
-args** (`$0`/`$1`/`$2`, never interpolated → no shell injection), then read the file.
-The OS completes the write regardless of the child's flush timing. Verified: 3/3 runs
-complete, items=10.
-**Resolution:** FIXED — temp-file capture in `runYc`.
+  **Fix (this session):** capture via a temp file instead of a pipe — run
+  `sh -c '"$0" search "$1" --json > "$2"'` with the binary/query/path as **positional
+  args** (`$0`/`$1`/`$2`, never interpolated → no shell injection), then read the file.
+  The OS completes the write regardless of the child's flush timing. Verified: 3/3 runs
+  complete, items=10.
+  **Resolution:** FIXED — temp-file capture in `runYc`.
 
 ### [F7] yc server rate-limits rapid calls (HTTP 429) — partially-addressed
 
@@ -115,6 +116,7 @@ live). Fragile if the banner format changes.
 ## Codex review (2026-06-08, feat/yc-new-commands branch vs main) — all fixed
 
 ### [C1] usePromise instead of useCachedPromise for search — FIXED (privacy)
+
 **Where:** src/search.tsx (search fetch). **Issue:** `useCachedPromise` persists each
 query's `YcResult`; a repeated query renders its CACHED result instantly, so private
 Bookface results could resurface after logout/auth-change before the fresh call returns.
@@ -122,6 +124,7 @@ Bookface results could resurface after logout/auth-change before the fresh call 
 **Fix:** switched to `usePromise` — same `keepPreviousData` UX, no by-query persistence.
 
 ### [C2] Temp-file stdout lost on non-zero exit — FIXED (classification)
+
 **Where:** src/lib/yc.ts `runYcToFile`. **Issue:** stdout is redirected to the temp
 file, so on a non-zero exit `err.stdout` is empty and `finally` unlinked the file before
 the catch could read it → update-required/not-authed/429 all degraded to a generic shell
@@ -129,12 +132,14 @@ error. **Fix:** in the rejection path, read the temp file and attach it to `err.
 before rethrowing (and before the `finally` unlink).
 
 ### [C3] CSV export bled across sibling subtypes — FIXED
+
 **Where:** src/lib/types.ts CLI_SEARCH_TYPE. **Issue:** `non_yc_company`→`companies` and
 `startup_library`→`knowledge_base` shared a CLI action with their canonical sibling, so
 "Export Non-YC Companies" included YC companies, etc. **Fix:** map the lossy siblings to
 `null`; ExportCsvActions suppresses the export when the filter has no clean 1:1 CLI type.
 
 ### [C4] Prefix-collapse wrong for Ask recents — FIXED
+
 **Where:** src/hooks/use-recent-searches.ts. **Issue:** prefix-collapse (F8) was applied
 to the shared hook, but Ask recents are deliberate submissions — "safe" would be deleted
 after "safe financing". **Fix:** `collapsePrefixes` option, default off; search passes

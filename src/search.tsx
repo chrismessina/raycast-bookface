@@ -2,7 +2,12 @@ import { Action, ActionPanel, Icon, List } from "@raycast/api";
 import { usePromise } from "@raycast/utils";
 import { useEffect, useMemo, useState } from "react";
 import { SearchContext, renderItem } from "./lib/items";
-import { runYc, resolveYcPath, type VersionGate } from "./lib/yc";
+import {
+  runYc,
+  resolveYcPath,
+  type VersionGate,
+  type YcResult,
+} from "./lib/yc";
 import {
   MissingCliEmpty,
   NotAuthedEmpty,
@@ -74,18 +79,22 @@ export default function Command() {
   // usePromise, NOT useCachedPromise: caching persists each query's YcResult, so
   // a repeated query renders its CACHED result instantly — meaning private
   // Bookface results could resurface after logout/auth-change before the fresh
-  // call returns. usePromise keeps the same keepPreviousData UX without that
-  // by-query persistence.
+  // call returns. usePromise doesn't persist by query. (It also has no
+  // keepPreviousData — a brief spinner between queries is fine and avoids
+  // showing one query's results under another's text.)
+  //
+  // The fetcher is annotated `: Promise<YcResult<SearchResponse>>` so TS picks
+  // the non-paginated usePromise overload (otherwise it infers data as any[]).
   const {
     isLoading,
     data,
     revalidate: revalidateSearch,
   } = usePromise(
-    (q: string) => runYc<SearchResponse>(["search", q, "--json"]),
+    (q: string): Promise<YcResult<SearchResponse>> =>
+      runYc<SearchResponse>(["search", q, "--json"]),
     [debouncedQuery],
     {
       execute: shouldRun,
-      keepPreviousData: true,
       // Persist the query as a recent search only once a search succeeds.
       onData: (result) => {
         if (result?.ok && debouncedQuery) {
