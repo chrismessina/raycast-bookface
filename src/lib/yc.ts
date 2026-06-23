@@ -38,6 +38,17 @@ async function runYcToFile(
     );
     const stdout = await readFile(tmp, "utf8");
     return { stdout, stderr };
+  } catch (raw) {
+    // Because stdout is redirected to the file, a non-zero exit leaves the
+    // child's diagnostic in the temp file, NOT on err.stdout (which is empty).
+    // Read it back and attach it so runYc can still classify update-required /
+    // not-authed / 429 — otherwise every CLI error degrades to a generic shell
+    // failure. Then rethrow for runYc's catch to handle.
+    const err = raw as ExecError;
+    if (!err.stdout) {
+      err.stdout = await readFile(tmp, "utf8").catch(() => "");
+    }
+    throw err;
   } finally {
     await unlink(tmp).catch(() => {});
   }

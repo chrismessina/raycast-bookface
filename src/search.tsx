@@ -1,5 +1,5 @@
 import { Action, ActionPanel, Icon, List } from "@raycast/api";
-import { useCachedPromise } from "@raycast/utils";
+import { usePromise } from "@raycast/utils";
 import { useEffect, useMemo, useState } from "react";
 import { SearchContext, renderItem } from "./lib/items";
 import { runYc, resolveYcPath, type VersionGate } from "./lib/yc";
@@ -49,7 +49,8 @@ export default function Command() {
     addRecentSearch,
     removeRecentSearch,
     clearRecentSearches,
-  } = useRecentSearches(RECENT_SEARCHES_KEY);
+    // collapsePrefixes: true — search-as-you-type, so fold "S"/"Stri"/"Stripe".
+  } = useRecentSearches(RECENT_SEARCHES_KEY, 25, true);
 
   // Probe the CLI version on mount so a too-old binary bounces to the update
   // screen immediately — before recent searches or any query. Search is broken
@@ -69,11 +70,17 @@ export default function Command() {
   // than useExec: useExec's spawn/stream path truncated large payloads (a 141KB
   // "Stripe" result arrived cut to ~131KB, breaking JSON.parse), so it's unsafe
   // for results this size.
+  //
+  // usePromise, NOT useCachedPromise: caching persists each query's YcResult, so
+  // a repeated query renders its CACHED result instantly — meaning private
+  // Bookface results could resurface after logout/auth-change before the fresh
+  // call returns. usePromise keeps the same keepPreviousData UX without that
+  // by-query persistence.
   const {
     isLoading,
     data,
     revalidate: revalidateSearch,
-  } = useCachedPromise(
+  } = usePromise(
     (q: string) => runYc<SearchResponse>(["search", q, "--json"]),
     [debouncedQuery],
     {

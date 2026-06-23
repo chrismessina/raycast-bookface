@@ -112,6 +112,34 @@ banner with another version/date, it returns the wrong token.
 live). Fragile if the banner format changes.
 **Resolution:** OPEN (deferred — no live trigger; revisit if yc -v output changes).
 
+## Codex review (2026-06-08, feat/yc-new-commands branch vs main) — all fixed
+
+### [C1] usePromise instead of useCachedPromise for search — FIXED (privacy)
+**Where:** src/search.tsx (search fetch). **Issue:** `useCachedPromise` persists each
+query's `YcResult`; a repeated query renders its CACHED result instantly, so private
+Bookface results could resurface after logout/auth-change before the fresh call returns.
+`useExec` (the prior impl) didn't cache by query, so the `runYc` switch introduced this.
+**Fix:** switched to `usePromise` — same `keepPreviousData` UX, no by-query persistence.
+
+### [C2] Temp-file stdout lost on non-zero exit — FIXED (classification)
+**Where:** src/lib/yc.ts `runYcToFile`. **Issue:** stdout is redirected to the temp
+file, so on a non-zero exit `err.stdout` is empty and `finally` unlinked the file before
+the catch could read it → update-required/not-authed/429 all degraded to a generic shell
+error. **Fix:** in the rejection path, read the temp file and attach it to `err.stdout`
+before rethrowing (and before the `finally` unlink).
+
+### [C3] CSV export bled across sibling subtypes — FIXED
+**Where:** src/lib/types.ts CLI_SEARCH_TYPE. **Issue:** `non_yc_company`→`companies` and
+`startup_library`→`knowledge_base` shared a CLI action with their canonical sibling, so
+"Export Non-YC Companies" included YC companies, etc. **Fix:** map the lossy siblings to
+`null`; ExportCsvActions suppresses the export when the filter has no clean 1:1 CLI type.
+
+### [C4] Prefix-collapse wrong for Ask recents — FIXED
+**Where:** src/hooks/use-recent-searches.ts. **Issue:** prefix-collapse (F8) was applied
+to the shared hook, but Ask recents are deliberate submissions — "safe" would be deleted
+after "safe financing". **Fix:** `collapsePrefixes` option, default off; search passes
+true, Ask leaves it off. Verified: Ask keeps "safe"; search folds S/Stri/Stripe.
+
 ## Dismissed after verification (recorded so they aren't re-raised)
 
 - **stderr drop in useExec parseOutput** (updater.tsx:43) — REFUTED: `yc -v` and `yc update`

@@ -221,15 +221,22 @@ export const SEARCH_TYPE_LABELS: Record<SearchItemType, string> = {
 // displayed page), which makes it a good "export everything that matched" path.
 // `user` → founders and `post` → forum because the CLI names the source table,
 // not our display label. Verified against yc 0.0.14.
-export const CLI_SEARCH_TYPE: Record<SearchItemType, string> = {
+//
+// `null` for the LOSSY siblings: `non_yc_company` and `yc_company` both come
+// from the CLI's `companies` action, and `startup_library`/`knowledge_base`
+// both from `knowledge_base`. Exporting `non_yc_company` via `companies` would
+// silently include YC companies (and vice versa for the library/KB pair), so
+// the export is offered only for the canonical type (yc_company, knowledge_base)
+// — the sibling maps to null and its export action is suppressed.
+export const CLI_SEARCH_TYPE: Record<SearchItemType, string | null> = {
   user: "founders",
   yc_company: "companies",
-  non_yc_company: "companies",
+  non_yc_company: null,
   school: "alumni_groups",
   post: "forum",
   deal: "deals",
   employer: "staff",
-  startup_library: "knowledge_base",
+  startup_library: null,
   knowledge_base: "knowledge_base",
 };
 

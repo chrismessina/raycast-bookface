@@ -95,14 +95,14 @@ export const SearchContext = createContext<{
 }>({ query: "" });
 
 // Slugify a query for a filename: keep word chars, collapse the rest to hyphens.
-function csvFileName(query: string, type: SearchItemType): string {
+function csvFileName(query: string, cliType: string): string {
   const slug =
     query
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/^-+|-+$/g, "")
       .slice(0, 40) || "search";
-  return `yc-${slug}-${CLI_SEARCH_TYPE[type]}.csv`;
+  return `yc-${slug}-${cliType}.csv`;
 }
 
 // Export the FULL matching set for the active dropdown filter via
@@ -112,21 +112,24 @@ function csvFileName(query: string, type: SearchItemType): string {
 // Keyed off the dropdown filter, NOT the hovered item: a typed export only makes
 // sense for a single type, so these actions render only when the dropdown is on
 // a specific type (not "All") — then "Export Deals" unambiguously matches what's
-// on screen.
+// on screen. Also suppressed when the filter has no clean 1:1 CLI mapping
+// (non_yc_company, startup_library), since exporting via the shared CLI type
+// would include the sibling's rows that aren't shown.
 //
 // Returns a fragment of two sibling actions; each fetches on demand (Raycast
 // doesn't keep this around, so there's no state to cache between them).
 function ExportCsvActions() {
   const { query, filterType } = useContext(SearchContext);
-  if (!filterType) return null;
+  const cliType = filterType ? CLI_SEARCH_TYPE[filterType] : null;
+  if (!filterType || !cliType) return null;
   const type = filterType;
   const label = SEARCH_TYPE_LABELS[type];
 
   async function fetchCsv(): Promise<
     { csv: string; total: number } | undefined
   > {
-    if (!query.trim()) return undefined;
-    const result = await runYcCsv(query, CLI_SEARCH_TYPE[type]);
+    if (!query.trim() || !cliType) return undefined;
+    const result = await runYcCsv(query, cliType);
     if (!result.ok) {
       await showFailureToast(new Error(result.message), {
         title: "Export failed",
@@ -143,7 +146,7 @@ function ExportCsvActions() {
     });
     const data = await fetchCsv();
     if (!data) return;
-    const path = join(homedir(), "Downloads", csvFileName(query, type));
+    const path = join(homedir(), "Downloads", csvFileName(query, cliType));
     try {
       await writeFile(path, data.csv, "utf8");
     } catch (error) {
