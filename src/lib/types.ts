@@ -9,9 +9,22 @@ export type Me = {
   yc_companies?: Array<{ id: number; name: string; batch: string }>;
 };
 
+// A step the YC agent took while answering (e.g. searching the forum). The CLI
+// pre-formats a human-readable `display_message`; we fall back to entity/query
+// if a future shape omits it.
+export type AgentToolCall = {
+  name: string;
+  arguments?: {
+    entity?: string;
+    query?: string;
+    display_message?: string;
+  };
+};
+
 export type AgentResponse = {
   query: string;
   response: string;
+  tool_calls?: AgentToolCall[];
 };
 
 export type Position = {
