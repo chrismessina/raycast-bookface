@@ -1,7 +1,7 @@
 import { Action, ActionPanel, Icon, List } from "@raycast/api";
 import { useExec } from "@raycast/utils";
 import { useEffect, useMemo, useState } from "react";
-import { renderItem } from "./lib/items";
+import { SearchContext, renderItem } from "./lib/items";
 import {
   NotAuthedError,
   UpdateRequiredError,
@@ -141,40 +141,42 @@ export default function Command() {
   const effectiveLoading = isLoading || isDebouncing || probePending;
 
   return (
-    <List
-      isLoading={effectiveLoading}
-      isShowingDetail={isShowingDetail && items.length > 0}
-      onSearchTextChange={setQuery}
-      searchBarPlaceholder="Search Bookface for people, companies, posts…"
-      searchBarAccessory={
-        <TypeDropdown
-          value={filter}
-          onChange={setFilter}
-          items={data?.items ?? []}
-        />
-      }
-    >
-      {renderBody({
-        ycPath,
-        errorMessage,
-        isAuthError,
-        isUpdateError,
-        updateGate,
-        revalidateGate: retryGate,
-        probePending,
-        trimmed,
-        debouncedQuery,
-        filter,
-        items,
-        effectiveLoading,
-        recentSearches,
-        setQuery,
-        removeRecentSearch,
-        clearRecentSearches,
-        isShowingDetail,
-        toggleDetail,
-      })}
-    </List>
+    <SearchContext.Provider value={{ query: debouncedQuery }}>
+      <List
+        isLoading={effectiveLoading}
+        isShowingDetail={isShowingDetail && items.length > 0}
+        onSearchTextChange={setQuery}
+        searchBarPlaceholder="Search Bookface for people, companies, posts…"
+        searchBarAccessory={
+          <TypeDropdown
+            value={filter}
+            onChange={setFilter}
+            items={data?.items ?? []}
+          />
+        }
+      >
+        {renderBody({
+          ycPath,
+          errorMessage,
+          isAuthError,
+          isUpdateError,
+          updateGate,
+          revalidateGate: retryGate,
+          probePending,
+          trimmed,
+          debouncedQuery,
+          filter,
+          items,
+          effectiveLoading,
+          recentSearches,
+          setQuery,
+          removeRecentSearch,
+          clearRecentSearches,
+          isShowingDetail,
+          toggleDetail,
+        })}
+      </List>
+    </SearchContext.Provider>
   );
 }
 

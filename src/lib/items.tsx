@@ -1,5 +1,17 @@
-import { Action, ActionPanel, Color, Icon, Image, List } from "@raycast/api";
-import type { ReactElement } from "react";
+import {
+  Action,
+  ActionPanel,
+  Clipboard,
+  Color,
+  Icon,
+  Image,
+  List,
+  Toast,
+  showInFinder,
+  showToast,
+} from "@raycast/api";
+import { showFailureToast } from "@raycast/utils";
+import { createContext, useContext, type ReactElement } from "react";
 import { UpdateYcCli } from "../views/updater";
 import type {
   CompanyAttributes,
@@ -10,11 +22,19 @@ import type {
   Position,
   SchoolAttributes,
   SearchItem,
+  SearchItemType,
   StartupLibraryAttributes,
   UserAttributes,
 } from "./types";
-import { SEARCH_TYPE_ICONS, SEARCH_TYPE_LABELS } from "./types";
-import { truncate } from "./yc";
+import {
+  CLI_SEARCH_TYPE,
+  SEARCH_TYPE_ICONS,
+  SEARCH_TYPE_LABELS,
+} from "./types";
+import { runYcCsv, truncate } from "./yc";
+import { writeFile } from "node:fs/promises";
+import { homedir } from "node:os";
+import { join } from "node:path";
 import { MarkdownPreview } from "../views/preview";
 
 function avatarIcon(
@@ -63,6 +83,101 @@ function ycBatchOf(positions: Position[]): string | undefined {
     (p) => p.company_yc && p.company_batches && p.company_batches.length > 0,
   );
   return ycPos?.company_batches?.[0];
+}
+
+// Carries the active query down to per-item actions (e.g. CSV export) without
+// threading it through all eight renderer signatures. The search command wraps
+// its list body in <SearchContext.Provider value={{ query }}>.
+export const SearchContext = createContext<{ query: string }>({ query: "" });
+
+// Slugify a query for a filename: keep word chars, collapse the rest to hyphens.
+function csvFileName(query: string, type: SearchItemType): string {
+  const slug =
+    query
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 40) || "search";
+  return `yc-${slug}-${CLI_SEARCH_TYPE[type]}.csv`;
+}
+
+// Export the FULL matching set for this item's type via `yc search --type`,
+// which returns CSV (and the true total, not just the displayed page). Offers
+// both saving to ~/Downloads and copying the raw CSV. Only the CLI's CSV
+// surface provides this; the rich search we render does not expose total_count.
+//
+// Returns a fragment of two sibling actions so they share one definition; each
+// fetches on demand (Raycast doesn't keep this around, so there's no state to
+// cache between them).
+function ExportCsvActions({ type }: { type: SearchItemType }) {
+  const { query } = useContext(SearchContext);
+  const label = SEARCH_TYPE_LABELS[type];
+
+  async function fetchCsv(): Promise<
+    { csv: string; total: number } | undefined
+  > {
+    if (!query.trim()) return undefined;
+    const result = await runYcCsv(query, CLI_SEARCH_TYPE[type]);
+    if (!result.ok) {
+      await showFailureToast(new Error(result.message), {
+        title: "Export failed",
+      });
+      return undefined;
+    }
+    return result.data;
+  }
+
+  async function save() {
+    const toast = await showToast({
+      style: Toast.Style.Animated,
+      title: `Exporting ${label}…`,
+    });
+    const data = await fetchCsv();
+    if (!data) return;
+    const path = join(homedir(), "Downloads", csvFileName(query, type));
+    try {
+      await writeFile(path, data.csv, "utf8");
+    } catch (error) {
+      await showFailureToast(error, { title: "Could not write CSV file" });
+      return;
+    }
+    toast.style = Toast.Style.Success;
+    toast.title = `Exported ${data.total} ${label}`;
+    toast.message = path.replace(homedir(), "~");
+    toast.primaryAction = {
+      title: "Show in Finder",
+      onAction: () => showInFinder(path),
+    };
+  }
+
+  async function copy() {
+    const toast = await showToast({
+      style: Toast.Style.Animated,
+      title: `Copying ${label}…`,
+    });
+    const data = await fetchCsv();
+    if (!data) return;
+    await Clipboard.copy(data.csv);
+    toast.style = Toast.Style.Success;
+    toast.title = `Copied ${data.total} ${label} as CSV`;
+  }
+
+  return (
+    <>
+      <Action
+        title={`Export ${label} as CSV`}
+        icon={Icon.Download}
+        shortcut={{ modifiers: ["cmd", "shift"], key: "e" }}
+        onAction={save}
+      />
+      <Action
+        title={`Copy ${label} as CSV`}
+        icon={Icon.Clipboard}
+        shortcut={{ modifiers: ["cmd", "shift"], key: "c" }}
+        onAction={copy}
+      />
+    </>
+  );
 }
 
 type RenderProps = {
@@ -163,11 +278,13 @@ function UniversalActions({
   url,
   openTitle,
   toggleDetail,
+  type,
 }: {
   title: string;
   url: string;
   openTitle: string;
   toggleDetail: () => void;
+  type: SearchItemType;
 }) {
   return (
     <>
@@ -183,6 +300,7 @@ function UniversalActions({
         content={markdownLink(title, url)}
         shortcut={{ modifiers: ["cmd", "shift"], key: "m" }}
       />
+      <ExportCsvActions type={type} />
       <Action.Push
         title="Update YC CLI"
         icon={Icon.Download}
@@ -258,6 +376,7 @@ function renderUser(
               url={path}
               openTitle="Open Profile in Browser"
               toggleDetail={toggleDetail}
+              type="user"
             />
           </ActionPanel.Section>
           <ActionPanel.Section>
@@ -349,6 +468,7 @@ function renderCompany(
               url={path}
               openTitle="Open Company in Browser"
               toggleDetail={toggleDetail}
+              type={isYc ? "yc_company" : "non_yc_company"}
             />
           </ActionPanel.Section>
           <ActionPanel.Section>
@@ -432,6 +552,7 @@ function renderSchool(
               url={path}
               openTitle="Open School in Browser"
               toggleDetail={toggleDetail}
+              type="school"
             />
           </ActionPanel.Section>
           <ActionPanel.Section>
@@ -496,6 +617,7 @@ function renderPost(
               url={path}
               openTitle="Open Post in Browser"
               toggleDetail={toggleDetail}
+              type="post"
             />
             <Action.Push
               icon={Icon.Eye}
@@ -586,6 +708,7 @@ function renderDeal(
               url={path}
               openTitle="Open Deal in Browser"
               toggleDetail={toggleDetail}
+              type="deal"
             />
           </ActionPanel.Section>
           <ActionPanel.Section>
@@ -641,6 +764,7 @@ function renderEmployer(
               url={path}
               openTitle="Open Employer in Browser"
               toggleDetail={toggleDetail}
+              type="employer"
             />
           </ActionPanel.Section>
           <ActionPanel.Section>
@@ -702,6 +826,7 @@ function renderArticle(
               url={path}
               openTitle="Open Article in Browser"
               toggleDetail={toggleDetail}
+              type={type}
             />
             <Action.Push
               icon={Icon.Eye}

@@ -201,6 +201,25 @@ export const SEARCH_TYPE_LABELS: Record<SearchItemType, string> = {
   knowledge_base: "Knowledge Base",
 };
 
+// Maps our result-item types to the CLI's `yc search --type <X>` vocabulary,
+// used only for CSV export. The `--type` endpoint returns a different,
+// CSV-oriented envelope (not our rich `items[]`), so it's unsuitable for
+// rendering — but it exposes the full matching set (total_count, not just the
+// displayed page), which makes it a good "export everything that matched" path.
+// `user` → founders and `post` → forum because the CLI names the source table,
+// not our display label. Verified against yc 0.0.14.
+export const CLI_SEARCH_TYPE: Record<SearchItemType, string> = {
+  user: "founders",
+  yc_company: "companies",
+  non_yc_company: "companies",
+  school: "alumni_groups",
+  post: "forum",
+  deal: "deals",
+  employer: "staff",
+  startup_library: "knowledge_base",
+  knowledge_base: "knowledge_base",
+};
+
 export const SEARCH_TYPE_ICONS: Record<SearchItemType, Icon> = {
   user: Icon.Person,
   yc_company: Icon.Building,

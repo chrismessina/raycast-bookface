@@ -312,6 +312,48 @@ export async function runYc<T>(args: string[]): Promise<YcResult<T>> {
   }
 }
 
+export type CsvSearch = { csv: string; count: number; total: number };
+
+// The `yc search <q> --type <X> --json` envelope, distinct from the rich
+// `items[]` shape: { name, result: { csv_results, count, total_count, … } }.
+type CsvEnvelope = {
+  result?: {
+    csv_results?: string;
+    count?: number;
+    total_count?: number;
+  };
+};
+
+// Run a typed search and return its CSV payload (for export). Shares runYc's
+// argument plumbing and error classification — a too-old or unauthed CLI still
+// routes to update-required / not-authed rather than a raw failure.
+export async function runYcCsv(
+  query: string,
+  cliType: string,
+): Promise<YcResult<CsvSearch>> {
+  const result = await runYc<CsvEnvelope>([
+    "search",
+    query,
+    "--type",
+    cliType,
+    "--json",
+  ]);
+  if (!result.ok) return result;
+
+  const csv = result.data.result?.csv_results;
+  if (!csv || !csv.trim()) {
+    return { ok: false, kind: "error", message: "No CSV data returned." };
+  }
+  return {
+    ok: true,
+    data: {
+      csv,
+      count: result.data.result?.count ?? 0,
+      total: result.data.result?.total_count ?? 0,
+    },
+  };
+}
+
 export const INSTALL_COMMAND =
   "curl -fsSL https://bookface.ycombinator.com/cli/install.sh | bash";
 export const LOGIN_COMMAND = "yc login";
