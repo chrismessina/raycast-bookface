@@ -1,5 +1,50 @@
-import { Action, ActionPanel, Detail, Icon, List } from "@raycast/api";
-import { INSTALL_COMMAND, LOGIN_COMMAND } from "./yc";
+import {
+  Action,
+  ActionPanel,
+  Detail,
+  Icon,
+  Keyboard,
+  List,
+} from "@raycast/api";
+import {
+  INSTALL_COMMAND,
+  LOGIN_COMMAND,
+  UPDATE_COMMAND,
+  stripAnsi,
+  type VersionGate,
+} from "./yc";
+import { UpdateYcCli } from "../views/updater";
+
+// Shared title + lead so the List (EmptyView) and Detail variants of the
+// "update required" state read as the same screen across all three commands.
+// "YC CLI" is the product in prose; `yc` stays lowercase as the literal binary.
+const UPDATE_REQUIRED_TITLE = "Update Required";
+const UPDATE_REQUIRED_LEAD =
+  "This version of the YC CLI is no longer supported. Update it to keep using the extension.";
+
+function gateSummary(gate?: VersionGate): string {
+  if (!gate) return "";
+  const parts: string[] = [];
+  if (gate.current) parts.push(`current ${gate.current}`);
+  if (gate.minimum) parts.push(`requires ${gate.minimum}+`);
+  return parts.join(", ");
+}
+
+function UpdateCliPush({
+  gate,
+  onRetry,
+}: {
+  gate?: VersionGate;
+  onRetry?: () => void;
+}) {
+  return (
+    <Action.Push
+      title="Update YC CLI"
+      icon={Icon.Download}
+      target={<UpdateYcCli gate={gate} onRetry={onRetry} />}
+    />
+  );
+}
 
 function CopyInstall() {
   return (
@@ -19,9 +64,23 @@ function CopyLogin() {
   );
 }
 
+function CopyUpdate() {
+  return (
+    <Action.CopyToClipboard
+      title="Copy Update Command"
+      content={UPDATE_COMMAND}
+    />
+  );
+}
+
 function ReloadAction({ onRetry }: { onRetry: () => void }) {
   return (
-    <Action title="Reload" icon={Icon.ArrowClockwise} onAction={onRetry} />
+    <Action
+      title="Reload"
+      icon={Icon.ArrowClockwise}
+      shortcut={Keyboard.Shortcut.Common.Refresh}
+      onAction={onRetry}
+    />
   );
 }
 
@@ -29,8 +88,8 @@ export function MissingCliEmpty() {
   return (
     <List.EmptyView
       icon={Icon.ExclamationMark}
-      title="yc CLI Not Found"
-      description="Install the yc CLI to use this extension."
+      title="YC CLI Not Found"
+      description="Install the YC CLI to use this extension."
       actions={
         <ActionPanel>
           <CopyInstall />
@@ -55,15 +114,46 @@ export function NotAuthedEmpty() {
   );
 }
 
+export function UpdateRequiredEmpty({
+  gate,
+  onRetry,
+}: {
+  gate?: VersionGate;
+  onRetry?: () => void;
+}) {
+  // EmptyView gives one description line, so fold the version context inline.
+  const summary = gateSummary(gate);
+  return (
+    <List.EmptyView
+      icon={Icon.Download}
+      title={UPDATE_REQUIRED_TITLE}
+      description={
+        summary
+          ? `This version of the YC CLI is no longer supported (${summary}).`
+          : UPDATE_REQUIRED_LEAD
+      }
+      actions={
+        <ActionPanel>
+          <UpdateCliPush gate={gate} onRetry={onRetry} />
+          <CopyUpdate />
+        </ActionPanel>
+      }
+    />
+  );
+}
+
 export function ErrorEmpty({ message }: { message: string }) {
+  // Strip at the sink so no caller can leak raw CLI ANSI control bytes
+  // (the `Ø[K` artifact) into the surface.
+  const clean = stripAnsi(message);
   return (
     <List.EmptyView
       icon={Icon.ExclamationMark}
       title="Search Failed"
-      description={message}
+      description={clean}
       actions={
         <ActionPanel>
-          <Action.CopyToClipboard title="Copy Error" content={message} />
+          <Action.CopyToClipboard title="Copy Error" content={clean} />
         </ActionPanel>
       }
     />
@@ -71,9 +161,9 @@ export function ErrorEmpty({ message }: { message: string }) {
 }
 
 export function MissingCliDetail({ onRetry }: { onRetry?: () => void }) {
-  const markdown = `# yc CLI Not Found
+  const markdown = `# YC CLI Not Found
 
-The Y Combinator extension shells out to the \`yc\` CLI, which doesn't appear to be installed.
+The Bookface extension shells out to the \`yc\` CLI, which doesn't appear to be installed.
 
 ## Install it
 
@@ -121,13 +211,16 @@ export function ErrorDetail({
   message: string;
   onRetry?: () => void;
 }) {
-  const markdown = `# Something went wrong\n\n\`\`\`\n${message}\n\`\`\``;
+  // Strip at the sink so no caller can leak raw CLI ANSI control bytes
+  // (the `Ø[K` artifact) into the surface.
+  const clean = stripAnsi(message);
+  const markdown = `# Something went wrong\n\n\`\`\`\n${clean}\n\`\`\``;
   return (
     <Detail
       markdown={markdown}
       actions={
         <ActionPanel>
-          <Action.CopyToClipboard title="Copy Error" content={message} />
+          <Action.CopyToClipboard title="Copy Error" content={clean} />
           {onRetry ? <ReloadAction onRetry={onRetry} /> : null}
         </ActionPanel>
       }

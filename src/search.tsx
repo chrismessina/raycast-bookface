@@ -4,13 +4,18 @@ import { useEffect, useMemo, useState } from "react";
 import { renderItem } from "./lib/items";
 import {
   NotAuthedError,
+  UpdateRequiredError,
   isUnauthedMessage,
+  isUpdateRequiredMessage,
+  parseVersionGate,
   parseYcJson,
   resolveYcPath,
+  type VersionGate,
 } from "./lib/yc";
 import {
   MissingCliEmpty,
   NotAuthedEmpty,
+  UpdateRequiredEmpty,
   ErrorEmpty,
 } from "./lib/empty-states";
 import {
@@ -22,6 +27,8 @@ import {
   type SearchResponse,
 } from "./lib/types";
 import { useRecentSearches } from "./hooks/use-recent-searches";
+import { useYcVersionGate } from "./hooks/use-yc-version-gate";
+import { UpdateYcCli } from "./views/updater";
 
 const ALL_FILTER = "all" as const;
 type FilterValue = SearchItemType | typeof ALL_FILTER;
@@ -47,15 +54,38 @@ export default function Command() {
     clearRecentSearches,
   } = useRecentSearches(RECENT_SEARCHES_KEY);
 
-  const trimmed = query.trim();
-  const shouldRun = debouncedQuery.length > 0 && ycPath !== null;
+  // Probe the CLI version on mount so a too-old binary bounces to the update
+  // screen immediately — before recent searches or any query. Search is broken
+  // until the user updates, so don't let the working-looking empty state show.
+  const versionGate = useYcVersionGate();
 
-  const { isLoading, data, error } = useExec<SearchResponse>(
+  const trimmed = query.trim();
+  // Hold the search exec until the version probe clears — no point spending a
+  // search call on a binary we're about to send to the update screen.
+  const shouldRun =
+    debouncedQuery.length > 0 &&
+    ycPath !== null &&
+    versionGate.checked &&
+    !versionGate.updateRequired;
+
+  const {
+    isLoading,
+    data,
+    error,
+    revalidate: revalidateSearch,
+  } = useExec<SearchResponse>(
     ycPath ?? "yc",
     ["search", debouncedQuery, "--json"],
     {
       execute: shouldRun,
-      parseOutput: ({ stdout }) => {
+      parseOutput: ({ stdout, stderr }) => {
+        // The gate (and other refusals) can land on stderr with empty stdout —
+        // which would otherwise fall through to an innocent-looking empty list
+        // ("No results"). Inspect stderr for the gate before that fallback.
+        const err = typeof stderr === "string" ? stderr : "";
+        if (err.trim() && isUpdateRequiredMessage(err)) {
+          throw new UpdateRequiredError(err);
+        }
         if (!stdout || !stdout.trim()) return { items: [] };
         return parseYcJson<SearchResponse>(stdout);
       },
@@ -77,14 +107,38 @@ export default function Command() {
     return ordered.filter((i) => i.type === filter);
   }, [data, filter]);
 
+  // The version gate is more specific than auth (its message names a command),
+  // so detect it first and pull out the version context for the update screen.
+  // Two independent signals can raise it: the mount probe (fires before any
+  // query) and the search exec itself (defense-in-depth if the probe is stale).
+  const execGate: VersionGate | undefined =
+    error instanceof UpdateRequiredError
+      ? error.gate
+      : error instanceof Error && isUpdateRequiredMessage(error.message)
+        ? parseVersionGate(error.message)
+        : undefined;
+  const isUpdateError = versionGate.updateRequired || execGate !== undefined;
+  // Prefer the probe's gate, then the exec's.
+  const updateGate = versionGate.gate ?? execGate;
+  // After updating, clear BOTH gate signals: the mount probe AND the search
+  // exec. If only the probe is revalidated, an exec-side gate (execGate) keeps
+  // Search stuck on Update Required until the query changes.
+  const retryGate = () => {
+    versionGate.revalidate();
+    revalidateSearch();
+  };
   const isAuthError =
-    error instanceof NotAuthedError ||
-    (error instanceof Error && isUnauthedMessage(error.message));
+    !isUpdateError &&
+    (error instanceof NotAuthedError ||
+      (error instanceof Error && isUnauthedMessage(error.message)));
   const errorMessage =
     error instanceof Error ? error.message : error ? String(error) : null;
 
   const isDebouncing = trimmed !== debouncedQuery;
-  const effectiveLoading = isLoading || isDebouncing;
+  // Show the spinner while the mount probe is still resolving so we don't flash
+  // the recent-searches list and then replace it with the update screen.
+  const probePending = !versionGate.checked && versionGate.isLoading;
+  const effectiveLoading = isLoading || isDebouncing || probePending;
 
   return (
     <List
@@ -104,6 +158,10 @@ export default function Command() {
         ycPath,
         errorMessage,
         isAuthError,
+        isUpdateError,
+        updateGate,
+        revalidateGate: retryGate,
+        probePending,
         trimmed,
         debouncedQuery,
         filter,
@@ -124,6 +182,10 @@ type RenderBodyProps = {
   ycPath: string | null;
   errorMessage: string | null;
   isAuthError: boolean;
+  isUpdateError: boolean;
+  updateGate: VersionGate | undefined;
+  revalidateGate: () => void;
+  probePending: boolean;
   trimmed: string;
   debouncedQuery: string;
   filter: FilterValue;
@@ -139,8 +201,15 @@ type RenderBodyProps = {
 
 function renderBody(p: RenderBodyProps) {
   if (!p.ycPath) return <MissingCliEmpty />;
+  if (p.isUpdateError)
+    return (
+      <UpdateRequiredEmpty gate={p.updateGate} onRetry={p.revalidateGate} />
+    );
   if (p.isAuthError) return <NotAuthedEmpty />;
   if (p.errorMessage) return <ErrorEmpty message={p.errorMessage} />;
+  // Probe still resolving: render nothing (the List spinner covers it) so the
+  // recent-searches list doesn't flash before a possible update-required gate.
+  if (p.probePending && p.trimmed.length === 0) return null;
 
   if (p.trimmed.length === 0) {
     if (p.recentSearches.length === 0) {
@@ -149,6 +218,16 @@ function renderBody(p: RenderBodyProps) {
           icon={Icon.MagnifyingGlass}
           title="Search Bookface"
           description="Type to search across people, companies, posts, deals, and more."
+          actions={
+            <ActionPanel>
+              <Action.Push
+                title="Update YC CLI"
+                icon={Icon.Download}
+                target={<UpdateYcCli />}
+                shortcut={{ modifiers: ["cmd", "shift"], key: "u" }}
+              />
+            </ActionPanel>
+          }
         />
       );
     }
@@ -180,6 +259,12 @@ function renderBody(p: RenderBodyProps) {
                   style={Action.Style.Destructive}
                   shortcut={{ modifiers: ["ctrl", "shift"], key: "x" }}
                   onAction={p.clearRecentSearches}
+                />
+                <Action.Push
+                  title="Update YC CLI"
+                  icon={Icon.Download}
+                  target={<UpdateYcCli />}
+                  shortcut={{ modifiers: ["cmd", "shift"], key: "u" }}
                 />
               </ActionPanel>
             }

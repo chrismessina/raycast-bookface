@@ -21,6 +21,7 @@ import {
   MissingCliDetail,
   NotAuthedDetail,
 } from "./lib/empty-states";
+import { UpdateYcCli } from "./views/updater";
 import { useRecentSearches } from "./hooks/use-recent-searches";
 import type { AgentResponse } from "./lib/types";
 
@@ -148,6 +149,8 @@ function AnswerView({ question }: { question: string }) {
       return <MissingCliDetail onRetry={revalidate} />;
     if (data.kind === "not-authed")
       return <NotAuthedDetail onRetry={revalidate} />;
+    if (data.kind === "update-required")
+      return <UpdateYcCli gate={data.gate} onRetry={revalidate} />;
     return <ErrorDetail message={data.message} onRetry={revalidate} />;
   }
 
