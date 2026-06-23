@@ -59,9 +59,19 @@
       "title": "yc CLI Path",
       "description": "Optional absolute path to the yc binary. If empty, the extension searches $PATH for yc or ycp, then falls back to ~/.local/bin, /opt/homebrew/bin, and /usr/local/bin.",
       "placeholder": "/Users/you/.local/bin/yc"
+    },
+    {
+      "name": "verboseLogging",
+      "type": "checkbox",
+      "required": false,
+      "default": false,
+      "title": "Verbose Logging",
+      "label": "Log YC CLI calls and parsing to the console",
+      "description": "When enabled, logs each yc invocation, the output size, and parse results to the Raycast console (View → Developer → ...). Sensitive values are redacted. Useful for diagnosing search issues."
     }
   ],
   "dependencies": {
+    "@chrismessina/raycast-logger": "^1.2.4",
     "@raycast/api": "^1.104.20",
     "@raycast/utils": "^2.2.6"
   },

@@ -4,8 +4,10 @@ import { existsSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
 import { getPreferenceValues } from "@raycast/api";
+import { logger } from "@chrismessina/raycast-logger";
 
 const execFileAsync = promisify(execFile);
+const log = logger.child("[yc]");
 
 // Version context parsed out of the CLI's version-gate message, when present.
 // Surfaced on the update-required screen so the user sees what changed.
@@ -234,16 +236,29 @@ export function parseYcJson<T>(stdout: string): T {
   // happens to contain "yc login" must NOT be misread as an auth error.
   try {
     return JSON.parse(stdout) as T;
-  } catch {
+  } catch (e) {
     // Not pure JSON. It may be JSON with leading chatter (auto-refresh notice),
     // or a plain-text error. Try to recover an embedded JSON payload.
+    log.debug("Direct JSON.parse failed; attempting recovery", {
+      length: stdout.length,
+      head: stdout.slice(0, 60),
+      tail: stdout.slice(-60),
+      error: e instanceof Error ? e.message : String(e),
+    });
     const recovered = tryParseEmbeddedJson<T>(stdout);
-    if (recovered) return recovered.value;
+    if (recovered) {
+      log.debug("Recovered embedded JSON payload");
+      return recovered.value;
+    }
   }
 
   // No JSON recoverable: it's a plain-text message. Sentinel-matching is safe
   // now because we know this is not a data payload.
   const clean = truncate(stripAnsi(stdout).trim(), 500);
+  log.warn("yc output not parseable as JSON", {
+    length: stdout.length,
+    preview: clean.slice(0, 120),
+  });
   throw (
     classifyPlainText(clean, clean) ??
     new Error(`Failed to parse yc output: ${clean}`)
@@ -266,12 +281,15 @@ export async function runYc<T>(args: string[]): Promise<YcResult<T>> {
     };
   }
 
+  log.debug("runYc", { args });
   try {
     const { stdout } = await execFileAsync(binary, args, {
       timeout: 60_000,
       maxBuffer: 4 * 1024 * 1024,
     });
-    return { ok: true, data: parseYcJson<T>(stdout) };
+    log.debug("runYc stdout received", { args, bytes: stdout.length });
+    const data = parseYcJson<T>(stdout);
+    return { ok: true, data };
   } catch (raw) {
     const err = raw as ExecError;
     if (err.code === "ENOENT") {

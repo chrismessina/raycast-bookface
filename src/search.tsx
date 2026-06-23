@@ -29,6 +29,9 @@ import {
 import { useRecentSearches } from "./hooks/use-recent-searches";
 import { useYcVersionGate } from "./hooks/use-yc-version-gate";
 import { UpdateYcCli } from "./views/updater";
+import { logger } from "@chrismessina/raycast-logger";
+
+const log = logger.child("[search]");
 
 const ALL_FILTER = "all" as const;
 type FilterValue = SearchItemType | typeof ALL_FILTER;
@@ -83,11 +86,20 @@ export default function Command() {
         // which would otherwise fall through to an innocent-looking empty list
         // ("No results"). Inspect stderr for the gate before that fallback.
         const err = typeof stderr === "string" ? stderr : "";
+        const out = typeof stdout === "string" ? stdout : "";
+        log.debug("search parseOutput", {
+          query: debouncedQuery,
+          stdoutBytes: out.length,
+          stderrBytes: err.length,
+          stdoutTail: out.slice(-60),
+        });
         if (err.trim() && isUpdateRequiredMessage(err)) {
           throw new UpdateRequiredError(err);
         }
-        if (!stdout || !stdout.trim()) return { items: [] };
-        return parseYcJson<SearchResponse>(stdout);
+        if (!out || !out.trim()) return { items: [] };
+        const parsed = parseYcJson<SearchResponse>(out);
+        log.debug("search parsed", { items: parsed.items?.length ?? 0 });
+        return parsed;
       },
       keepPreviousData: true,
       onData: () => {
