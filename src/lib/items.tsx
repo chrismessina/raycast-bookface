@@ -767,7 +767,6 @@ function renderEmployer(
               url={path}
               openTitle="Open Employer in Browser"
               toggleDetail={toggleDetail}
-              type="employer"
             />
           </ActionPanel.Section>
           <ActionPanel.Section>

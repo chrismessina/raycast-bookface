@@ -153,15 +153,25 @@ export function truncate(s: string, max: number): string {
 // balanced slice that actually JSON-parses — so a bracketed chatter token like
 // "[notice]" before the real payload is skipped rather than latched onto.
 function tryParseEmbeddedJson<T>(s: string): { value: T } | null {
+  const end = s.trimEnd().length;
   const bracket = /[[{]/g;
   let m: RegExpExecArray | null;
   while ((m = bracket.exec(s)) !== null) {
     const slice = balancedSlice(s, m.index);
     if (slice) {
-      try {
-        return { value: JSON.parse(slice) as T };
-      } catch {
-        // not this bracket — keep scanning from the next one
+      // Only accept a recovered slice that reaches the END of the input. This
+      // recovery exists for leading chatter before an otherwise-complete JSON
+      // document (e.g. a "Token expired, refreshing…" notice line) — the real
+      // payload runs to EOF. A balanced slice that closes well before the end
+      // is an inner fragment of a TRUNCATED/corrupt document; "recovering" it
+      // would silently yield garbage (e.g. items:0), which is worse than
+      // failing. So reject anything that doesn't consume the tail.
+      if (m.index + slice.length >= end) {
+        try {
+          return { value: JSON.parse(slice) as T };
+        } catch {
+          // not valid JSON — keep scanning from the next bracket
+        }
       }
     }
   }

@@ -1,17 +1,8 @@
 import { Action, ActionPanel, Icon, List } from "@raycast/api";
-import { useExec } from "@raycast/utils";
+import { useCachedPromise } from "@raycast/utils";
 import { useEffect, useMemo, useState } from "react";
 import { SearchContext, renderItem } from "./lib/items";
-import {
-  NotAuthedError,
-  UpdateRequiredError,
-  isUnauthedMessage,
-  isUpdateRequiredMessage,
-  parseVersionGate,
-  parseYcJson,
-  resolveYcPath,
-  type VersionGate,
-} from "./lib/yc";
+import { runYc, resolveYcPath, type VersionGate } from "./lib/yc";
 import {
   MissingCliEmpty,
   NotAuthedEmpty,
@@ -71,45 +62,33 @@ export default function Command() {
     versionGate.checked &&
     !versionGate.updateRequired;
 
+  // Run search through runYc (execFile with a 4MB buffer + 60s timeout) rather
+  // than useExec: useExec's spawn/stream path truncated large payloads (a 141KB
+  // "Stripe" result arrived cut to ~131KB, breaking JSON.parse), so it's unsafe
+  // for results this size.
   const {
     isLoading,
     data,
-    error,
     revalidate: revalidateSearch,
-  } = useExec<SearchResponse>(
-    ycPath ?? "yc",
-    ["search", debouncedQuery, "--json"],
+  } = useCachedPromise(
+    (q: string) => runYc<SearchResponse>(["search", q, "--json"]),
+    [debouncedQuery],
     {
       execute: shouldRun,
-      parseOutput: ({ stdout, stderr }) => {
-        // The gate (and other refusals) can land on stderr with empty stdout —
-        // which would otherwise fall through to an innocent-looking empty list
-        // ("No results"). Inspect stderr for the gate before that fallback.
-        const err = typeof stderr === "string" ? stderr : "";
-        const out = typeof stdout === "string" ? stdout : "";
-        log.debug("search parseOutput", {
-          query: debouncedQuery,
-          stdoutBytes: out.length,
-          stderrBytes: err.length,
-          stdoutTail: out.slice(-60),
-        });
-        if (err.trim() && isUpdateRequiredMessage(err)) {
-          throw new UpdateRequiredError(err);
-        }
-        if (!out || !out.trim()) return { items: [] };
-        const parsed = parseYcJson<SearchResponse>(out);
-        log.debug("search parsed", { items: parsed.items?.length ?? 0 });
-        return parsed;
-      },
       keepPreviousData: true,
-      onData: () => {
-        if (debouncedQuery) void addRecentSearch(debouncedQuery);
+      // Persist the query as a recent search only once a search succeeds.
+      onData: (result) => {
+        if (result?.ok && debouncedQuery) {
+          log.debug("search parsed", { items: result.data.items?.length ?? 0 });
+          void addRecentSearch(debouncedQuery);
+        }
       },
     },
   );
 
+  const resultItems = data?.ok ? data.data.items : undefined;
   const items = useMemo(() => {
-    const all = data?.items ?? [];
+    const all = resultItems ?? [];
     const ordered = [...all].sort((a, b) => {
       const ai = SEARCH_TYPE_ORDER.indexOf(a.type);
       const bi = SEARCH_TYPE_ORDER.indexOf(b.type);
@@ -117,34 +96,27 @@ export default function Command() {
     });
     if (filter === ALL_FILTER) return ordered;
     return ordered.filter((i) => i.type === filter);
-  }, [data, filter]);
+  }, [resultItems, filter]);
 
-  // The version gate is more specific than auth (its message names a command),
-  // so detect it first and pull out the version context for the update screen.
-  // Two independent signals can raise it: the mount probe (fires before any
-  // query) and the search exec itself (defense-in-depth if the probe is stale).
+  // runYc already classified the failure into a discriminated kind, so branch on
+  // that rather than sniffing an error. The mount probe is a second source of
+  // the update-required signal (it fires before any query).
+  const searchFailed = data && !data.ok ? data : undefined;
   const execGate: VersionGate | undefined =
-    error instanceof UpdateRequiredError
-      ? error.gate
-      : error instanceof Error && isUpdateRequiredMessage(error.message)
-        ? parseVersionGate(error.message)
-        : undefined;
+    searchFailed?.kind === "update-required" ? searchFailed.gate : undefined;
   const isUpdateError = versionGate.updateRequired || execGate !== undefined;
-  // Prefer the probe's gate, then the exec's.
+  // Prefer the probe's gate, then the search's.
   const updateGate = versionGate.gate ?? execGate;
-  // After updating, clear BOTH gate signals: the mount probe AND the search
-  // exec. If only the probe is revalidated, an exec-side gate (execGate) keeps
-  // Search stuck on Update Required until the query changes.
+  // After updating, clear BOTH gate signals: the mount probe AND the search.
   const retryGate = () => {
     versionGate.revalidate();
     revalidateSearch();
   };
-  const isAuthError =
-    !isUpdateError &&
-    (error instanceof NotAuthedError ||
-      (error instanceof Error && isUnauthedMessage(error.message)));
+  const isAuthError = !isUpdateError && searchFailed?.kind === "not-authed";
   const errorMessage =
-    error instanceof Error ? error.message : error ? String(error) : null;
+    !isUpdateError && searchFailed?.kind === "error"
+      ? searchFailed.message
+      : null;
 
   const isDebouncing = trimmed !== debouncedQuery;
   // Show the spinner while the mount probe is still resolving so we don't flash
@@ -168,7 +140,7 @@ export default function Command() {
           <TypeDropdown
             value={filter}
             onChange={setFilter}
-            items={data?.items ?? []}
+            items={resultItems ?? []}
           />
         }
       >

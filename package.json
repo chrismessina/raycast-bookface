@@ -66,8 +66,8 @@
       "required": false,
       "default": false,
       "title": "Verbose Logging",
-      "label": "Log YC CLI calls and parsing to the console",
-      "description": "When enabled, logs each yc invocation, the output size, and parse results to the Raycast console (View → Developer → ...). Sensitive values are redacted. Useful for diagnosing search issues."
+      "label": "Enable verbose logging",
+      "description": "Sensitive values are redacted. Useful for diagnosing search issues."
     }
   ],
   "dependencies": {
