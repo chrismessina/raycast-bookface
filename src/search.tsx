@@ -141,7 +141,12 @@ export default function Command() {
   const effectiveLoading = isLoading || isDebouncing || probePending;
 
   return (
-    <SearchContext.Provider value={{ query: debouncedQuery }}>
+    <SearchContext.Provider
+      value={{
+        query: debouncedQuery,
+        filterType: filter === ALL_FILTER ? undefined : filter,
+      }}
+    >
       <List
         isLoading={effectiveLoading}
         isShowingDetail={isShowingDetail && items.length > 0}

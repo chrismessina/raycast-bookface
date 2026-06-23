@@ -85,10 +85,14 @@ function ycBatchOf(positions: Position[]): string | undefined {
   return ycPos?.company_batches?.[0];
 }
 
-// Carries the active query down to per-item actions (e.g. CSV export) without
-// threading it through all eight renderer signatures. The search command wraps
-// its list body in <SearchContext.Provider value={{ query }}>.
-export const SearchContext = createContext<{ query: string }>({ query: "" });
+// Carries the active query and dropdown filter down to per-item actions (e.g.
+// CSV export) without threading them through all eight renderer signatures. The
+// search command wraps its list body in the provider. `filterType` is the
+// selected type, or undefined when the dropdown is on "All".
+export const SearchContext = createContext<{
+  query: string;
+  filterType?: SearchItemType;
+}>({ query: "" });
 
 // Slugify a query for a filename: keep word chars, collapse the rest to hyphens.
 function csvFileName(query: string, type: SearchItemType): string {
@@ -101,16 +105,21 @@ function csvFileName(query: string, type: SearchItemType): string {
   return `yc-${slug}-${CLI_SEARCH_TYPE[type]}.csv`;
 }
 
-// Export the FULL matching set for this item's type via `yc search --type`,
-// which returns CSV (and the true total, not just the displayed page). Offers
-// both saving to ~/Downloads and copying the raw CSV. Only the CLI's CSV
-// surface provides this; the rich search we render does not expose total_count.
+// Export the FULL matching set for the active dropdown filter via
+// `yc search --type`, which returns CSV (and the true total, not just the
+// displayed page). Offers saving to ~/Downloads and copying the raw CSV.
 //
-// Returns a fragment of two sibling actions so they share one definition; each
-// fetches on demand (Raycast doesn't keep this around, so there's no state to
-// cache between them).
-function ExportCsvActions({ type }: { type: SearchItemType }) {
-  const { query } = useContext(SearchContext);
+// Keyed off the dropdown filter, NOT the hovered item: a typed export only makes
+// sense for a single type, so these actions render only when the dropdown is on
+// a specific type (not "All") — then "Export Deals" unambiguously matches what's
+// on screen.
+//
+// Returns a fragment of two sibling actions; each fetches on demand (Raycast
+// doesn't keep this around, so there's no state to cache between them).
+function ExportCsvActions() {
+  const { query, filterType } = useContext(SearchContext);
+  if (!filterType) return null;
+  const type = filterType;
   const label = SEARCH_TYPE_LABELS[type];
 
   async function fetchCsv(): Promise<
@@ -278,13 +287,11 @@ function UniversalActions({
   url,
   openTitle,
   toggleDetail,
-  type,
 }: {
   title: string;
   url: string;
   openTitle: string;
   toggleDetail: () => void;
-  type: SearchItemType;
 }) {
   return (
     <>
@@ -300,7 +307,8 @@ function UniversalActions({
         content={markdownLink(title, url)}
         shortcut={{ modifiers: ["cmd", "shift"], key: "m" }}
       />
-      <ExportCsvActions type={type} />
+      {/* Renders only when the dropdown is filtered to a specific type. */}
+      <ExportCsvActions />
       <Action.Push
         title="Update YC CLI"
         icon={Icon.Download}
@@ -376,7 +384,6 @@ function renderUser(
               url={path}
               openTitle="Open Profile in Browser"
               toggleDetail={toggleDetail}
-              type="user"
             />
           </ActionPanel.Section>
           <ActionPanel.Section>
@@ -468,7 +475,6 @@ function renderCompany(
               url={path}
               openTitle="Open Company in Browser"
               toggleDetail={toggleDetail}
-              type={isYc ? "yc_company" : "non_yc_company"}
             />
           </ActionPanel.Section>
           <ActionPanel.Section>
@@ -552,7 +558,6 @@ function renderSchool(
               url={path}
               openTitle="Open School in Browser"
               toggleDetail={toggleDetail}
-              type="school"
             />
           </ActionPanel.Section>
           <ActionPanel.Section>
@@ -617,7 +622,6 @@ function renderPost(
               url={path}
               openTitle="Open Post in Browser"
               toggleDetail={toggleDetail}
-              type="post"
             />
             <Action.Push
               icon={Icon.Eye}
@@ -708,7 +712,6 @@ function renderDeal(
               url={path}
               openTitle="Open Deal in Browser"
               toggleDetail={toggleDetail}
-              type="deal"
             />
           </ActionPanel.Section>
           <ActionPanel.Section>
@@ -826,7 +829,6 @@ function renderArticle(
               url={path}
               openTitle="Open Article in Browser"
               toggleDetail={toggleDetail}
-              type={type}
             />
             <Action.Push
               icon={Icon.Eye}
