@@ -41,14 +41,14 @@ This opens your browser for OAuth (with a `--device` flag for headless/remote sh
 
 ### 3. Open Raycast
 
-Run **Search YC**, **Ask YC Agent**, or **My YC Account**. If the extension can't find the binary or you're not logged in, every command surfaces a clear empty state with the right command to copy and paste.
+Run **Search YC**, **Ask YC Agent**, or **YC Account**. If the extension can't find the binary or you're not logged in, every command surfaces a clear empty state with the right command to copy and paste.
 
 ## Preferences
 
 | Preference          | Description                                                                                                                                                                          |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | **yc CLI Path**     | Optional absolute path to the `yc` binary. If empty, the extension searches `$PATH` for `yc` or `ycp`, then falls back to `~/.local/bin`, `/opt/homebrew/bin`, and `/usr/local/bin`. |
-| **Verbose Logging** | Logs each `yc` invocation, output size, and parse results to the Raycast console for diagnostics. Sensitive values are redacted. Off by default.                                    |
+| **Verbose Logging** | Logs each `yc` invocation, output size, and parse results to the Raycast console for diagnostics. Sensitive values are redacted. Off by default.                                     |
 
 Set it from Raycast → Extensions → Bookface if you've installed the binary somewhere unusual.
 
