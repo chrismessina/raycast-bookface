@@ -86,10 +86,7 @@ export function useRecentSearches(
           if (collapsePrefixes && lower.startsWith(sl)) return false;
           return true;
         });
-        const next = [
-          { query: trimmed, timestamp: Date.now() },
-          ...filtered,
-        ].slice(0, limit);
+        const next = [{ query: trimmed, timestamp: Date.now() }, ...filtered].slice(0, limit);
         // persist() awaits the disk write before updating state, so a rejected
         // setItem (quota, transient error) reaches the catch instead of leaving
         // an optimistic in-memory entry that vanishes on next launch.
