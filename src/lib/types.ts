@@ -162,7 +162,10 @@ export type StartupLibraryAttributes = {
 // (id/title/body/description/categories/parents/view_access/root_id). Kept as a
 // distinct alias so the union stays honest and a future shape drift is catchable
 // independently — but `description` can be null here, unlike Startup Library.
-export type KnowledgeBaseAttributes = Omit<StartupLibraryAttributes, "description"> & {
+export type KnowledgeBaseAttributes = Omit<
+  StartupLibraryAttributes,
+  "description"
+> & {
   description: string | null;
 };
 

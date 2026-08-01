@@ -1,6 +1,6 @@
 import { useCachedPromise } from "@raycast/utils";
-import type { Me } from "../lib/types";
 import { runYc, type VersionGate } from "../lib/yc";
+import type { Me } from "../lib/types";
 
 export type VersionGateState = {
   /** True once the mount probe has resolved (success or failure). */
@@ -21,9 +21,11 @@ export type VersionGateState = {
 // Only the update-required signal is surfaced here; auth/missing-cli are left
 // to the command's primary fetch so we don't duplicate every empty state.
 export function useYcVersionGate(): VersionGateState {
-  const { data, isLoading, revalidate } = useCachedPromise(() => runYc<Me>(["me", "--json"]), [], {
-    keepPreviousData: true,
-  });
+  const { data, isLoading, revalidate } = useCachedPromise(
+    () => runYc<Me>(["me", "--json"]),
+    [],
+    { keepPreviousData: true },
+  );
 
   const updateRequired = data?.ok === false && data.kind === "update-required";
 

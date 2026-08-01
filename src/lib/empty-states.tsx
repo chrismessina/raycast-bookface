@@ -1,6 +1,19 @@
-import { Action, ActionPanel, Detail, Icon, Keyboard, List } from "@raycast/api";
+import {
+  Action,
+  ActionPanel,
+  Detail,
+  Icon,
+  Keyboard,
+  List,
+} from "@raycast/api";
+import {
+  INSTALL_COMMAND,
+  LOGIN_COMMAND,
+  UPDATE_COMMAND,
+  stripAnsi,
+  type VersionGate,
+} from "./yc";
 import { UpdateYcCli } from "../views/updater";
-import { INSTALL_COMMAND, LOGIN_COMMAND, stripAnsi, UPDATE_COMMAND, type VersionGate } from "./yc";
 
 // Shared title + lead so the List (EmptyView) and Detail variants of the
 // "update required" state read as the same screen across all three commands.
@@ -17,22 +30,47 @@ function gateSummary(gate?: VersionGate): string {
   return parts.join(", ");
 }
 
-function UpdateCliPush({ gate, onRetry }: { gate?: VersionGate; onRetry?: () => void }) {
+function UpdateCliPush({
+  gate,
+  onRetry,
+}: {
+  gate?: VersionGate;
+  onRetry?: () => void;
+}) {
   return (
-    <Action.Push title="Update YC CLI" icon={Icon.Download} target={<UpdateYcCli gate={gate} onRetry={onRetry} />} />
+    <Action.Push
+      title="Update YC CLI"
+      icon={Icon.Download}
+      target={<UpdateYcCli gate={gate} onRetry={onRetry} />}
+    />
   );
 }
 
 function CopyInstall() {
-  return <Action.CopyToClipboard title="Copy Install Command" content={INSTALL_COMMAND} />;
+  return (
+    <Action.CopyToClipboard
+      title="Copy Install Command"
+      content={INSTALL_COMMAND}
+    />
+  );
 }
 
 function CopyLogin() {
-  return <Action.CopyToClipboard title="Copy Login Command" content={LOGIN_COMMAND} />;
+  return (
+    <Action.CopyToClipboard
+      title="Copy Login Command"
+      content={LOGIN_COMMAND}
+    />
+  );
 }
 
 function CopyUpdate() {
-  return <Action.CopyToClipboard title="Copy Update Command" content={UPDATE_COMMAND} />;
+  return (
+    <Action.CopyToClipboard
+      title="Copy Update Command"
+      content={UPDATE_COMMAND}
+    />
+  );
 }
 
 // Auth recovery: Raycast has no window-focus hook, so we can't auto-detect the
@@ -52,7 +90,12 @@ function CheckAgainAction({ onRetry }: { onRetry: () => void }) {
 
 function ReloadAction({ onRetry }: { onRetry: () => void }) {
   return (
-    <Action title="Reload" icon={Icon.ArrowClockwise} shortcut={Keyboard.Shortcut.Common.Refresh} onAction={onRetry} />
+    <Action
+      title="Reload"
+      icon={Icon.ArrowClockwise}
+      shortcut={Keyboard.Shortcut.Common.Refresh}
+      onAction={onRetry}
+    />
   );
 }
 
@@ -87,14 +130,24 @@ export function NotAuthedEmpty({ onRetry }: { onRetry?: () => void }) {
   );
 }
 
-export function UpdateRequiredEmpty({ gate, onRetry }: { gate?: VersionGate; onRetry?: () => void }) {
+export function UpdateRequiredEmpty({
+  gate,
+  onRetry,
+}: {
+  gate?: VersionGate;
+  onRetry?: () => void;
+}) {
   // EmptyView gives one description line, so fold the version context inline.
   const summary = gateSummary(gate);
   return (
     <List.EmptyView
       icon={Icon.Download}
       title={UPDATE_REQUIRED_TITLE}
-      description={summary ? `This version of the YC CLI is no longer supported (${summary}).` : UPDATE_REQUIRED_LEAD}
+      description={
+        summary
+          ? `This version of the YC CLI is no longer supported (${summary}).`
+          : UPDATE_REQUIRED_LEAD
+      }
       actions={
         <ActionPanel>
           <UpdateCliPush gate={gate} onRetry={onRetry} />
@@ -170,7 +223,13 @@ Run \`${LOGIN_COMMAND}\` in your terminal to authenticate with Bookface, then **
   );
 }
 
-export function ErrorDetail({ message, onRetry }: { message: string; onRetry?: () => void }) {
+export function ErrorDetail({
+  message,
+  onRetry,
+}: {
+  message: string;
+  onRetry?: () => void;
+}) {
   // Strip at the sink so no caller can leak raw CLI ANSI control bytes
   // (the `Ø[K` artifact) into the surface.
   const clean = stripAnsi(message);

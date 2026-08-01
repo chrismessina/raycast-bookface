@@ -1,11 +1,11 @@
 import { execFile } from "node:child_process";
+import { promisify } from "node:util";
 import { existsSync } from "node:fs";
 import { readFile, unlink } from "node:fs/promises";
 import { homedir, tmpdir } from "node:os";
 import { join } from "node:path";
-import { promisify } from "node:util";
-import { logger } from "@chrismessina/raycast-logger";
 import { getPreferenceValues } from "@raycast/api";
+import { logger } from "@chrismessina/raycast-logger";
 
 const execFileAsync = promisify(execFile);
 const log = logger.child("[yc]");
@@ -20,15 +20,22 @@ const log = logger.child("[yc]");
 // The redirect needs a shell, so we use `sh -c` with the binary, args, and temp
 // path passed as POSITIONAL parameters ($0/$1/$2/…) — never interpolated into
 // the command string — so a query containing shell metacharacters can't inject.
-async function runYcToFile(binary: string, args: string[]): Promise<{ stdout: string; stderr: string }> {
-  const tmp = join(tmpdir(), `yc-${process.pid}-${Date.now()}-${Math.round(Math.random() * 1e9)}.json`);
+async function runYcToFile(
+  binary: string,
+  args: string[],
+): Promise<{ stdout: string; stderr: string }> {
+  const tmp = join(
+    tmpdir(),
+    `yc-${process.pid}-${Date.now()}-${Math.round(Math.random() * 1e9)}.json`,
+  );
   // $0 = binary, $1..$n = args, last positional = temp path.
   const script = `"$0" ${args.map((_, i) => `"$${i + 1}"`).join(" ")} > "$${args.length + 1}"`;
   try {
-    const { stderr } = await execFileAsync("/bin/sh", ["-c", script, binary, ...args, tmp], {
-      timeout: 60_000,
-      maxBuffer: 1024 * 1024,
-    });
+    const { stderr } = await execFileAsync(
+      "/bin/sh",
+      ["-c", script, binary, ...args, tmp],
+      { timeout: 60_000, maxBuffer: 1024 * 1024 },
+    );
     const stdout = await readFile(tmp, "utf8");
     return { stdout, stderr };
   } catch (raw) {
@@ -66,7 +73,11 @@ export type YcResult<T> =
     };
 
 const BINARY_NAMES = ["yc", "ycp"];
-const HARDCODED_FALLBACKS = [join(homedir(), ".local/bin"), "/opt/homebrew/bin", "/usr/local/bin"];
+const HARDCODED_FALLBACKS = [
+  join(homedir(), ".local/bin"),
+  "/opt/homebrew/bin",
+  "/usr/local/bin",
+];
 
 let cachedPath: string | null = null;
 
@@ -116,7 +127,11 @@ export function isUnauthedMessage(message: string): boolean {
 //   Run `yc update` to continue.
 //   Current version: 0.0.8
 //   Minimum required version: 0.0.14
-const UPDATE_REQUIRED_SENTINELS = ["no longer supported", "yc update", "minimum required version"];
+const UPDATE_REQUIRED_SENTINELS = [
+  "no longer supported",
+  "yc update",
+  "minimum required version",
+];
 
 export function isUpdateRequiredMessage(message: string): boolean {
   const haystack = message.toLowerCase();
@@ -129,7 +144,9 @@ export function isUpdateRequiredMessage(message: string): boolean {
 export function parseVersionGate(message: string): VersionGate {
   const clean = stripAnsi(message);
   const current = clean.match(/current version:\s*([0-9][0-9.]*)/i)?.[1];
-  const minimum = clean.match(/minimum required version:\s*([0-9][0-9.]*)/i)?.[1];
+  const minimum = clean.match(
+    /minimum required version:\s*([0-9][0-9.]*)/i,
+  )?.[1];
   return { current, minimum };
 }
 
@@ -251,7 +268,10 @@ export function looksLikeJson(s: string): boolean {
 // for display. The version gate is checked before auth because its text also
 // names a command and is the more specific signal. Single source of truth for
 // the classification ladder shared by parseYcJson and runYc.
-function classifyPlainText(sentinelText: string, message: string): UpdateRequiredError | NotAuthedError | null {
+function classifyPlainText(
+  sentinelText: string,
+  message: string,
+): UpdateRequiredError | NotAuthedError | null {
   if (isUpdateRequiredMessage(sentinelText)) {
     return new UpdateRequiredError(message);
   }
@@ -294,7 +314,10 @@ export function parseYcJson<T>(stdout: string): T {
     length: stdout.length,
     preview: clean.slice(0, 120),
   });
-  throw classifyPlainText(clean, clean) ?? new Error(`Failed to parse yc output: ${clean}`);
+  throw (
+    classifyPlainText(clean, clean) ??
+    new Error(`Failed to parse yc output: ${clean}`)
+  );
 }
 
 type ExecError = Error & {
@@ -326,7 +349,11 @@ export async function runYc<T>(args: string[]): Promise<YcResult<T>> {
 
     // Binary missing: ENOENT (direct spawn), or `sh` reporting it (exit 127 /
     // "not found") now that we run via sh -c.
-    if (err.code === "ENOENT" || err.code === 127 || /not found|no such file/i.test(stderr)) {
+    if (
+      err.code === "ENOENT" ||
+      err.code === 127 ||
+      /not found|no such file/i.test(stderr)
+    ) {
       cachedPath = null;
       return { ok: false, kind: "missing-cli", message: "YC CLI not found." };
     }
@@ -335,8 +362,13 @@ export async function runYc<T>(args: string[]): Promise<YcResult<T>> {
     // stderr/stdout we classify the same way. Only sentinel-match output that
     // is NOT a JSON data payload, so a result body that merely mentions "401"
     // or "yc login" isn't misread.
-    const plainText = [stderr, stdout].filter((s) => s && !looksLikeJson(s)).join(" ");
-    const message = truncate(stderr || stdout || stripAnsi(err.message ?? "") || "Unknown error", 500);
+    const plainText = [stderr, stdout]
+      .filter((s) => s && !looksLikeJson(s))
+      .join(" ");
+    const message = truncate(
+      stderr || stdout || stripAnsi(err.message ?? "") || "Unknown error",
+      500,
+    );
 
     // Rate limit (429): give a clear, actionable message instead of the raw
     // server line. Fired by rapid successive calls (e.g. fast typing).
@@ -344,12 +376,15 @@ export async function runYc<T>(args: string[]): Promise<YcResult<T>> {
       return {
         ok: false,
         kind: "error",
-        message: "YC CLI rate limit reached. Wait a moment and try again. (The server limits rapid requests.)",
+        message:
+          "YC CLI rate limit reached. Wait a moment and try again. (The server limits rapid requests.)",
       };
     }
 
     const classified =
-      raw instanceof NotAuthedError || raw instanceof UpdateRequiredError ? raw : classifyPlainText(plainText, message);
+      raw instanceof NotAuthedError || raw instanceof UpdateRequiredError
+        ? raw
+        : classifyPlainText(plainText, message);
 
     if (classified instanceof UpdateRequiredError) {
       return {
@@ -381,8 +416,17 @@ type CsvEnvelope = {
 // Run a typed search and return its CSV payload (for export). Shares runYc's
 // argument plumbing and error classification — a too-old or unauthed CLI still
 // routes to update-required / not-authed rather than a raw failure.
-export async function runYcCsv(query: string, cliType: string): Promise<YcResult<CsvSearch>> {
-  const result = await runYc<CsvEnvelope>(["search", query, "--type", cliType, "--json"]);
+export async function runYcCsv(
+  query: string,
+  cliType: string,
+): Promise<YcResult<CsvSearch>> {
+  const result = await runYc<CsvEnvelope>([
+    "search",
+    query,
+    "--type",
+    cliType,
+    "--json",
+  ]);
   if (!result.ok) return result;
 
   const csv = result.data.result?.csv_results;
@@ -399,6 +443,7 @@ export async function runYcCsv(query: string, cliType: string): Promise<YcResult
   };
 }
 
-export const INSTALL_COMMAND = "curl -fsSL https://bookface.ycombinator.com/cli/install.sh | bash";
+export const INSTALL_COMMAND =
+  "curl -fsSL https://bookface.ycombinator.com/cli/install.sh | bash";
 export const LOGIN_COMMAND = "yc login";
 export const UPDATE_COMMAND = "yc update";

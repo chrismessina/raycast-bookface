@@ -22,10 +22,18 @@ export function MarkdownPreview({
         metadata && metadata.length > 0 ? (
           <Detail.Metadata>
             {metadata.map((m) => (
-              <Detail.Metadata.Label key={m.label} title={m.label} text={m.value} />
+              <Detail.Metadata.Label
+                key={m.label}
+                title={m.label}
+                text={m.value}
+              />
             ))}
             <Detail.Metadata.Separator />
-            <Detail.Metadata.Link title="Source" target={url} text="Open in Bookface" />
+            <Detail.Metadata.Link
+              title="Source"
+              target={url}
+              text="Open in Bookface"
+            />
           </Detail.Metadata>
         ) : undefined
       }
@@ -33,7 +41,11 @@ export function MarkdownPreview({
         <ActionPanel>
           <Action.OpenInBrowser url={url} />
           <Action.CopyToClipboard title="Copy Body" content={body} />
-          <Action.CopyToClipboard title="Copy URL" content={url} shortcut={{ modifiers: ["cmd", "shift"], key: "." }} />
+          <Action.CopyToClipboard
+            title="Copy URL"
+            content={url}
+            shortcut={{ modifiers: ["cmd", "shift"], key: "." }}
+          />
         </ActionPanel>
       }
     />

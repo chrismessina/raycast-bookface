@@ -1,12 +1,29 @@
+import {
+  Action,
+  ActionPanel,
+  Detail,
+  Form,
+  Icon,
+  useNavigation,
+} from "@raycast/api";
+import {
+  DeeplinkType,
+  FormValidation,
+  createDeeplink,
+  useCachedPromise,
+  useForm,
+} from "@raycast/utils";
 import { useMemo } from "react";
-import { Action, ActionPanel, Detail, Form, Icon, useNavigation } from "@raycast/api";
-import { createDeeplink, DeeplinkType, FormValidation, useCachedPromise, useForm } from "@raycast/utils";
-import { useRecentSearches } from "./hooks/use-recent-searches";
-import { ErrorDetail, MissingCliDetail, NotAuthedDetail } from "./lib/empty-states";
 import { EXAMPLE_QUESTIONS } from "./lib/example-questions";
-import type { AgentResponse, AgentToolCall } from "./lib/types";
 import { runYc, truncate } from "./lib/yc";
+import {
+  ErrorDetail,
+  MissingCliDetail,
+  NotAuthedDetail,
+} from "./lib/empty-states";
 import { UpdateYcCli } from "./views/updater";
+import { useRecentSearches } from "./hooks/use-recent-searches";
+import type { AgentResponse, AgentToolCall } from "./lib/types";
 
 const RECENT_QUESTIONS_KEY = "ask-recents";
 const RECENT_QUESTION_TITLE_MAX = 80;
@@ -22,7 +39,11 @@ function toolCallsMarkdown(calls: AgentToolCall[] | undefined): string {
   if (!calls || calls.length === 0) return "";
   const lines = calls.map((c) => {
     const a = c.arguments;
-    const text = a?.display_message ?? (a?.entity && a?.query ? `Searched ${a.entity} for "${a.query}"` : c.name);
+    const text =
+      a?.display_message ??
+      (a?.entity && a?.query
+        ? `Searched ${a.entity} for "${a.query}"`
+        : c.name);
     return `- ${text}`;
   });
   return ["\n---\n", "**What the agent did**", "", ...lines].join("\n");
@@ -56,9 +77,14 @@ export default function Command() {
 
 function AskForm() {
   const { push } = useNavigation();
-  const { recentSearches, addRecentSearch, clearRecentSearches } = useRecentSearches(RECENT_QUESTIONS_KEY, 15);
+  const { recentSearches, addRecentSearch, clearRecentSearches } =
+    useRecentSearches(RECENT_QUESTIONS_KEY, 15);
 
-  const placeholder = useMemo(() => EXAMPLE_QUESTIONS[Math.floor(Math.random() * EXAMPLE_QUESTIONS.length)], []);
+  const placeholder = useMemo(
+    () =>
+      EXAMPLE_QUESTIONS[Math.floor(Math.random() * EXAMPLE_QUESTIONS.length)],
+    [],
+  );
 
   const { handleSubmit, itemProps, setValue } = useForm<FormValues>({
     initialValues: { question: "" },
@@ -76,9 +102,17 @@ function AskForm() {
     <Form
       actions={
         <ActionPanel>
-          <Action.SubmitForm title="Ask YC Agent" onSubmit={handleSubmit} icon={Icon.Wand} />
+          <Action.SubmitForm
+            title="Ask YC Agent"
+            onSubmit={handleSubmit}
+            icon={Icon.Wand}
+          />
           {recentSearches.length > 0 ? (
-            <ActionPanel.Submenu title="Recent Questions" icon={Icon.Clock} shortcut={{ modifiers: ["cmd"], key: "h" }}>
+            <ActionPanel.Submenu
+              title="Recent Questions"
+              icon={Icon.Clock}
+              shortcut={{ modifiers: ["cmd"], key: "h" }}
+            >
               {recentSearches.map((r) => (
                 <Action
                   key={r.query}
@@ -100,7 +134,12 @@ function AskForm() {
         </ActionPanel>
       }
     >
-      <Form.TextArea title="Question" placeholder={placeholder} autoFocus {...itemProps.question} />
+      <Form.TextArea
+        title="Question"
+        placeholder={placeholder}
+        autoFocus
+        {...itemProps.question}
+      />
       <Form.Description text="Responses include full answers with links to Bookface profiles, companies, and posts." />
     </Form>
   );
@@ -114,13 +153,21 @@ function AnswerView({ question }: { question: string }) {
   );
 
   if (error) {
-    return <ErrorDetail message={error instanceof Error ? error.message : String(error)} onRetry={revalidate} />;
+    return (
+      <ErrorDetail
+        message={error instanceof Error ? error.message : String(error)}
+        onRetry={revalidate}
+      />
+    );
   }
 
   if (data && !data.ok) {
-    if (data.kind === "missing-cli") return <MissingCliDetail onRetry={revalidate} />;
-    if (data.kind === "not-authed") return <NotAuthedDetail onRetry={revalidate} />;
-    if (data.kind === "update-required") return <UpdateYcCli gate={data.gate} onRetry={revalidate} />;
+    if (data.kind === "missing-cli")
+      return <MissingCliDetail onRetry={revalidate} />;
+    if (data.kind === "not-authed")
+      return <NotAuthedDetail onRetry={revalidate} />;
+    if (data.kind === "update-required")
+      return <UpdateYcCli gate={data.gate} onRetry={revalidate} />;
     return <ErrorDetail message={data.message} onRetry={revalidate} />;
   }
 
@@ -153,7 +200,9 @@ function AnswerView({ question }: { question: string }) {
               shortcut={{ modifiers: ["cmd", "shift"], key: "n" }}
             />
           ) : null}
-          {response ? <Action.CopyToClipboard title="Copy Response" content={response} /> : null}
+          {response ? (
+            <Action.CopyToClipboard title="Copy Response" content={response} />
+          ) : null}
           <Action.CopyToClipboard
             title="Copy Question"
             content={question}

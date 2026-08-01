@@ -1,8 +1,14 @@
+import { Alert, Clipboard, Toast, confirmAlert, showToast } from "@raycast/api";
+import { showFailureToast } from "@raycast/utils";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
-import { Alert, Clipboard, confirmAlert, showToast, Toast } from "@raycast/api";
-import { showFailureToast } from "@raycast/utils";
-import { INSTALL_COMMAND, isUnauthedMessage, resolveYcPath, stripAnsi, truncate } from "./lib/yc";
+import {
+  INSTALL_COMMAND,
+  isUnauthedMessage,
+  resolveYcPath,
+  stripAnsi,
+  truncate,
+} from "./lib/yc";
 
 const execFileAsync = promisify(execFile);
 
@@ -41,7 +47,12 @@ export default async function Command() {
     toast.message = "Cleared credentials from ~/.yc";
   } catch (raw) {
     const err = raw as Error & { stdout?: string; stderr?: string };
-    const message = truncate(stripAnsi(err.stderr || err.stdout || err.message || "Unknown error").trim(), 300);
+    const message = truncate(
+      stripAnsi(
+        err.stderr || err.stdout || err.message || "Unknown error",
+      ).trim(),
+      300,
+    );
     // Already logged out reads as a success, not a failure.
     if (isUnauthedMessage(message)) {
       toast.style = Toast.Style.Success;
