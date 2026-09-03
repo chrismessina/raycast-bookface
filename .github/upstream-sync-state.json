@@ -1,0 +1,31 @@
+{
+  "upstream_commit": "d00ccbf26838332043f72706e12246ac9794c249",
+  "synced_at": "2026-09-03T01:44:31Z",
+  "files": {
+    ".gitignore": "3547fccb1a21cce9b44d698c8f45b0f55ea004ac",
+    "assets/extension-icon.png": "90de0f6b08dd10c00bb1ab9cdceccfa161c329e1",
+    "assets/extension-icon@dark.png": "1a0d14117d6b70ebd0e60e3bd6d6122fbfa4c5cd",
+    "CHANGELOG.md": "ef94eecd334ee0efdcb612b4e0cf68620c031457",
+    "eslint.config.js": "543274e97eca65e51e691710591f6f5244117287",
+    "metadata/screenshot-01.png": "4fc1a9920b9177617ca9b10bcf5980eba74af94f",
+    "metadata/screenshot-02.png": "cf3e7715b5acc65440cfdaf875f045f0c498b159",
+    "metadata/screenshot-03.png": "3c74f5bd46f07c7da72d5d8c42800fcd0b812f08",
+    "package-lock.json": "d8e8d22628bf4d0a04033012979f88efbba7a233",
+    "package.json": "2dc5945692f2199bfb2e35eded582543e5ec19ed",
+    "README.md": "6948394dbcb8370dae97746fd7da06a9c6726e30",
+    "src/account.tsx": "ce48b754b9428abce49bd83feb54a01fe456fd2e",
+    "src/ask.tsx": "74b77b77acb2a219a88aff3c736a256b2425b33a",
+    "src/hooks/use-recent-searches.ts": "11fecf33f401e3e9257ae8274f3a141a59ad90ae",
+    "src/hooks/use-yc-version-gate.ts": "5faa2ed84e2c8fdac1fd0f3a096a8d5c6621787d",
+    "src/lib/empty-states.tsx": "5f98d721d2aa253e97d457409af77fe599fb14fe",
+    "src/lib/example-questions.ts": "188a53e8d1d2c9cb2615af8831b9cf23d50b979b",
+    "src/lib/items.tsx": "4f0474227944c7f936de6cd91aa623f2f0fcfecc",
+    "src/lib/types.ts": "d0eeb1d2ed9c7449444b01f74acda96f5c4831a8",
+    "src/lib/yc.ts": "d8b8934d2c3ff548f5e937b0dd440a955f4e4af6",
+    "src/logout.tsx": "71f14d55e10317eaedac5463d0a6d5ae70ddf94a",
+    "src/search.tsx": "c04ea3fc162668da85ceee99c5de4e8455fbaa81",
+    "src/views/preview.tsx": "4758e53da531f1ffab237772da3fb20a73cd6271",
+    "src/views/updater.tsx": "946994df5f553e4b87cd9522f6deade1fe7622d1",
+    "tsconfig.json": "d33dd46c4812d02483f2ac2e7969afc30c10f355"
+  }
+}
