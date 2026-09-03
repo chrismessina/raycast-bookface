@@ -1,19 +1,11 @@
+import { logger } from "@chrismessina/raycast-logger";
+import { useEffect, useMemo, useState } from "react";
 import { Action, ActionPanel, Icon, List } from "@raycast/api";
 import { usePromise } from "@raycast/utils";
-import { useEffect, useMemo, useState } from "react";
-import { SearchContext, renderItem } from "./lib/items";
-import {
-  runYc,
-  resolveYcPath,
-  type VersionGate,
-  type YcResult,
-} from "./lib/yc";
-import {
-  MissingCliEmpty,
-  NotAuthedEmpty,
-  UpdateRequiredEmpty,
-  ErrorEmpty,
-} from "./lib/empty-states";
+import { useRecentSearches } from "./hooks/use-recent-searches";
+import { useYcVersionGate } from "./hooks/use-yc-version-gate";
+import { ErrorEmpty, MissingCliEmpty, NotAuthedEmpty, UpdateRequiredEmpty } from "./lib/empty-states";
+import { renderItem, SearchContext } from "./lib/items";
 import {
   SEARCH_TYPE_ICONS,
   SEARCH_TYPE_LABELS,
@@ -22,10 +14,8 @@ import {
   type SearchItemType,
   type SearchResponse,
 } from "./lib/types";
-import { useRecentSearches } from "./hooks/use-recent-searches";
-import { useYcVersionGate } from "./hooks/use-yc-version-gate";
+import { resolveYcPath, runYc, type VersionGate, type YcResult } from "./lib/yc";
 import { UpdateYcCli } from "./views/updater";
-import { logger } from "@chrismessina/raycast-logger";
 
 const log = logger.child("[search]");
 
@@ -65,11 +55,7 @@ export default function Command() {
   const trimmed = query.trim();
   // Hold the search exec until the version probe clears — no point spending a
   // search call on a binary we're about to send to the update screen.
-  const shouldRun =
-    debouncedQuery.length > 0 &&
-    ycPath !== null &&
-    versionGate.checked &&
-    !versionGate.updateRequired;
+  const shouldRun = debouncedQuery.length > 0 && ycPath !== null && versionGate.checked && !versionGate.updateRequired;
 
   // Run search through runYc (execFile with a 4MB buffer + 60s timeout) rather
   // than useExec: useExec's spawn/stream path truncated large payloads (a 141KB
@@ -90,8 +76,7 @@ export default function Command() {
     data,
     revalidate: revalidateSearch,
   } = usePromise(
-    (q: string): Promise<YcResult<SearchResponse>> =>
-      runYc<SearchResponse>(["search", q, "--json"]),
+    (q: string): Promise<YcResult<SearchResponse>> => runYc<SearchResponse>(["search", q, "--json"]),
     [debouncedQuery],
     {
       execute: shouldRun,
@@ -121,8 +106,7 @@ export default function Command() {
   // that rather than sniffing an error. The mount probe is a second source of
   // the update-required signal (it fires before any query).
   const searchFailed = data && !data.ok ? data : undefined;
-  const execGate: VersionGate | undefined =
-    searchFailed?.kind === "update-required" ? searchFailed.gate : undefined;
+  const execGate: VersionGate | undefined = searchFailed?.kind === "update-required" ? searchFailed.gate : undefined;
   const isUpdateError = versionGate.updateRequired || execGate !== undefined;
   // Prefer the probe's gate, then the search's.
   const updateGate = versionGate.gate ?? execGate;
@@ -132,10 +116,7 @@ export default function Command() {
     revalidateSearch();
   };
   const isAuthError = !isUpdateError && searchFailed?.kind === "not-authed";
-  const errorMessage =
-    !isUpdateError && searchFailed?.kind === "error"
-      ? searchFailed.message
-      : null;
+  const errorMessage = !isUpdateError && searchFailed?.kind === "error" ? searchFailed.message : null;
 
   const isDebouncing = trimmed !== debouncedQuery;
   // Show the spinner while the mount probe is still resolving so we don't flash
@@ -155,13 +136,7 @@ export default function Command() {
         isShowingDetail={isShowingDetail && items.length > 0}
         onSearchTextChange={setQuery}
         searchBarPlaceholder="Search Bookface for people, companies, posts…"
-        searchBarAccessory={
-          <TypeDropdown
-            value={filter}
-            onChange={setFilter}
-            items={resultItems ?? []}
-          />
-        }
+        searchBarAccessory={<TypeDropdown value={filter} onChange={setFilter} items={resultItems ?? []} />}
       >
         {renderBody({
           ycPath,
@@ -211,10 +186,7 @@ type RenderBodyProps = {
 
 function renderBody(p: RenderBodyProps) {
   if (!p.ycPath) return <MissingCliEmpty />;
-  if (p.isUpdateError)
-    return (
-      <UpdateRequiredEmpty gate={p.updateGate} onRetry={p.revalidateGate} />
-    );
+  if (p.isUpdateError) return <UpdateRequiredEmpty gate={p.updateGate} onRetry={p.revalidateGate} />;
   if (p.isAuthError) return <NotAuthedEmpty onRetry={p.revalidateGate} />;
   if (p.errorMessage) return <ErrorEmpty message={p.errorMessage} />;
   // Probe still resolving: render nothing (the List spinner covers it) so the
@@ -251,11 +223,7 @@ function renderBody(p: RenderBodyProps) {
             accessories={[{ date: new Date(r.timestamp) }]}
             actions={
               <ActionPanel>
-                <Action
-                  title="Search"
-                  icon={Icon.MagnifyingGlass}
-                  onAction={() => p.setQuery(r.query)}
-                />
+                <Action title="Search" icon={Icon.MagnifyingGlass} onAction={() => p.setQuery(r.query)} />
                 <Action
                   title="Remove from Recents"
                   icon={Icon.Trash}
@@ -285,8 +253,7 @@ function renderBody(p: RenderBodyProps) {
   }
 
   if (p.items.length === 0 && !p.effectiveLoading) {
-    const filterSuffix =
-      p.filter !== ALL_FILTER ? ` in ${SEARCH_TYPE_LABELS[p.filter]}` : "";
+    const filterSuffix = p.filter !== ALL_FILTER ? ` in ${SEARCH_TYPE_LABELS[p.filter]}` : "";
     return (
       <List.EmptyView
         icon={Icon.MagnifyingGlass}

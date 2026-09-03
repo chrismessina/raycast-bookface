@@ -1,55 +1,33 @@
-import {
-  Action,
-  ActionPanel,
-  Clipboard,
-  Color,
-  Icon,
-  Image,
-  List,
-  Toast,
-  showInFinder,
-  showToast,
-} from "@raycast/api";
+import { writeFile } from "node:fs/promises";
+import { homedir } from "node:os";
+import { join } from "node:path";
 import { createContext, useContext, type ReactElement } from "react";
+import { Action, ActionPanel, Clipboard, Color, Icon, Image, List, showInFinder, showToast, Toast } from "@raycast/api";
+import { MarkdownPreview } from "../views/preview";
 import { UpdateYcCli } from "../views/updater";
 import type {
   CompanyAttributes,
   DealAttributes,
   EmployerAttributes,
   KnowledgeBaseAttributes,
-  PostAttributes,
   Position,
+  PostAttributes,
   SchoolAttributes,
   SearchItem,
   SearchItemType,
   StartupLibraryAttributes,
   UserAttributes,
 } from "./types";
-import {
-  CLI_SEARCH_TYPE,
-  SEARCH_TYPE_ICONS,
-  SEARCH_TYPE_LABELS,
-} from "./types";
+import { CLI_SEARCH_TYPE, SEARCH_TYPE_ICONS, SEARCH_TYPE_LABELS } from "./types";
 import { runYcCsv, truncate } from "./yc";
-import { writeFile } from "node:fs/promises";
-import { homedir } from "node:os";
-import { join } from "node:path";
-import { MarkdownPreview } from "../views/preview";
 
-function avatarIcon(
-  url: string | null | undefined,
-  fallback: Icon,
-): Image.ImageLike {
+function avatarIcon(url: string | null | undefined, fallback: Icon): Image.ImageLike {
   if (url) return { source: url, mask: Image.Mask.Circle };
   return fallback;
 }
 
-function logoIcon(
-  url: string | null | undefined,
-  fallback: Icon,
-): Image.ImageLike {
-  if (!url || url.startsWith("/") || url.includes("missing.png"))
-    return fallback;
+function logoIcon(url: string | null | undefined, fallback: Icon): Image.ImageLike {
+  if (!url || url.startsWith("/") || url.includes("missing.png")) return fallback;
   return { source: url };
 }
 
@@ -78,9 +56,7 @@ function currentPosition(positions: Position[]): Position | undefined {
 }
 
 function ycBatchOf(positions: Position[]): string | undefined {
-  const ycPos = positions.find(
-    (p) => p.company_yc && p.company_batches && p.company_batches.length > 0,
-  );
+  const ycPos = positions.find((p) => p.company_yc && p.company_batches && p.company_batches.length > 0);
   return ycPos?.company_batches?.[0];
 }
 
@@ -122,9 +98,7 @@ function ExportCsvActions() {
   // Bail (render nothing) unless the filter has a clean 1:1 CLI type. Capturing
   // the narrowed value as a `string`-typed const lets the nested closures use it
   // without re-narrowing (TS doesn't carry the early-return guard into them).
-  const cliType: string | null = filterType
-    ? CLI_SEARCH_TYPE[filterType]
-    : null;
+  const cliType: string | null = filterType ? CLI_SEARCH_TYPE[filterType] : null;
   if (!filterType || !cliType) return null;
   const exportType: string = cliType;
   const type = filterType;
@@ -212,79 +186,26 @@ type RenderProps = {
   toggleDetail: () => void;
 };
 
-export function renderItem({
-  item,
-  isShowingDetail,
-  toggleDetail,
-}: RenderProps): ReactElement {
+export function renderItem({ item, isShowingDetail, toggleDetail }: RenderProps): ReactElement {
   switch (item.type) {
     case "user":
-      return renderUser(
-        item.path,
-        item.displayed_attributes,
-        isShowingDetail,
-        toggleDetail,
-      );
+      return renderUser(item.path, item.displayed_attributes, isShowingDetail, toggleDetail);
     case "yc_company":
-      return renderCompany(
-        item.path,
-        item.displayed_attributes,
-        true,
-        isShowingDetail,
-        toggleDetail,
-      );
+      return renderCompany(item.path, item.displayed_attributes, true, isShowingDetail, toggleDetail);
     case "non_yc_company":
-      return renderCompany(
-        item.path,
-        item.displayed_attributes,
-        false,
-        isShowingDetail,
-        toggleDetail,
-      );
+      return renderCompany(item.path, item.displayed_attributes, false, isShowingDetail, toggleDetail);
     case "school":
-      return renderSchool(
-        item.path,
-        item.displayed_attributes,
-        isShowingDetail,
-        toggleDetail,
-      );
+      return renderSchool(item.path, item.displayed_attributes, isShowingDetail, toggleDetail);
     case "post":
-      return renderPost(
-        item.path,
-        item.displayed_attributes,
-        isShowingDetail,
-        toggleDetail,
-      );
+      return renderPost(item.path, item.displayed_attributes, isShowingDetail, toggleDetail);
     case "deal":
-      return renderDeal(
-        item.path,
-        item.displayed_attributes,
-        isShowingDetail,
-        toggleDetail,
-      );
+      return renderDeal(item.path, item.displayed_attributes, isShowingDetail, toggleDetail);
     case "employer":
-      return renderEmployer(
-        item.path,
-        item.displayed_attributes,
-        isShowingDetail,
-        toggleDetail,
-      );
+      return renderEmployer(item.path, item.displayed_attributes, isShowingDetail, toggleDetail);
     case "startup_library":
-      return renderArticle(
-        "startup_library",
-        item.path,
-        item.displayed_attributes,
-        isShowingDetail,
-        toggleDetail,
-      );
+      return renderArticle("startup_library", item.path, item.displayed_attributes, isShowingDetail, toggleDetail);
     case "knowledge_base":
-      return renderArticle(
-        "knowledge_base",
-        item.path,
-        item.displayed_attributes,
-        isShowingDetail,
-        toggleDetail,
-      );
+      return renderArticle("knowledge_base", item.path, item.displayed_attributes, isShowingDetail, toggleDetail);
   }
 }
 
@@ -314,11 +235,7 @@ function UniversalActions({
     <>
       <Action.OpenInBrowser title={openTitle} url={url} />
       <ToggleSidebarAction onAction={toggleDetail} />
-      <Action.CopyToClipboard
-        title="Copy URL"
-        content={url}
-        shortcut={{ modifiers: ["cmd", "shift"], key: "." }}
-      />
+      <Action.CopyToClipboard title="Copy URL" content={url} shortcut={{ modifiers: ["cmd", "shift"], key: "." }} />
       <Action.CopyToClipboard
         title="Copy as Markdown"
         content={markdownLink(title, url)}
@@ -359,12 +276,7 @@ function userMarkdown(a: UserAttributes): string {
   return lines.join("\n");
 }
 
-function renderUser(
-  path: string,
-  a: UserAttributes,
-  isShowingDetail: boolean,
-  toggleDetail: () => void,
-): ReactElement {
+function renderUser(path: string, a: UserAttributes, isShowingDetail: boolean, toggleDetail: () => void): ReactElement {
   const fullName = `${a.first_name} ${a.last_name}`.trim();
   const current = currentPosition(a.all_positions);
   const subtitle = current
@@ -388,11 +300,7 @@ function renderUser(
       title={fullName}
       subtitle={isShowingDetail ? undefined : subtitle}
       accessories={isShowingDetail ? undefined : accessories}
-      detail={
-        isShowingDetail ? (
-          <List.Item.Detail markdown={userMarkdown(a)} />
-        ) : undefined
-      }
+      detail={isShowingDetail ? <List.Item.Detail markdown={userMarkdown(a)} /> : undefined}
       actions={
         <ActionPanel>
           <ActionPanel.Section>
@@ -423,8 +331,7 @@ function companyMarkdown(a: CompanyAttributes): string {
   const lines = [`# ${a.name}`];
   if (a.batches?.length) lines.push("", `**Batch:** ${a.batches.join(", ")}`);
   if (a.all_locations) lines.push("", `**Location:** ${a.all_locations}`);
-  if (a.industries?.length)
-    lines.push("", `**Industries:** ${a.industries.join(", ")}`);
+  if (a.industries?.length) lines.push("", `**Industries:** ${a.industries.join(", ")}`);
   if (a.one_liner) lines.push("", `*${a.one_liner}*`);
   if (a.long_description) lines.push("", a.long_description);
   if (a.active_founders?.length) {
@@ -452,9 +359,7 @@ function renderCompany(
   if (batch) accessories.push({ tag: { value: batch, color: Color.Orange } });
   accessories.push({
     tag: {
-      value: isYc
-        ? SEARCH_TYPE_LABELS.yc_company
-        : SEARCH_TYPE_LABELS.non_yc_company,
+      value: isYc ? SEARCH_TYPE_LABELS.yc_company : SEARCH_TYPE_LABELS.non_yc_company,
     },
   });
 
@@ -462,13 +367,7 @@ function renderCompany(
     const name = `${f.first_name ?? ""} ${f.last_name ?? ""}`.trim();
     const url = f.search_path;
     if (!name || !url) return null;
-    return (
-      <Action.OpenInBrowser
-        key={`founder-${f.user_id}`}
-        title={`Open Founder: ${name}`}
-        url={url}
-      />
-    );
+    return <Action.OpenInBrowser key={`founder-${f.user_id}`} title={`Open Founder: ${name}`} url={url} />;
   });
 
   const hasRichBody = Boolean(a.long_description || a.one_liner);
@@ -479,9 +378,7 @@ function renderCompany(
       key={`${isYc ? "yc" : "nonyc"}-${a.id}`}
       icon={logoIcon(a.small_logo_thumb_url, SEARCH_TYPE_ICONS.yc_company)}
       title={a.name}
-      subtitle={
-        isShowingDetail ? undefined : a.one_liner || a.industries?.[0] || ""
-      }
+      subtitle={isShowingDetail ? undefined : a.one_liner || a.industries?.[0] || ""}
       accessories={isShowingDetail ? undefined : accessories}
       detail={isShowingDetail ? <List.Item.Detail markdown={md} /> : undefined}
       actions={
@@ -506,12 +403,8 @@ function renderCompany(
                     body={md.replace(/^# .*\n?/, "")}
                     url={path}
                     metadata={[
-                      ...(a.batches?.length
-                        ? [{ label: "Batch", value: a.batches.join(", ") }]
-                        : []),
-                      ...(a.all_locations
-                        ? [{ label: "Location", value: a.all_locations }]
-                        : []),
+                      ...(a.batches?.length ? [{ label: "Batch", value: a.batches.join(", ") }] : []),
+                      ...(a.all_locations ? [{ label: "Location", value: a.all_locations }] : []),
                       ...(a.industries?.length
                         ? [
                             {
@@ -525,16 +418,8 @@ function renderCompany(
                 }
               />
             ) : null}
-            <Action.CopyToClipboard
-              title="Copy Company Name"
-              content={a.name}
-            />
-            {a.one_liner ? (
-              <Action.CopyToClipboard
-                title="Copy One-Liner"
-                content={a.one_liner}
-              />
-            ) : null}
+            <Action.CopyToClipboard title="Copy Company Name" content={a.name} />
+            {a.one_liner ? <Action.CopyToClipboard title="Copy One-Liner" content={a.one_liner} /> : null}
             {founderActions}
           </ActionPanel.Section>
         </ActionPanel>
@@ -562,11 +447,7 @@ function renderSchool(
       icon={SEARCH_TYPE_ICONS.school}
       title={a.name}
       accessories={isShowingDetail ? undefined : accessories}
-      detail={
-        isShowingDetail ? (
-          <List.Item.Detail markdown={detailMarkdown} />
-        ) : undefined
-      }
+      detail={isShowingDetail ? <List.Item.Detail markdown={detailMarkdown} /> : undefined}
       actions={
         <ActionPanel>
           <ActionPanel.Section>
@@ -593,28 +474,14 @@ function postMarkdown(a: PostAttributes): string {
   if (a.body) lines.push("", a.body);
   if (a.top_comment?.body) {
     const commenter = a.top_comment.user?.name ?? "Unknown";
-    lines.push(
-      "",
-      "---",
-      "",
-      `**Top comment** — ${commenter}`,
-      "",
-      a.top_comment.body,
-    );
+    lines.push("", "---", "", `**Top comment** — ${commenter}`, "", a.top_comment.body);
   }
   return lines.join("\n");
 }
 
-function renderPost(
-  path: string,
-  a: PostAttributes,
-  isShowingDetail: boolean,
-  toggleDetail: () => void,
-): ReactElement {
+function renderPost(path: string, a: PostAttributes, isShowingDetail: boolean, toggleDetail: () => void): ReactElement {
   const author = a.searchable_user?.name ?? "Unknown";
-  const accessories: List.Item.Accessory[] = [
-    { text: `${a.views_count.toLocaleString()} views` },
-  ];
+  const accessories: List.Item.Accessory[] = [{ text: `${a.views_count.toLocaleString()} views` }];
   if (a.created_at) accessories.push({ text: relativeDate(a.created_at) });
   accessories.push({ tag: { value: SEARCH_TYPE_LABELS.post } });
 
@@ -634,12 +501,7 @@ function renderPost(
       actions={
         <ActionPanel>
           <ActionPanel.Section>
-            <UniversalActions
-              title={a.title}
-              url={path}
-              openTitle="Open Post in Browser"
-              toggleDetail={toggleDetail}
-            />
+            <UniversalActions title={a.title} url={path} openTitle="Open Post in Browser" toggleDetail={toggleDetail} />
             <Action.Push
               icon={Icon.Eye}
               title="View in Raycast"
@@ -653,9 +515,7 @@ function renderPost(
                     { label: "Author", value: author },
                     { label: "Views", value: a.views_count.toLocaleString() },
                     { label: "Comments", value: String(a.comment_count) },
-                    ...(a.created_at
-                      ? [{ label: "Posted", value: relativeDate(a.created_at) }]
-                      : []),
+                    ...(a.created_at ? [{ label: "Posted", value: relativeDate(a.created_at) }] : []),
                   ]}
                 />
               }
@@ -663,9 +523,7 @@ function renderPost(
           </ActionPanel.Section>
           <ActionPanel.Section>
             <Action.CopyToClipboard title="Copy Post Title" content={a.title} />
-            {a.body ? (
-              <Action.CopyToClipboard title="Copy Post Body" content={a.body} />
-            ) : null}
+            {a.body ? <Action.CopyToClipboard title="Copy Post Body" content={a.body} /> : null}
             {authorUrl ? (
               <Action.OpenInBrowser
                 title={`Open Author: ${author}`}
@@ -674,10 +532,7 @@ function renderPost(
               />
             ) : null}
             {topCommenterUrl && topCommenterName ? (
-              <Action.OpenInBrowser
-                title={`Open Top Commenter: ${topCommenterName}`}
-                url={topCommenterUrl}
-              />
+              <Action.OpenInBrowser title={`Open Top Commenter: ${topCommenterName}`} url={topCommenterUrl} />
             ) : null}
           </ActionPanel.Section>
         </ActionPanel>
@@ -686,15 +541,9 @@ function renderPost(
   );
 }
 
-function renderDeal(
-  path: string,
-  a: DealAttributes,
-  isShowingDetail: boolean,
-  toggleDetail: () => void,
-): ReactElement {
+function renderDeal(path: string, a: DealAttributes, isShowingDetail: boolean, toggleDetail: () => void): ReactElement {
   const accessories: List.Item.Accessory[] = [];
-  if (a.high_value)
-    accessories.push({ tag: { value: "High Value", color: Color.Green } });
+  if (a.high_value) accessories.push({ tag: { value: "High Value", color: Color.Green } });
   if (a.collection?.[0]) accessories.push({ text: a.collection[0] });
   accessories.push({ tag: { value: SEARCH_TYPE_LABELS.deal } });
 
@@ -716,32 +565,15 @@ function renderDeal(
       title={truncate(a.title, 90)}
       subtitle={isShowingDetail ? undefined : a.company_name}
       accessories={isShowingDetail ? undefined : accessories}
-      detail={
-        isShowingDetail ? (
-          <List.Item.Detail markdown={detailMarkdown} />
-        ) : undefined
-      }
+      detail={isShowingDetail ? <List.Item.Detail markdown={detailMarkdown} /> : undefined}
       actions={
         <ActionPanel>
           <ActionPanel.Section>
-            <UniversalActions
-              title={a.title}
-              url={path}
-              openTitle="Open Deal in Browser"
-              toggleDetail={toggleDetail}
-            />
+            <UniversalActions title={a.title} url={path} openTitle="Open Deal in Browser" toggleDetail={toggleDetail} />
           </ActionPanel.Section>
           <ActionPanel.Section>
-            {a.details ? (
-              <Action.CopyToClipboard
-                title="Copy Deal Details"
-                content={a.details}
-              />
-            ) : null}
-            <Action.CopyToClipboard
-              title="Copy Company Name"
-              content={a.company_name}
-            />
+            {a.details ? <Action.CopyToClipboard title="Copy Deal Details" content={a.details} /> : null}
+            <Action.CopyToClipboard title="Copy Company Name" content={a.company_name} />
             <Action.OpenInBrowser
               title="Open All Deals"
               url="https://bookface.ycombinator.com/deals"
@@ -766,16 +598,8 @@ function renderEmployer(
       key={`employer-${a.id}`}
       icon={logoIcon(a.logo_url, SEARCH_TYPE_ICONS.employer)}
       title={a.name}
-      accessories={
-        isShowingDetail
-          ? undefined
-          : [{ tag: { value: SEARCH_TYPE_LABELS.employer } }]
-      }
-      detail={
-        isShowingDetail ? (
-          <List.Item.Detail markdown={detailMarkdown} />
-        ) : undefined
-      }
+      accessories={isShowingDetail ? undefined : [{ tag: { value: SEARCH_TYPE_LABELS.employer } }]}
+      detail={isShowingDetail ? <List.Item.Detail markdown={detailMarkdown} /> : undefined}
       actions={
         <ActionPanel>
           <ActionPanel.Section>
@@ -787,10 +611,7 @@ function renderEmployer(
             />
           </ActionPanel.Section>
           <ActionPanel.Section>
-            <Action.CopyToClipboard
-              title="Copy Employer Name"
-              content={a.name}
-            />
+            <Action.CopyToClipboard title="Copy Employer Name" content={a.name} />
           </ActionPanel.Section>
         </ActionPanel>
       }
@@ -828,13 +649,7 @@ function renderArticle(
       key={`${type}-${a.id}`}
       icon={SEARCH_TYPE_ICONS[type]}
       title={a.title}
-      subtitle={
-        isShowingDetail
-          ? undefined
-          : a.description
-            ? truncate(a.description, 120)
-            : ""
-      }
+      subtitle={isShowingDetail ? undefined : a.description ? truncate(a.description, 120) : ""}
       accessories={isShowingDetail ? undefined : accessories}
       detail={isShowingDetail ? <List.Item.Detail markdown={md} /> : undefined}
       actions={
@@ -861,16 +676,8 @@ function renderArticle(
             />
           </ActionPanel.Section>
           <ActionPanel.Section>
-            <Action.CopyToClipboard
-              title="Copy Article Title"
-              content={a.title}
-            />
-            {a.description ? (
-              <Action.CopyToClipboard
-                title="Copy Description"
-                content={a.description}
-              />
-            ) : null}
+            <Action.CopyToClipboard title="Copy Article Title" content={a.title} />
+            {a.description ? <Action.CopyToClipboard title="Copy Description" content={a.description} /> : null}
           </ActionPanel.Section>
         </ActionPanel>
       }

@@ -1,22 +1,8 @@
-import {
-  Action,
-  ActionPanel,
-  Clipboard,
-  Detail,
-  Icon,
-  Keyboard,
-  Toast,
-  showToast,
-} from "@raycast/api";
-import { useExec } from "@raycast/utils";
 import { useCallback, useMemo, useRef, useState } from "react";
+import { Action, ActionPanel, Clipboard, Detail, Icon, Keyboard, showToast, Toast } from "@raycast/api";
+import { useExec } from "@raycast/utils";
 import { MissingCliDetail } from "../lib/empty-states";
-import {
-  resolveYcPath,
-  stripAnsi,
-  truncate,
-  type VersionGate,
-} from "../lib/yc";
+import { resolveYcPath, stripAnsi, truncate, type VersionGate } from "../lib/yc";
 
 // `yc -v` prints just the bare version, e.g. "0.0.8".
 function parseVersion(stdout: string): string | null {
@@ -24,10 +10,7 @@ function parseVersion(stdout: string): string | null {
   return match ? match[0] : null;
 }
 
-async function execYc(
-  binary: string,
-  args: string[],
-): Promise<{ stdout: string; stderr: string }> {
+async function execYc(binary: string, args: string[]): Promise<{ stdout: string; stderr: string }> {
   const { execFile } = await import("node:child_process");
   const { promisify } = await import("node:util");
   return promisify(execFile)(binary, args, {
@@ -49,10 +32,7 @@ async function readYcVersion(binary: string): Promise<string | null> {
 // `onRetry` is passed when rendered directly as a command's gate landing (vs.
 // pushed): it re-runs the command's own fetch so a successful update drops the
 // user back into working state.
-export function UpdateYcCli({
-  gate,
-  onRetry,
-}: { gate?: VersionGate; onRetry?: () => void } = {}) {
+export function UpdateYcCli({ gate, onRetry }: { gate?: VersionGate; onRetry?: () => void } = {}) {
   const ycPath = resolveYcPath();
   const [updating, setUpdating] = useState(false);
   const [result, setResult] = useState<string | null>(null);
@@ -70,10 +50,7 @@ export function UpdateYcCli({
     parseOutput: ({ stdout }) => stdout,
   });
 
-  const currentVersion = useMemo(
-    () => (versionOutput ? parseVersion(versionOutput) : null),
-    [versionOutput],
-  );
+  const currentVersion = useMemo(() => (versionOutput ? parseVersion(versionOutput) : null), [versionOutput]);
 
   const runUpdate = useCallback(async () => {
     if (!ycPath || inFlight.current) return;
@@ -98,9 +75,7 @@ export function UpdateYcCli({
       if (upgraded) {
         toast.title = `Updated to ${after}`;
         toast.message = `from ${before}`;
-        setResult(
-          `# YC CLI Updated\n\nUpdated from \`${before}\` to \`${after}\`.`,
-        );
+        setResult(`# YC CLI Updated\n\nUpdated from \`${before}\` to \`${after}\`.`);
       } else {
         toast.title = "Already up to date";
         toast.message = after ?? undefined;
@@ -108,9 +83,7 @@ export function UpdateYcCli({
           [
             "# YC CLI Up to Date",
             "",
-            after
-              ? `You're on the latest version (\`${after}\`).`
-              : "You're on the latest version.",
+            after ? `You're on the latest version (\`${after}\`).` : "You're on the latest version.",
           ].join("\n"),
         );
       }
@@ -125,12 +98,7 @@ export function UpdateYcCli({
       recheckVersion();
     } catch (raw) {
       const err = raw as Error & { stdout?: string; stderr?: string };
-      const message = truncate(
-        stripAnsi(
-          err.stderr || err.stdout || err.message || "Unknown error",
-        ).trim(),
-        500,
-      );
+      const message = truncate(stripAnsi(err.stderr || err.stdout || err.message || "Unknown error").trim(), 500);
       setResult(`# Update Failed\n\n\`\`\`\n${message}\n\`\`\``);
       toast.style = Toast.Style.Failure;
       toast.title = "Update failed";
@@ -163,9 +131,7 @@ export function UpdateYcCli({
   // result so success/failure is unmissable on-screen — not just a toast.
   let markdown: string;
   if (updating) {
-    markdown = ["# Updating YC CLI…", "", "Fetching the latest release."].join(
-      "\n",
-    );
+    markdown = ["# Updating YC CLI…", "", "Fetching the latest release."].join("\n");
   } else if (result) {
     markdown = result;
   } else {
@@ -189,11 +155,7 @@ export function UpdateYcCli({
       markdown={markdown}
       actions={
         <ActionPanel>
-          <Action
-            title={updating ? "Updating…" : "Update Now"}
-            icon={Icon.Download}
-            onAction={runUpdate}
-          />
+          <Action title={updating ? "Updating…" : "Update Now"} icon={Icon.Download} onAction={runUpdate} />
           <Action
             title="Recheck Version"
             icon={Icon.ArrowClockwise}
