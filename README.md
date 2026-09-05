@@ -48,7 +48,7 @@ Run **Search YC**, **Ask YC Agent**, or **YC Account**. If the extension can't f
 | Preference          | Description                                                                                                                                                                          |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | **yc CLI Path**     | Optional absolute path to the `yc` binary. If empty, the extension searches `$PATH` for `yc` or `ycp`, then falls back to `~/.local/bin`, `/opt/homebrew/bin`, and `/usr/local/bin`. |
-| **Verbose Logging** | Logs each `yc` invocation, output size, and parse results to the Raycast console for diagnostics. Sensitive values are redacted. Off by default.                                     |
+| **Debug Logging**   | Logs each `yc` invocation, output size, and parse results to the Raycast console for diagnostics. Sensitive values are redacted. Off by default.                                     |
 
 Set it from Raycast → Extensions → Bookface if you've installed the binary somewhere unusual.
 
