@@ -65,9 +65,9 @@
       "type": "checkbox",
       "required": false,
       "default": false,
-      "title": "Verbose Logging",
-      "label": "Enable verbose logging",
-      "description": "Sensitive values are redacted. Useful for diagnosing search issues."
+      "title": "Debug Logging",
+      "label": "Enable extra diagnostics in the console",
+      "description": "Show detailed logs in the console for debugging."
     }
   ],
   "dependencies": {
