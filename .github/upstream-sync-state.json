@@ -1,6 +1,6 @@
 {
-  "upstream_commit": "c33bf4cb4b9ad70c2b93432ee713ffb7486ed331",
-  "synced_at": "2026-10-09T16:08:10Z",
+  "upstream_commit": "3627d9b15ba4506ca8c8ac9d93c4585c5d2ec7ae",
+  "synced_at": "2026-11-16T22:57:14Z",
   "files": {
     ".gitignore": "3547fccb1a21cce9b44d698c8f45b0f55ea004ac",
     "CHANGELOG.md": "ef94eecd334ee0efdcb612b4e0cf68620c031457",
@@ -12,7 +12,7 @@
     "metadata/screenshot-02.png": "cf3e7715b5acc65440cfdaf875f045f0c498b159",
     "metadata/screenshot-03.png": "3c74f5bd46f07c7da72d5d8c42800fcd0b812f08",
     "package-lock.json": "fe1adf4e97819158a3f67e4e32d63c9b2d9398dd",
-    "package.json": "2dc5945692f2199bfb2e35eded582543e5ec19ed",
+    "package.json": "cad1a8d068d8720505e583c8ad6de53af324b3a2",
     "src/account.tsx": "ce48b754b9428abce49bd83feb54a01fe456fd2e",
     "src/ask.tsx": "74b77b77acb2a219a88aff3c736a256b2425b33a",
     "src/hooks/use-recent-searches.ts": "11fecf33f401e3e9257ae8274f3a141a59ad90ae",
